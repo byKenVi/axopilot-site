@@ -26,7 +26,7 @@ draft: false   # true = visible seulement en local, jamais publié
 ---
 ```
 
-3. Pousser sur `main` : Cloudflare Pages reconstruit et publie le site en 1 minute. Le sitemap et le flux RSS se mettent à jour seuls.
+3. Pousser sur `main` : Netlify reconstruit et publie le site en 1 minute. Le sitemap et le flux RSS se mettent à jour seuls.
 
 ## Réglages à compléter
 
@@ -38,8 +38,8 @@ Dans `src/pages/index.astro` : `photo` (ex. `/kevin.jpg`, fichier carré dépos�
 
 Dans `src/pages/mentions-legales.astro` et `politique-de-confidentialite.astro` : nom de famille, statut et adresse.
 
-## Hébergement (Cloudflare Pages)
+## Hébergement (Netlify, offre gratuite)
 
-- Framework : Astro · Commande de build : `npm run build` · Dossier de sortie : `dist`
-- Domaine personnalisé : `axiopilot.com` (+ redirection `www`).
+- Commande de build : `npm run build` · Dossier de publication : `dist`
+- Domaine : DNS chez Namecheap, on n'ajoute que deux enregistrements (A `@` → `75.2.60.5`, CNAME `www` → `<site>.netlify.app`). Les enregistrements courriel (MX, SPF, DKIM) ne sont pas touchés.
 - SEO : soumettre `https://axiopilot.com/sitemap-index.xml` dans Google Search Console.
