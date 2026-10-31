@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../consts';
+const updated = '31 octobre 2026';
+---
+<Base title="Politique de confidentialité" description="Comment AxioPilot recueille, utilise et protège vos renseignements personnels, conformément à la Loi 25 du Québec.">
+  <section class="wrap page-head">
+    <div class="eyebrow">Loi 25</div>
+    <h1>Politique de confidentialité</h1>
+    <p class="lead">Dernière mise à jour : {updated}</p>
+  </section>
+  <section class="wrap prose">
+    <p>AxioPilot respecte la vie privée des personnes avec qui elle communique. Cette politique explique quels renseignements personnels nous recueillons, pourquoi, comment nous les protégeons et quels sont vos droits, conformément à la <em>Loi sur la protection des renseignements personnels dans le secteur privé</em> du Québec (Loi 25).</p>
+
+    <h2>Responsable de la protection des renseignements personnels</h2>
+    <p>Kevin [NOM DE FAMILLE], fondateur d'AxioPilot, est responsable de la protection des renseignements personnels. Pour toute question ou demande : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+    <h2>Renseignements que nous recueillons</h2>
+    <ul>
+      <li><strong>Lorsque vous réservez un appel</strong> : nom, adresse courriel, nom de votre agence, taille de l'équipe et toute information que vous choisissez d'indiquer.</li>
+      <li><strong>Lorsque vous nous écrivez</strong> : votre adresse courriel et le contenu de vos messages.</li>
+      <li><strong>Prospection professionnelle</strong> : nous pouvons utiliser des coordonnées professionnelles (nom, poste, entreprise, courriel professionnel) provenant de sources publiques ou de bases de données B2B pour vous proposer nos services. Chaque message comprend un moyen simple de ne plus être contacté.</li>
+      <li><strong>Navigation sur le site</strong> : le site n'utilise aucun témoin (cookie) publicitaire ni de suivi. Des statistiques de visite anonymes et agrégées peuvent être produites par notre hébergeur, sans témoin ni identification des visiteurs.</li>
+    </ul>
+
+    <h2>Pourquoi nous les utilisons</h2>
+    <ul>
+      <li>Organiser et tenir les appels que vous réservez.</li>
+      <li>Répondre à vos demandes et vous transmettre une proposition.</li>
+      <li>Réaliser les mandats confiés et assurer le suivi.</li>
+      <li>Vous présenter nos services dans un contexte professionnel, avec possibilité de refus à tout moment.</li>
+    </ul>
+    <p>Nous ne vendons ni ne louons vos renseignements personnels.</p>
+
+    <h2>Consentement</h2>
+    <p>En réservant un appel ou en nous écrivant, vous consentez à l'utilisation de vos renseignements aux fins décrites ci-dessus. Vous pouvez retirer votre consentement en tout temps en écrivant à <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+    <h2>Fournisseurs et communication hors du Québec</h2>
+    <p>Nous faisons appel à des fournisseurs pour exploiter nos activités, notamment Google Workspace (courriel, agenda et réservation de rendez-vous) et Cloudflare (hébergement du site). Ces fournisseurs peuvent conserver des renseignements à l'extérieur du Québec, notamment aux États-Unis. AxioPilot est exploitée en partie depuis l'extérieur du Canada ; vos renseignements peuvent donc être consultés hors du Québec. Avant toute communication hors du Québec, nous évaluons que les renseignements bénéficieront d'une protection adéquate, conformément à l'article 17 de la loi.</p>
+
+    <h2>Durée de conservation</h2>
+    <p>Les renseignements liés à un appel ou à une demande sont conservés au plus 24 mois après le dernier échange, sauf si un mandat est signé. Les renseignements liés à un mandat sont conservés pendant la durée exigée par les obligations comptables et fiscales applicables, puis détruits de façon sécuritaire.</p>
+
+    <h2>Sécurité</h2>
+    <p>Nous protégeons vos renseignements par des mesures raisonnables : authentification à deux facteurs, accès limités à ce qui est nécessaire et retrait des accès aux outils des clients à la fin d'un mandat lorsque demandé. En cas d'incident de confidentialité présentant un risque de préjudice sérieux, nous aviserons les personnes concernées et la Commission d'accès à l'information.</p>
+
+    <h2>Vos droits</h2>
+    <p>Vous pouvez demander d'accéder à vos renseignements personnels, de les faire corriger, de retirer votre consentement, de cesser toute communication ou de faire supprimer vos renseignements lorsque la loi le permet. Écrivez à <a href={`mailto:${SITE.email}`}>{SITE.email}</a> ; nous répondons dans un délai de 30 jours.</p>
+    <p>Si vous n'êtes pas satisfait de notre réponse, vous pouvez vous adresser à la <a href="https://www.cai.gouv.qc.ca/" rel="noopener">Commission d'accès à l'information du Québec</a>.</p>
+
+    <h2>Modifications</h2>
+    <p>Nous pouvons mettre à jour cette politique. La date de dernière mise à jour figure en haut de la page.</p>
+  </section>
+</Base>

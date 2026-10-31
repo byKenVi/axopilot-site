@@ -1,0 +1,45 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPosts, formatDate } from '../../lib';
+import { SITE, bookingHref } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const url = new URL(`/blogue/${post.id}/`, SITE.url).href;
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  inLanguage: 'fr-CA',
+  mainEntityOfPage: url,
+  author: { '@type': 'Person', name: 'Kevin', url: SITE.url },
+  publisher: { '@type': 'Organization', name: 'AxioPilot', logo: { '@type': 'ImageObject', url: `${SITE.url}/logo-axiopilot.png` } },
+};
+---
+<Base title={post.data.title} description={post.data.description} type="article" jsonLd={article} noindex={post.data.draft}>
+  <article class="wrap">
+    <header class="page-head">
+      <div class="eyebrow">{post.data.category}{post.data.readingTime && ` · ${post.data.readingTime} min de lecture`}</div>
+      <h1>{post.data.title}</h1>
+      <p class="lead">{post.data.description}</p>
+      <p style="margin-top:16px;font:500 13px/1.4 var(--mono);color:var(--muted)">Par Kevin · {formatDate(post.data.date)}{post.data.draft && ' · BROUILLON'}</p>
+    </header>
+    <div class="prose">
+      <Content />
+      <div class="final post-cta">
+        <div class="eyebrow">Passer à l'action</div>
+        <h2>Votre agence perd des heures sur ce processus ?</h2>
+        <p class="lead">En 30 minutes, on identifie ce qui peut être automatisé chez vous.</p>
+        <div><a class="btn btn-primary" href={bookingHref}>Réserver un appel →</a></div>
+      </div>
+    </div>
+  </article>
+</Base>

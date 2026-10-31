@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts, formatDate } from '../../lib';
+const posts = await getPosts();
+---
+<Base title="Blogue" description="Guides pratiques sur l'automatisation pour les agences marketing et web du Québec : accueil client, reporting, soumissions, outils et Loi 25.">
+  <section class="wrap page-head">
+    <div class="eyebrow">Blogue</div>
+    <h1>Guides pratiques pour agences</h1>
+    <p class="lead">Des méthodes concrètes pour automatiser les tâches répétitives de votre agence, sans changer vos outils.</p>
+  </section>
+  <section class="wrap" style="padding-bottom:40px">
+    {posts.length === 0
+      ? <p class="empty">Les premiers articles arrivent bientôt.</p>
+      : <div class="posts">
+          {posts.map((p) => (
+            <a class="post" href={`/blogue/${p.id}/`}>
+              <span class="meta">{p.data.category} · {formatDate(p.data.date)}</span>
+              <h3>{p.data.title}</h3>
+              <p style="color:var(--muted);font-size:15px">{p.data.description}</p>
+            </a>
+          ))}
+        </div>}
+  </section>
+</Base>

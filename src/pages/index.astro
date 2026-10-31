@@ -1,0 +1,198 @@
+---
+import Base from '../layouts/Base.astro';
+import { bookingHref } from '../consts';
+import { getPosts } from '../lib';
+
+const posts = (await getPosts()).slice(0, 3);
+const photo = ''; // ex. '/kevin.jpg' une fois la photo ajoutée dans public/
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    ['Faut-il changer nos outils ?', "Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence."],
+    ["Qu'arrive-t-il aux données de nos clients ?", "Les données restent dans vos comptes. On documente chaque flux de renseignements personnels pour vous aider à respecter la Loi 25, et les accès sont retirés à la fin du mandat si vous le souhaitez."],
+    ["Et si l'automatisation brise ?", "Les 3 mois de suivi sont faits pour ça : surveillance des erreurs, alertes et corrections. Votre équipe reçoit aussi une documentation simple pour comprendre ce qui roule."],
+    ['Combien ça coûte ?', "Le Pack Sprint + Suivi est offert à prix fixe. On vous le confirme au premier appel, après avoir vu le processus à automatiser."],
+  ].map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+---
+<Base jsonLd={faq}>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Automatisation pour agences du Québec</div>
+        <h1>Votre agence tourne <span class="g">pendant que vous créez.</span></h1>
+        <p class="lead">AxioPilot automatise les tâches qui grugent les heures de votre équipe : l'accueil des nouveaux clients, le rapport mensuel et les demandes de soumission. Livré en 21 jours, avec vos outils actuels.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href={bookingHref}>Réserver un appel de 30 min →</a>
+          <a class="btn btn-ghost" href="#cas">Voir ce qu'on automatise</a>
+        </div>
+        <div class="trust"><span>Service 100 % en français</span><span>Conforme Loi 25</span><span>Vos outils, pas de logiciel imposé</span></div>
+      </div>
+
+      <div class="run" role="img" aria-label="Exemple : un nouveau client signé déclenche cinq tâches automatiques en 41 secondes">
+        <div class="run-head"><span>Scénario · Accueil nouveau client</span><span class="live"><i></i>En cours</span></div>
+        <ol class="steps">
+          <li class="step"><span class="dot">01</span><div><b>Contrat signé</b><small>Déclencheur : signature reçue</small></div><time>00:00</time></li>
+          <li class="step"><span class="dot">02</span><div><b>Fiche client créée</b><small>CRM mis à jour, responsable assigné</small></div><time>00:06</time></li>
+          <li class="step"><span class="dot">03</span><div><b>Dossier et projet ouverts</b><small>Drive + gabarit de projet copié</small></div><time>00:14</time></li>
+          <li class="step"><span class="dot">04</span><div><b>Courriel de bienvenue envoyé</b><small>Questionnaire d'accueil joint</small></div><time>00:29</time></li>
+          <li class="step"><span class="dot">05</span><div><b>Équipe avisée</b><small>Message dans #nouveaux-clients</small></div><time>00:41</time></li>
+        </ol>
+        <div class="run-foot"><span>Avant : <strong>≈ 2 h de manipulations</strong></span><span>Maintenant : <strong>41 secondes</strong></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Le constat</div>
+        <h2>Vos meilleurs talents font du copier-coller.</h2>
+      </div>
+      <div class="pains">
+        <div class="pain"><div class="q">« Qui a créé le dossier du client ? »</div><p>Chaque nouveau client déclenche une dizaine d'étapes manuelles. Une seule oubliée, et le démarrage du projet prend du retard.</p></div>
+        <div class="pain"><div class="q">« Le rapport part demain matin. »</div><p>Le rapport mensuel mobilise un chargé de projet pendant des heures : exporter, coller, mettre en forme, recommencer pour chaque client.</p></div>
+        <div class="pain"><div class="q">« On a vu sa demande ? »</div><p>Les demandes de soumission arrivent par courriel, formulaire ou LinkedIn. Certaines attendent trois jours avant une réponse.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="cas">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Cas d'usage</div>
+        <h2>Trois automatisations qui se rentabilisent vite.</h2>
+        <p class="lead">On commence par le processus qui vous coûte le plus d'heures. Chaque automatisation est construite sur les outils que votre équipe utilise déjà.</p>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <h3>Accueil des nouveaux clients</h3>
+          <p>Dès la signature, la fiche client, le dossier partagé, le projet et le courriel de bienvenue se créent seuls. Votre équipe reçoit l'avis, prête à démarrer.</p>
+          <div class="flow"><span>Signature</span><em>→</em><span>CRM</span><em>→</em><span>Drive</span><em>→</em><span>Courriel</span></div>
+        </article>
+        <article class="case">
+          <h3>Rapport mensuel client</h3>
+          <p>Les données de Google Ads, GA4 et Meta sont regroupées dans un rapport à vos couleurs, prêt à relire le 1er du mois.</p>
+          <div class="flow"><span>GA4</span><em>+</em><span>Ads</span><em>+</em><span>Meta</span><em>→</em><span>Rapport</span></div>
+        </article>
+        <article class="case">
+          <h3>De la demande à la soumission</h3>
+          <p>Chaque demande est captée, qualifiée et transformée en brouillon de soumission. Le prospect reçoit une réponse le jour même.</p>
+          <div class="flow"><span>Formulaire</span><em>→</em><span>Qualification</span><em>→</em><span>Soumission</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="offre">
+    <div class="wrap offer">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="eyebrow">L'offre</div>
+        <h2>Pack Sprint + Suivi</h2>
+        <p class="lead">21 jours pour livrer une automatisation qui fonctionne, puis 3 mois d'accompagnement pour qu'elle reste fiable et que votre équipe l'adopte.</p>
+        <div class="offer-card">
+          <h3>Un prix fixe, connu dès le premier appel</h3>
+          <p>Pas de facturation à l'heure ni de surprise. On évalue ensemble le processus à automatiser et vous recevez une proposition claire sous 48 h.</p>
+        </div>
+      </div>
+      <ol class="timeline">
+        <li><div class="when">Jours 1 à 3</div><div><h3>Diagnostic</h3><p>Un atelier de 90 minutes avec votre équipe pour cartographier le processus, mesurer le temps perdu et fixer le résultat attendu.</p></div></li>
+        <li><div class="when">Jours 4 à 17</div><div><h3>Construction</h3><p>On bâtit l'automatisation sur vos outils et on la teste avec de vrais cas. Un point d'étape chaque semaine.</p></div></li>
+        <li><div class="when">Jours 18 à 21</div><div><h3>Mise en service</h3><p>Lancement, formation de l'équipe et documentation en français pour que tout le monde sache quoi faire.</p></div></li>
+        <li><div class="when">Mois 1 à 3</div><div><h3>Suivi</h3><p>Surveillance, ajustements et un bilan mensuel des heures récupérées.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band band-alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Calculez-le vous-même</div>
+        <h2>Combien vous coûtent les tâches répétitives ?</h2>
+      </div>
+      <div class="calc">
+        <div class="calc-in">
+          <div class="field"><label for="h">Heures de tâches manuelles par semaine <output id="ho">8 h</output></label><input id="h" type="range" min="1" max="40" value="8"></div>
+          <div class="field"><label for="r">Coût horaire chargé d'un employé <output id="ro">55 $</output></label><input id="r" type="range" min="25" max="120" step="5" value="55"></div>
+          <div class="field"><label for="p">Part automatisable <output id="po">60 %</output></label><input id="p" type="range" min="20" max="90" step="5" value="60"></div>
+        </div>
+        <div class="calc-out" aria-live="polite">
+          <p>Récupérable chaque année</p>
+          <div class="big" id="out">13 728 $</div>
+          <p id="out2">soit environ 250 heures rendues à votre équipe.</p>
+          <p class="note">Estimation basée sur 52 semaines. Vos chiffres réels sont mesurés pendant le diagnostic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="apropos">
+    <div class={photo ? "wrap about" : "wrap"}>
+      {photo && <img class="portrait" src={photo} alt="Kevin, fondateur d'AxioPilot" width="180" height="180" loading="lazy">}
+      <div>
+        <div class="eyebrow">À propos</div>
+        <h2 style="margin-block:14px 18px">Bonjour, je suis Kevin.</h2>
+        <p>J'ai fondé AxioPilot pour aider les agences à sortir des tâches répétitives qui freinent leur croissance. Je conçois des automatisations avec Make, n8n, Zapier et l'IA, toujours sur les outils que votre équipe connaît déjà.</p>
+        <p>Je travaille exclusivement en français avec des agences du Québec, aux heures de l'Est, et je reste votre interlocuteur unique du diagnostic au suivi.</p>
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+  <section class="band band-alt" id="blogue">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Blogue</div>
+        <h2>Guides pratiques pour agences</h2>
+      </div>
+      <div class="posts">
+        {posts.map((p) => (
+          <a class="post" href={`/blogue/${p.id}/`}><span class="meta">{p.data.category}{p.data.readingTime && ` · ${p.data.readingTime} min`}</span><h3>{p.data.title}</h3></a>
+        ))}
+      </div>
+      <p style="margin-top:28px"><a class="btn btn-ghost" href="/blogue/">Tous les articles</a></p>
+    </div>
+  </section>
+  )}
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head"><div class="eyebrow">Questions fréquentes</div><h2>Avant de réserver un appel</h2></div>
+      <div class="faq">
+        <details><summary>Faut-il changer nos outils ?</summary><p>Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence.</p></details>
+        <details><summary>Qu'arrive-t-il aux données de nos clients ?</summary><p>Les données restent dans vos comptes. On documente chaque flux de renseignements personnels pour vous aider à respecter la Loi 25, et les accès sont retirés à la fin du mandat si vous le souhaitez.</p></details>
+        <details><summary>Et si l'automatisation brise ?</summary><p>Les 3 mois de suivi sont faits pour ça : surveillance des erreurs, alertes et corrections. Votre équipe reçoit aussi une documentation simple pour comprendre ce qui roule.</p></details>
+        <details><summary>Combien ça coûte ?</summary><p>Le Pack Sprint + Suivi est offert à prix fixe. On vous le confirme au premier appel, après avoir vu le processus à automatiser.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="rdv" style="padding-top:0">
+    <div class="wrap">
+      <div class="final">
+        <div class="eyebrow">Prochaine étape</div>
+        <h2>Trouvons ensemble les heures que votre agence perd.</h2>
+        <p class="lead">Un appel de 30 minutes, sans engagement. Vous repartez avec au moins une idée d'automatisation applicable, même si on ne travaille pas ensemble.</p>
+        <div class="cta-row" style="margin-top:8px"><a class="btn btn-primary" href={bookingHref}>Choisir un moment →</a></div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+(function(){
+  var h=document.getElementById('h'),r=document.getElementById('r'),p=document.getElementById('p');
+  var fmt=function(n){return Math.round(n).toLocaleString('fr-CA')};
+  function upd(){
+    var hrs=+h.value*52*(+p.value/100), cost=hrs*(+r.value);
+    document.getElementById('ho').textContent=h.value+' h';
+    document.getElementById('ro').textContent=r.value+' $';
+    document.getElementById('po').textContent=p.value+' %';
+    document.getElementById('out').textContent=fmt(cost)+' $';
+    document.getElementById('out2').textContent='soit environ '+fmt(hrs)+' heures rendues à votre équipe.';
+  }
+  [h,r,p].forEach(function(el){el.addEventListener('input',upd)});upd();
+})();
+</script>

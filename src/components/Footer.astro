@@ -1,0 +1,14 @@
+---
+import { SITE } from '../consts';
+---
+<footer>
+  <div class="wrap foot">
+    <div>© {new Date().getFullYear()} AxioPilot · Automatiser · Simplifier · Accélérer<br><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
+    <ul>
+      <li><a href="/blogue/">Blogue</a></li>
+      <li><a href="/politique-de-confidentialite/">Politique de confidentialité</a></li>
+      <li><a href="/mentions-legales/">Mentions légales</a></li>
+      {SITE.linkedin && <li><a href={SITE.linkedin} rel="me">LinkedIn</a></li>}
+    </ul>
+  </div>
+</footer>

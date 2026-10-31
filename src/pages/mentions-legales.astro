@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../consts';
+---
+<Base title="Mentions légales" description="Informations légales sur l'éditeur et l'hébergeur du site axiopilot.com.">
+  <section class="wrap page-head">
+    <div class="eyebrow">Informations</div>
+    <h1>Mentions légales</h1>
+  </section>
+  <section class="wrap prose">
+    <h2>Éditeur du site</h2>
+    <p>AxioPilot<br>
+    Responsable de la publication : Kevin [NOM DE FAMILLE]<br>
+    Statut et numéro d'immatriculation : [À COMPLÉTER]<br>
+    Adresse : [À COMPLÉTER]<br>
+    Courriel : <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+
+    <h2>Hébergement</h2>
+    <p>Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis.</p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>Les textes, le logo et les visuels de ce site appartiennent à AxioPilot. Toute reproduction sans autorisation écrite est interdite. Les marques citées (Make, Zapier, n8n, HubSpot, Google, etc.) appartiennent à leurs propriétaires respectifs.</p>
+
+    <h2>Renseignements personnels</h2>
+    <p>Consultez notre <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
+  </section>
+</Base>
