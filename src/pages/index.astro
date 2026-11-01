@@ -38,10 +38,10 @@ const UI: Record<string, string> = {
 };
 
 const steps = [
-  { id: 'signature', label: 'Signature', time: 'Lundi · 9 h 02', title: 'Agence Boréal signe un nouveau client.', text: "Le contrat arrive signé. Personne n'a encore touché à rien, et c'est voulu.", gain: 'Le déclencheur', cta: "Automatiser l'accueil client" },
-  { id: 'accueil', label: 'Accueil client', time: 'Lundi · 9 h 02 min 41 s', title: '41 secondes plus tard, tout est prêt.', text: "Fiche CRM, dossier partagé, projet, courriel de bienvenue, avis à l'équipe. Sans oubli, sans relance.", gain: '≈ 2 h de saisie évitées', cta: "Automatiser l'accueil client" },
-  { id: 'rapport', label: 'Rapport mensuel', time: '1er du mois · 7 h 00', title: 'Les rapports clients sont déjà prêts.', text: "Google Ads, GA4 et Meta réunis dans un rapport à vos couleurs. Il ne reste qu'à relire et envoyer.", gain: '≈ 4 h par client, chaque mois', cta: 'Automatiser mes rapports' },
-  { id: 'soumission', label: 'Soumission', time: 'Mardi · 14 h 10', title: 'Une demande arrive à 14 h 10. Elle repart à 14 h 14.', text: 'La demande est captée, qualifiée et transformée en brouillon de soumission. Vous validez, le prospect a sa réponse le jour même.', gain: 'Réponse en 4 min au lieu de 48 h', cta: 'Automatiser mes soumissions' },
+  { id: 'signature', label: 'Signature', time: 'Lundi · 9 h 02', title: 'Agence Boréal signe un nouveau client.', text: "Le contrat arrive signé. Personne n'a encore touché à rien, et c'est voulu.", gain: 'Le déclencheur', saved: 0, before: ['Repérer le contrat dans les courriels', "Prévenir l'équipe à la main"], cta: "Automatiser l'accueil client" },
+  { id: 'accueil', label: 'Accueil client', time: 'Lundi · 9 h 02 min 41 s', title: '41 secondes plus tard, tout est prêt.', text: "Fiche CRM, dossier partagé, projet, courriel de bienvenue, avis à l'équipe. Sans oubli, sans relance.", gain: '≈ 2 h de saisie évitées', saved: 2, before: ['Créer la fiche CRM', 'Monter le dossier partagé', 'Copier le projet du gabarit', 'Écrire le courriel de bienvenue'], cta: "Automatiser l'accueil client" },
+  { id: 'rapport', label: 'Rapport mensuel', time: '1er du mois · 7 h 00', title: 'Les rapports clients sont déjà prêts.', text: "Google Ads, GA4 et Meta réunis dans un rapport à vos couleurs. Il ne reste qu'à relire et envoyer.", gain: '≈ 4 h par client, chaque mois', saved: 6, before: ['Exporter Google Ads, GA4 et Meta', 'Copier-coller dans le gabarit', 'Mettre en forme, vérifier les chiffres'], cta: 'Automatiser mes rapports' },
+  { id: 'soumission', label: 'Soumission', time: 'Mardi · 14 h 10', title: 'Une demande arrive à 14\u00a0h\u00a010. Elle repart à 14\u00a0h\u00a014.', text: 'La demande est captée, qualifiée et transformée en brouillon de soumission. Vous validez, le prospect a sa réponse le jour même.', gain: 'Réponse en 4 min au lieu de 48 h', saved: 7.5, before: ['Lire la demande… deux jours après', 'Monter la soumission à la main'], cta: 'Automatiser mes soumissions' },
 ];
 
 const phases = [
@@ -70,13 +70,12 @@ const faqLd = {
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-stage" aria-hidden="true">
       <canvas id="hero3d"></canvas>
-      <img class="hero-fallback" src="/logo-mark-white.png" alt="" width="222" height="154">
+      <img class="hero-fallback" src="/logo-mark-color.png" alt="" width="222" height="154">
       <p class="hand hero-note">vos tâches, en route<Doodle name="curl" class="note-curl" /></p>
     </div>
     <Doodle name="star" class="float d-hero-star" />
     <Doodle name="spiral" class="float d-hero-spiral" />
     <div class="container hero-inner">
-      <p class="pill"><span class="pill-dot"></span>Automatisation pour agences du Québec</p>
       <h1 id="hero-title" class="display">
         <span class="w">Votre</span> <span class="w">agence,</span><br>
         <span class="w">en</span> <span class="w hl">pilote<Doodle name="underline" class="hl-line" /></span><br>
@@ -111,7 +110,7 @@ const faqLd = {
 
   <!-- ========== Histoire ========== -->
   <section class="story" id="histoire" aria-labelledby="story-title">
-    <div class="container story-head">
+    <div class="container story-head rv">
       <p class="pill">Comment ça marche</p>
       <h2 id="story-title" class="h2">Une semaine chez Agence Boréal, <span class="hand-hl">en pilote automatique</span>.</h2>
       <p class="note">Agence fictive, scénario réel : c'est exactement ce qu'on met en place chez nos clients.</p>
@@ -119,51 +118,68 @@ const faqLd = {
 
     <div class="story-pin" style={`--n:${steps.length}`}>
       <div class="story-stage">
-        <div class="container stage-grid">
-          <div class="stage-left">
-            <ol class="rail">
+        <div class="container">
+          <div class="story-top">
+            <ol class="tabs" style={`--n:${steps.length}`}>
               {steps.map((s, i) => (
-                <li class={`rail-item${i === 0 ? ' is-active' : ''}`} data-i={i}>
-                  <button type="button" class="rail-btn" data-go={i}><span class="rail-time">{s.time}</span><span class="rail-label">{s.label}</span><span class="rail-bar"><i></i></span></button>
-                  <div class="rail-body">
-                    <h3>{s.title}</h3>
-                    <p>{s.text}</p>
-                    <a class="link-cta" href={bookingHref}>{s.cta} <span aria-hidden="true">→</span></a>
-                  </div>
+                <li class={i === 0 ? 'is-active' : ''} data-i={i}>
+                  <button type="button" class="tab" data-go={i}><span class="tab-n">{String(i + 1).padStart(2, '0')}</span><span class="tab-l">{s.label}</span><span class="tab-bar"><i></i></span></button>
                 </li>
               ))}
             </ol>
+            <div class="counter" aria-live="polite"><span class="counter-k">Temps rendu à l'équipe</span><b id="saved">0 h</b></div>
           </div>
-          <div class="stage-right" aria-hidden="true">
-            <Doodle name="arrow" class="d-stage-arrow" />
-            <p class="hand stage-hand">sans lever le petit doigt</p>
-            <div class="window">
-              <div class="window-bar"><i></i><i></i><i></i><span>AxioPilot · journal d'exécution</span></div>
-              <div class="window-body">
-                {steps.map((s, i) => (<div class={`ui-slot${i === 0 ? ' is-active' : ''}`} data-slot={i}><Fragment set:html={UI[s.id]} /></div>))}
+          <div class="stage-grid">
+            <div class="chapters">
+              {steps.map((s, i) => (
+                <article class={`chapter${i === 0 ? ' is-active' : ''}`} data-ch={i}>
+                  <div class="ch-head"><span class="ch-num">{String(i + 1).padStart(2, '0')}</span><span class="ch-time">{s.time}</span></div>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                  <div class="ch-before"><span class="ch-before-k">Avant :</span><ul>{s.before.map((b, k) => <li style={`--k:${k}`}><span>{b}</span></li>)}</ul></div>
+                  <div class="ch-foot"><span class="ch-gain">{s.gain}</span><a class="link-cta" href={bookingHref} tabindex={i === 0 ? undefined : -1}>{s.cta} <span aria-hidden="true">→</span></a></div>
+                </article>
+              ))}
+            </div>
+            <div class="stage-right" aria-hidden="true">
+              <Doodle name="arrow" class="d-stage-arrow" />
+              <p class="hand stage-hand">avec AxioPilot</p>
+              <div class="window">
+                <div class="window-bar"><i></i><i></i><i></i><span>AxioPilot · journal d'exécution</span></div>
+                <div class="window-body">
+                  {steps.map((s, i) => (<div class={`ui-slot${i === 0 ? ' is-active' : ''}`} data-slot={i}><Fragment set:html={UI[s.id]} /></div>))}
+                </div>
+                <div class="window-foot"><span>Gain</span><b id="gain">{steps[0].gain}</b></div>
               </div>
-              <div class="window-foot"><span>Gain</span><b id="gain">{steps[0].gain}</b></div>
             </div>
           </div>
         </div>
+        <a class="story-skip" href="#suite">Passer l'histoire <span aria-hidden="true">↓</span></a>
       </div>
     </div>
 
-    <!-- Version mobile : une carte par étape -->
-    <ol class="container story-cards">
-      {steps.map((s) => (
-        <li class="story-card">
-          <span class="rail-time">{s.time}</span>
-          <h3>{s.title}</h3>
-          <p>{s.text}</p>
-          <div class="window"><div class="window-bar"><i></i><i></i><i></i></div><div class="window-body static"><Fragment set:html={UI[s.id]} /></div><div class="window-foot"><span>Gain</span><b>{s.gain}</b></div></div>
-          <a class="link-cta" href={bookingHref}>{s.cta} <span aria-hidden="true">→</span></a>
-        </li>
-      ))}
-    </ol>
+    <!-- Mobile : cartes à faire glisser -->
+    <div class="story-swipe">
+      <p class="swipe-hint" aria-hidden="true">glissez pour suivre la semaine →</p>
+      <ol class="swipe-track" id="swipe" aria-label="Les quatre étapes">
+        {steps.map((s, i) => (
+          <li class={`swipe-card${i === 0 ? ' is-active' : ''}`} aria-label={`Étape ${i + 1} sur ${steps.length}`}>
+            <div class="ch-head"><span class="ch-num">{String(i + 1).padStart(2, '0')}</span><span class="ch-time">{s.time}</span></div>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <div class="ch-before"><span class="ch-before-k">Avant :</span><ul>{s.before.map((b, k) => <li style={`--k:${k}`}><span>{b}</span></li>)}</ul></div>
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Avec AxioPilot</span></div><div class="window-body static"><Fragment set:html={UI[s.id]} /></div><div class="window-foot"><span>Gain</span><b>{s.gain}</b></div></div>
+          </li>
+        ))}
+      </ol>
+      <div class="swipe-nav">
+        <div class="dots">{steps.map((s, i) => <button type="button" class={i === 0 ? 'is-active' : ''} data-dot={i} aria-label={`Aller à l'étape ${i + 1} : ${s.label}`}></button>)}</div>
+        <div class="swipe-arrows"><button type="button" id="swPrev" aria-label="Étape précédente" disabled>←</button><button type="button" id="swNext" aria-label="Étape suivante">→</button></div>
+      </div>
+    </div>
 
-    <div class="container">
-      <div class="story-cta">
+    <div class="container" id="suite">
+      <div class="story-cta rv">
         <Doodle name="check" class="d-check" />
         <p><b>Ça ressemble à la semaine de votre agence ?</b> On regarde ensemble ce qui peut rouler tout seul chez vous.</p>
         <a class="btn btn-primary btn-lg" href={bookingHref}>Réserver un appel <span class="arr" aria-hidden="true">→</span></a>
@@ -172,15 +188,15 @@ const faqLd = {
   </section>
 
   <!-- ========== Offre ========== -->
-  <section class="offer" id="offre" aria-labelledby="offer-title">
+  <section class="offer on-blue" id="offre" aria-labelledby="offer-title">
     <Doodle name="gear" class="float d-offer-gear" />
     <Doodle name="bolt" class="float d-offer-bolt" />
     <div class="container">
       <p class="pill">L'offre · Pack Sprint + Suivi</p>
-      <h2 id="offer-title" class="display-2">21 jours pour livrer.<br><span class="soft">3 mois pour que ça dure.</span></h2>
+      <h2 id="offer-title" class="display-2 rv">21 jours pour livrer.<br><span class="soft">3 mois pour que ça dure.</span></h2>
       <ol class="phases">
         {phases.map(([when, title, text], i) => (
-          <li style={`--d:${i}`}><span class="ph-num">{i + 1}</span><span class="ph-when">{when}</span><h3>{title}</h3><p>{text}</p></li>
+          <li class="rv" style={`--d:${i}`}><span class="ph-num">{i + 1}</span><span class="ph-when">{when}</span><h3>{title}</h3><p>{text}</p></li>
         ))}
       </ol>
       <div class="offer-foot">
@@ -191,9 +207,9 @@ const faqLd = {
   </section>
 
   <!-- ========== Calculateur (section blanche) ========== -->
-  <section class="calc" aria-labelledby="calc-title">
-    <div class="container">
-      <p class="pill pill-blue">Faites le calcul</p>
+  <section class="calc container" aria-labelledby="calc-title">
+    <div class="calc-card rv">
+      <p class="pill">Faites le calcul</p>
       <h2 id="calc-title" class="sr-only">Combien vous coûtent les tâches répétitives</h2>
       <form class="madlib" onsubmit="return false">
         <p>
@@ -210,7 +226,7 @@ const faqLd = {
           <span class="calc-num" id="out">22 880 $</span>
           <span class="calc-sub" id="out2">En automatisant 60 %, vous récupérez environ 250 heures et 13 728 $.</span>
         </div>
-        <a class="btn btn-blue btn-lg" href={bookingHref}>Récupérer ces heures <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-primary btn-lg" href={bookingHref}>Récupérer ces heures <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <Doodle name="circle" class="d-calc-circle" />
     </div>
@@ -218,9 +234,9 @@ const faqLd = {
 
   <!-- ========== Principes ========== -->
   <section class="principles container" aria-label="Notre façon de travailler">
-    <div><Doodle name="gear" class="p-icon" /><h3>Vos outils, pas les nôtres.</h3><p>On construit sur ce que votre équipe connaît déjà. Pas de nouveau logiciel à apprendre.</p></div>
-    <div><Doodle name="mail" class="p-icon" /><h3>Un seul interlocuteur.</h3><p>Vous parlez toujours à la personne qui construit, du diagnostic au suivi.</p></div>
-    <div><Doodle name="check" class="p-icon" /><h3>En français, conforme Loi 25.</h3><p>Documentation, formation et suivi en français, aux heures de l'Est.</p></div>
+    <div class="rv"><Doodle name="gear" class="p-icon" /><h3>Vos outils, pas les nôtres.</h3><p>On construit sur ce que votre équipe connaît déjà. Pas de nouveau logiciel à apprendre.</p></div>
+    <div class="rv" style="--d:1"><Doodle name="mail" class="p-icon" /><h3>Un seul interlocuteur.</h3><p>Vous parlez toujours à la personne qui construit, du diagnostic au suivi.</p></div>
+    <div class="rv" style="--d:2"><Doodle name="check" class="p-icon" /><h3>En français, conforme Loi 25.</h3><p>Documentation, formation et suivi en français, aux heures de l'Est.</p></div>
   </section>
 
   {posts.length > 0 && (
@@ -247,7 +263,7 @@ const faqLd = {
   </section>
 
   <!-- ========== CTA final ========== -->
-  <section class="cta-end" id="rdv">
+  <section class="cta-end on-blue" id="rdv">
     <Doodle name="star" class="float d-end-star" />
     <Doodle name="spiral" class="float d-end-spiral" />
     <Doodle name="bolt" class="float d-end-bolt" />
@@ -258,6 +274,8 @@ const faqLd = {
       <a class="btn btn-primary btn-xl" href={bookingHref}>Choisir un moment <span class="arr" aria-hidden="true">→</span></a>
     </div>
   </section>
+
+  <div class="read-progress" id="readProgress" aria-hidden="true"></div>
 
   <!-- Barre d'action mobile -->
   <div class="mobile-cta" id="mobileCta"><span>Appel découverte · 30 min</span><a class="btn btn-primary" href={bookingHref}>Réserver</a></div>
@@ -272,7 +290,7 @@ const faqLd = {
   let lenis: Lenis | null = null;
 
   if (!reduce) {
-    lenis = new Lenis({ lerp: 0.11 });
+    lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 0.95, touchMultiplier: 1 });
     const raf = (t: number) => { lenis!.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
   }
@@ -280,7 +298,7 @@ const faqLd = {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href')!.replace('/', '');
       const el = document.querySelector<HTMLElement>(id);
-      if (el && location.pathname === '/' && lenis) { e.preventDefault(); lenis.scrollTo(el, { offset: -20 }); history.replaceState(null, '', id); }
+      if (el && location.pathname === '/' && lenis) { e.preventDefault(); lenis.scrollTo(el, { offset: -72, duration: 1.1 }); history.replaceState(null, '', id); }
     });
   });
 
@@ -319,38 +337,123 @@ const faqLd = {
     window.addEventListener('scroll', onS, { passive: true }); onS();
   }
 
-  /* Histoire : scène épinglée pilotée par le défilement */
+  /* Histoire : scène épinglée pilotée par le défilement (bureau) */
   const pin = document.querySelector<HTMLElement>('.story-pin');
-  const items = [...document.querySelectorAll<HTMLElement>('.rail-item')];
+  const tabs = [...document.querySelectorAll<HTMLElement>('.tabs li')];
+  const chapters = [...document.querySelectorAll<HTMLElement>('.chapter')];
   const slots = [...document.querySelectorAll<HTMLElement>('.ui-slot')];
-  const gains = [...document.querySelectorAll<HTMLElement>('.story-card .window-foot b')].map((b) => b.textContent);
+  const gains = [...document.querySelectorAll<HTMLElement>('.swipe-card .window-foot b')].map((b) => b.textContent);
+  const savedVals = [0, 2, 6, 7.5];
   const gainEl = document.getElementById('gain');
+  const savedEl = document.getElementById('saved');
+  const fmtH = (v: number) => (Math.round(v * 10) / 10).toLocaleString('fr-CA') + ' h';
+  let shown = 0, raf = 0;
+  const countTo = (to: number) => {
+    if (!savedEl) return;
+    cancelAnimationFrame(raf);
+    if (reduce) { shown = to; savedEl.textContent = fmtH(to); return; }
+    const from = shown, t0 = performance.now();
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - t0) / 700), e = 1 - Math.pow(1 - k, 3);
+      shown = from + (to - from) * e; savedEl.textContent = fmtH(shown);
+      if (k < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+  };
   let current = 0;
   const setStep = (i: number) => {
     if (i === current) return;
     current = i;
-    items.forEach((it, j) => { it.classList.toggle('is-active', j === i); it.classList.toggle('is-done', j < i); });
+    tabs.forEach((t, j) => { t.classList.toggle('is-active', j === i); t.classList.toggle('is-done', j < i); });
+    chapters.forEach((c, j) => {
+      c.classList.toggle('is-active', j === i);
+      c.querySelectorAll('a').forEach((a) => (j === i ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
+    });
     slots.forEach((s, j) => s.classList.toggle('is-active', j === i));
     if (gainEl) { gainEl.classList.remove('pop'); void gainEl.offsetWidth; gainEl.textContent = gains[i] ?? ''; gainEl.classList.add('pop'); }
+    countTo(savedVals[i] ?? 0);
+  };
+  const pinRange = () => {
+    const top = pin!.getBoundingClientRect().top + window.scrollY;
+    return { top, total: pin!.offsetHeight - window.innerHeight };
   };
   const onStory = () => {
     if (!pin || getComputedStyle(pin).display === 'none') return;
     const r = pin.getBoundingClientRect();
     const total = r.height - window.innerHeight;
     const p = Math.min(0.9999, Math.max(0, -r.top / total));
-    const n = items.length;
-    const i = Math.floor(p * n);
-    setStep(i);
-    items.forEach((it, j) => it.style.setProperty('--fill', String(Math.min(1, Math.max(0, p * n - j)))));
+    const n = tabs.length;
+    setStep(Math.floor(p * n));
+    tabs.forEach((t, j) => t.style.setProperty('--fill', String(Math.min(1, Math.max(0, p * n - j)))));
   };
-  window.addEventListener('scroll', onStory, { passive: true }); onStory();
-  document.querySelectorAll<HTMLButtonElement>('[data-go]').forEach((b) => b.addEventListener('click', () => {
+  const goTo = (i: number) => {
     if (!pin) return;
-    const i = Number(b.dataset.go);
-    const top = pin.getBoundingClientRect().top + window.scrollY;
-    const y = top + ((pin.offsetHeight - window.innerHeight) * (i + 0.5)) / items.length;
-    lenis ? lenis.scrollTo(y) : window.scrollTo({ top: y, behavior: 'smooth' });
-  }));
+    const { top, total } = pinRange();
+    const y = top + (total * (i + 0.5)) / tabs.length;
+    lenis ? lenis.scrollTo(y, { duration: 0.9 }) : window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+  };
+  document.querySelectorAll<HTMLButtonElement>('[data-go]').forEach((b) => b.addEventListener('click', () => goTo(Number(b.dataset.go))));
+  /* Flèches du clavier quand la scène est à l'écran */
+  window.addEventListener('keydown', (e) => {
+    if (!pin || getComputedStyle(pin).display === 'none' || !['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(e.key)) return;
+    const r = pin.getBoundingClientRect();
+    if (r.top > 0 || r.bottom < window.innerHeight) return;
+    const dir = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1;
+    const next = current + dir;
+    if (next < 0 || next >= tabs.length) return;
+    e.preventDefault(); goTo(next);
+  });
+  /* Aimantation douce : quand on s'arrête entre deux étapes, on se cale sur la plus proche */
+  if (lenis && pin) {
+    let snapT = 0;
+    lenis.on('scroll', () => {
+      clearTimeout(snapT);
+      snapT = window.setTimeout(() => {
+        if (getComputedStyle(pin).display === 'none') return;
+        const { top, total } = pinRange();
+        const y = window.scrollY - top;
+        if (y <= 0 || y >= total) return;
+        const seg = total / tabs.length;
+        const i = Math.min(tabs.length - 1, Math.floor(y / seg));
+        const target = top + seg * (i + 0.5);
+        if (Math.abs(window.scrollY - target) > seg * 0.06 && Math.abs(window.scrollY - target) < seg * 0.42) lenis!.scrollTo(target, { duration: 0.6 });
+      }, 220);
+    });
+  }
+  window.addEventListener('scroll', onStory, { passive: true }); onStory();
+
+  /* Histoire mobile : carrousel */
+  const track = document.getElementById('swipe');
+  if (track) {
+    const cards = [...track.querySelectorAll<HTMLElement>('.swipe-card')];
+    const dots = [...document.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const prev = document.getElementById('swPrev') as HTMLButtonElement, next = document.getElementById('swNext') as HTMLButtonElement;
+    let idx = 0;
+    const setIdx = (i: number) => {
+      idx = i;
+      cards.forEach((c, j) => c.classList.toggle('is-active', j === i));
+      dots.forEach((d, j) => d.classList.toggle('is-active', j === i));
+      prev.disabled = i === 0; next.disabled = i === cards.length - 1;
+    };
+    const go = (i: number) => {
+      const c = cards[Math.max(0, Math.min(cards.length - 1, i))];
+      track.scrollTo({ left: c.offsetLeft - track.offsetLeft - 20, behavior: reduce ? 'auto' : 'smooth' });
+    };
+    const cio = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) setIdx(cards.indexOf(e.target as HTMLElement)); }), { root: track, threshold: 0.6 });
+    cards.forEach((c) => cio.observe(c));
+    dots.forEach((d) => d.addEventListener('click', () => go(Number(d.dataset.dot))));
+    prev.addEventListener('click', () => go(idx - 1));
+    next.addEventListener('click', () => go(idx + 1));
+  }
+
+  /* Apparition douce */
+  const rio = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } }), { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.rv').forEach((el) => rio.observe(el));
+
+  /* Barre de progression */
+  const bar = document.getElementById('readProgress')!;
+  const onProg = () => { const max = document.documentElement.scrollHeight - window.innerHeight; bar.style.setProperty('--p', String(max > 0 ? window.scrollY / max : 0)); };
+  window.addEventListener('scroll', onProg, { passive: true }); onProg();
 
   /* Calculateur */
   const h = document.getElementById('h') as HTMLInputElement, r = document.getElementById('r') as HTMLInputElement;
