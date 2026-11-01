@@ -23,8 +23,24 @@ const article = {
   author: { '@type': 'Person', name: 'Kevin', url: SITE.url },
   publisher: { '@type': 'Organization', name: 'AxioPilot', logo: { '@type': 'ImageObject', url: `${SITE.url}/logo-axiopilot.png` } },
 };
+const faq = post.data.faq ?? [];
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Blogue', item: new URL('/blogue/', SITE.url).href },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: url },
+  ],
+};
+const ld: Record<string, unknown>[] = [article, breadcrumb];
+if (faq.length) ld.push({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+});
 ---
-<Base title={post.data.title} description={post.data.description} type="article" jsonLd={article} noindex={post.data.draft}>
+<Base title={post.data.seoTitle ?? post.data.title} description={post.data.description} type="article" jsonLd={ld} noindex={post.data.draft}>
   <article class="wrap">
     <header class="page-head">
       <div class="eyebrow">{post.data.category}{post.data.readingTime && ` · ${post.data.readingTime} min de lecture`}</div>
@@ -33,7 +49,14 @@ const article = {
       <p style="margin-top:16px;font:500 13px/1.4 var(--mono);color:var(--muted)">Par Kevin · {formatDate(post.data.date)}{post.data.draft && ' · BROUILLON'}</p>
     </header>
     <div class="prose">
+      <nav class="crumbs" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <a href="/blogue/">Blogue</a></nav>
       <Content />
+      {faq.length > 0 && (
+        <section class="post-faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions fréquentes</h2>
+          {faq.map(({ q, a }) => (<details><summary>{q}</summary><p>{a}</p></details>))}
+        </section>
+      )}
       <div class="final post-cta">
         <div class="eyebrow">Passer à l'action</div>
         <h2>Votre agence perd des heures sur ce processus ?</h2>
