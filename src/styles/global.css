@@ -111,3 +111,22 @@ img.portrait{object-fit:cover;border-style:solid;padding:0}
 body{background-color:var(--bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' fill='none' stroke='%231638F0' stroke-opacity='.07' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 40l10 10M40 40l-10 10'/%3E%3Ccircle cx='170' cy='50' r='7'/%3E%3Cpath d='M90 150c8-10 16 10 24 0s16 10 24 0'/%3E%3Cpath d='M200 180l4 10 10 4-10 4-4 10-4-10-10-4 10-4z'/%3E%3Cpath d='M40 200l14-6 4 14'/%3E%3C/svg%3E")}
 .site-foot{background:var(--ink)}
 ::selection{background:var(--blue);color:#fff}
+
+/* Articles : encadré « En bref », appel à l'action intermédiaire, FAQ */
+.crumbs{font:500 13px/1 var(--mono);color:var(--muted);margin-bottom:28px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--blue)}
+.prose .tldr{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:20px 24px;margin:28px 0}
+.prose .tldr-k{font:600 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:12px}
+.prose .tldr ul{margin:0;padding-left:20px}
+.prose .tldr li{margin-bottom:6px}
+.prose .inline-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;margin:40px 0;padding:24px 28px;border-radius:18px;background:var(--blue-soft);border:1.5px dashed rgba(22,56,240,.35)}
+.prose .inline-cta p{margin:0;max-width:46ch;color:var(--ink)}
+.prose .inline-cta .btn{padding:13px 20px;font-size:15px}
+.prose .post-faq{margin-top:56px}
+.prose .post-faq details{border-bottom:1.5px solid var(--line)}
+.prose .post-faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;padding:18px 0;font:600 18px/1.35 var(--display);color:var(--ink)}
+.prose .post-faq summary::-webkit-details-marker{display:none}
+.prose .post-faq summary::after{content:"+";flex:none;font:600 22px/1 var(--body);color:var(--blue);transition:transform .3s}
+.prose .post-faq details[open] summary::after{transform:rotate(45deg)}
+.prose .post-faq details p{padding-bottom:18px;margin:0}
+.prose blockquote p{margin-bottom:8px}
