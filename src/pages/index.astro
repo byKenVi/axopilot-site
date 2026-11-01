@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Doodle from '../components/Doodle.astro';
 import { bookingHref } from '../consts';
 import { getPosts } from '../lib';
 import '../styles/home.css';
@@ -8,57 +9,40 @@ const posts = (await getPosts()).slice(0, 3);
 
 const tools = ['HubSpot', 'Pipedrive', 'Make', 'n8n', 'Zapier', 'Google Workspace', 'Microsoft 365', 'Slack', 'Asana', 'ClickUp', 'Monday', 'Notion', 'GA4', 'Google Ads', 'Meta Ads', 'Looker Studio', 'QuickBooks', 'PandaDoc'];
 
-const steps = [
-  {
-    id: 'signature', time: 'Lundi · 9 h 02',
-    title: 'Agence Boréal signe un nouveau client.',
-    text: "Le contrat arrive signé. Personne n'a encore touché à rien, et c'est voulu.",
-  },
-  {
-    id: 'accueil', time: 'Lundi · 9 h 02 min 41 s',
-    title: 'Quarante et une secondes plus tard, tout est prêt.',
-    text: "Fiche CRM, dossier partagé, projet, courriel de bienvenue, avis à l'équipe. Sans oubli, sans relance.",
-  },
-  {
-    id: 'rapport', time: '1er du mois · 7 h 00',
-    title: 'Les rapports clients sont déjà dans la boîte.',
-    text: "Google Ads, GA4 et Meta réunis dans un rapport à vos couleurs. Il ne reste qu'à relire et envoyer.",
-  },
-  {
-    id: 'soumission', time: 'Mardi · 14 h 10',
-    title: 'Une demande de soumission arrive. Elle repart à 14 h 14.',
-    text: 'La demande est captée, qualifiée et transformée en brouillon de soumission. Vous validez, le prospect reçoit sa réponse le jour même.',
-  },
-];
-
 const UI: Record<string, string> = {
-    signature: `
-      <div class="ui-event"><span class="ui-badge">Déclencheur</span><b>Contrat signé</b><small>Agence Boréal × Clinique Dentaire Laval · PandaDoc</small></div>
-      <div class="ui-wait"><span class="spin"></span>AxioPilot prend le relais…</div>`,
-    accueil: `
-      <ul class="ui-log">
-        <li><span>9:02:06</span>Fiche client créée dans HubSpot<i>✓</i></li>
-        <li><span>9:02:14</span>Dossier Drive « Clinique Dentaire Laval »<i>✓</i></li>
-        <li><span>9:02:19</span>Projet Asana copié du gabarit<i>✓</i></li>
-        <li><span>9:02:29</span>Courriel de bienvenue + questionnaire<i>✓</i></li>
-        <li><span>9:02:41</span>Message dans #nouveaux-clients<i>✓</i></li>
-      </ul>
-      <div class="ui-total">5 tâches · 41 s · 0 erreur</div>`,
-    rapport: `
-      <div class="ui-report">
-        <div class="ui-report-h"><b>Rapport d'octobre</b><span>Clinique Dentaire Laval</span></div>
-        <div class="ui-kpis"><div><small>Clics</small><b>4 812</b><em>+18 %</em></div><div><small>Conversions</small><b>137</b><em>+22 %</em></div><div><small>Coût / conv.</small><b>21,40 $</b><em>−9 %</em></div></div>
-        <svg viewBox="0 0 300 80" class="ui-spark"><polyline points="0,62 30,58 60,60 90,48 120,50 150,38 180,40 210,28 240,30 270,16 300,12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>`,
-    soumission: `
-      <div class="ui-quote">
-        <div class="ui-quote-h"><b>Soumission #2026-114</b><span class="ui-badge ok">Envoyée 14 h 14</span></div>
-        <div class="ui-row"><span>Refonte du site Web</span><span>✓</span></div>
-        <div class="ui-row"><span>SEO local · 3 mois</span><span>✓</span></div>
-        <div class="ui-row"><span>Campagne Google Ads</span><span>✓</span></div>
-        <div class="ui-src">Source : formulaire du site · qualifiée « budget confirmé »</div>
-      </div>`,
-  };
+  signature: `
+    <div class="ui-event"><span class="ui-badge">Déclencheur</span><b>Contrat signé</b><small>Agence Boréal × Clinique Dentaire Laval · PandaDoc</small></div>
+    <div class="ui-wait"><span class="spin"></span>AxioPilot prend le relais…</div>`,
+  accueil: `
+    <ul class="ui-log">
+      <li><span>9:02:06</span>Fiche client créée dans HubSpot<i>✓</i></li>
+      <li><span>9:02:14</span>Dossier Drive « Clinique Dentaire Laval »<i>✓</i></li>
+      <li><span>9:02:19</span>Projet Asana copié du gabarit<i>✓</i></li>
+      <li><span>9:02:29</span>Courriel de bienvenue + questionnaire<i>✓</i></li>
+      <li><span>9:02:41</span>Message dans #nouveaux-clients<i>✓</i></li>
+    </ul>`,
+  rapport: `
+    <div class="ui-report">
+      <div class="ui-report-h"><b>Rapport d'octobre</b><span>Clinique Dentaire Laval</span></div>
+      <div class="ui-kpis"><div><small>Clics</small><b>4 812</b><em>+18 %</em></div><div><small>Conversions</small><b>137</b><em>+22 %</em></div><div><small>Coût / conv.</small><b>21,40 $</b><em>−9 %</em></div></div>
+      <svg viewBox="0 0 300 80" preserveAspectRatio="none" class="ui-spark"><polyline vector-effect="non-scaling-stroke" points="0,62 30,58 60,60 90,48 120,50 150,38 180,40 210,28 240,30 270,16 300,12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>`,
+  soumission: `
+    <div class="ui-quote">
+      <div class="ui-quote-h"><b>Soumission #2026-114</b><span class="ui-badge ok">Envoyée 14 h 14</span></div>
+      <div class="ui-row"><span>Refonte du site Web</span><span>✓</span></div>
+      <div class="ui-row"><span>SEO local · 3 mois</span><span>✓</span></div>
+      <div class="ui-row"><span>Campagne Google Ads</span><span>✓</span></div>
+      <div class="ui-src">Source : formulaire du site · qualifiée « budget confirmé »</div>
+    </div>`,
+};
+
+const steps = [
+  { id: 'signature', label: 'Signature', time: 'Lundi · 9 h 02', title: 'Agence Boréal signe un nouveau client.', text: "Le contrat arrive signé. Personne n'a encore touché à rien, et c'est voulu.", gain: 'Le déclencheur', cta: "Automatiser l'accueil client" },
+  { id: 'accueil', label: 'Accueil client', time: 'Lundi · 9 h 02 min 41 s', title: '41 secondes plus tard, tout est prêt.', text: "Fiche CRM, dossier partagé, projet, courriel de bienvenue, avis à l'équipe. Sans oubli, sans relance.", gain: '≈ 2 h de saisie évitées', cta: "Automatiser l'accueil client" },
+  { id: 'rapport', label: 'Rapport mensuel', time: '1er du mois · 7 h 00', title: 'Les rapports clients sont déjà prêts.', text: "Google Ads, GA4 et Meta réunis dans un rapport à vos couleurs. Il ne reste qu'à relire et envoyer.", gain: '≈ 4 h par client, chaque mois', cta: 'Automatiser mes rapports' },
+  { id: 'soumission', label: 'Soumission', time: 'Mardi · 14 h 10', title: 'Une demande arrive à 14 h 10. Elle repart à 14 h 14.', text: 'La demande est captée, qualifiée et transformée en brouillon de soumission. Vous validez, le prospect a sa réponse le jour même.', gain: 'Réponse en 4 min au lieu de 48 h', cta: 'Automatiser mes soumissions' },
+];
 
 const phases = [
   ['Jours 1 à 3', 'Diagnostic', "Un atelier de 90 minutes avec votre équipe. On cartographie le processus et on mesure le temps perdu."],
@@ -86,116 +70,162 @@ const faqLd = {
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-stage" aria-hidden="true">
       <canvas id="hero3d"></canvas>
-      <img class="hero-fallback" src="/logo-mark.png" alt="" width="222" height="154">
+      <img class="hero-fallback" src="/logo-mark-white.png" alt="" width="222" height="154">
+      <p class="hand hero-note">vos tâches, en route<Doodle name="curl" class="note-curl" /></p>
     </div>
+    <Doodle name="star" class="float d-hero-star" />
+    <Doodle name="spiral" class="float d-hero-spiral" />
     <div class="container hero-inner">
-      <p class="eyebrow">Automatisation pour agences · Québec</p>
+      <p class="pill"><span class="pill-dot"></span>Automatisation pour agences du Québec</p>
       <h1 id="hero-title" class="display">
         <span class="w">Votre</span> <span class="w">agence,</span><br>
-        <span class="w">en</span> <span class="w accent">pilote</span><br>
-        <span class="w accent">automatique.</span>
+        <span class="w">en</span> <span class="w hl">pilote<Doodle name="underline" class="hl-line" /></span><br>
+        <span class="w">automatique.</span>
       </h1>
       <div class="hero-bottom">
-        <p class="hero-lead">On automatise l'accueil des clients, les rapports et les soumissions des agences du Québec. Livré en 21 jours, sur les outils que vous utilisez déjà.</p>
+        <p class="hero-lead">On automatise l'accueil des clients, les rapports et les soumissions des agences du Québec. <strong>Livré en 21 jours</strong>, sur les outils que vous utilisez déjà.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-lg" href={bookingHref}>Réserver un appel de 30 min</a>
-          <a class="link-arrow" href="#histoire">Voir comment ça marche <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-primary btn-lg" href={bookingHref}>Réserver un appel de 30 min <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost btn-lg" href="#histoire">Voir comment ça marche</a>
         </div>
       </div>
+      <ul class="hero-proof">
+        <li><b>21 jours</b> pour livrer</li>
+        <li><b>Prix fixe</b> annoncé dès l'appel</li>
+        <li><b>3 mois</b> de suivi inclus</li>
+      </ul>
     </div>
   </section>
 
   <!-- ========== Outils ========== -->
   <section class="tools" aria-label="Outils compatibles">
-    <p class="container tools-label">Branché sur les outils de votre agence</p>
     <div class="tools-row"><div class="tools-track">{[...tools, ...tools].map((t) => <span>{t}</span>)}</div></div>
   </section>
 
   <!-- ========== Énoncé ========== -->
   <section class="statement container">
-    <p class="big-text reveal-words">Vos meilleurs talents passent des heures à créer des dossiers, assembler des rapports et relancer des clients. <span class="dim">On rend ces heures à votre équipe, pour qu'elle les passe sur ce qui fait grandir l'agence.</span></p>
+    <Doodle name="loop" class="d-statement" />
+    <p class="big-text reveal-words">Vos meilleurs talents passent des heures à créer des dossiers, assembler des rapports et relancer des clients. <span class="soft">On rend ces heures à votre équipe, pour qu'elle les passe sur ce qui fait grandir l'agence.</span></p>
+    <a class="btn btn-primary" href={bookingHref}>Voir ce qu'on peut automatiser chez vous <span class="arr" aria-hidden="true">→</span></a>
   </section>
 
-  <!-- ========== Histoire au défilement ========== -->
+  <!-- ========== Histoire ========== -->
   <section class="story" id="histoire" aria-labelledby="story-title">
-    <div class="container">
-      <div class="story-head">
-        <p class="eyebrow">Comment ça marche</p>
-        <h2 id="story-title" class="h2">Une semaine chez Agence Boréal, en pilote automatique.</h2>
-        <p class="note">Agence fictive. Le scénario, lui, est réel : c'est exactement ce qu'on met en place.</p>
-      </div>
+    <div class="container story-head">
+      <p class="pill">Comment ça marche</p>
+      <h2 id="story-title" class="h2">Une semaine chez Agence Boréal, <span class="hand-hl">en pilote automatique</span>.</h2>
+      <p class="note">Agence fictive, scénario réel : c'est exactement ce qu'on met en place chez nos clients.</p>
+    </div>
 
-      <div class="story-grid">
-        <ol class="story-steps">
-          {steps.map((s, i) => (
-            <li class="story-step" data-step={i}>
-              <span class="step-time">{s.time}</span>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-              <div class="screen screen-inline" aria-hidden="true">
-                <Fragment set:html={UI[s.id]} />
+    <div class="story-pin" style={`--n:${steps.length}`}>
+      <div class="story-stage">
+        <div class="container stage-grid">
+          <div class="stage-left">
+            <ol class="rail">
+              {steps.map((s, i) => (
+                <li class={`rail-item${i === 0 ? ' is-active' : ''}`} data-i={i}>
+                  <button type="button" class="rail-btn" data-go={i}><span class="rail-time">{s.time}</span><span class="rail-label">{s.label}</span><span class="rail-bar"><i></i></span></button>
+                  <div class="rail-body">
+                    <h3>{s.title}</h3>
+                    <p>{s.text}</p>
+                    <a class="link-cta" href={bookingHref}>{s.cta} <span aria-hidden="true">→</span></a>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div class="stage-right" aria-hidden="true">
+            <Doodle name="arrow" class="d-stage-arrow" />
+            <p class="hand stage-hand">sans lever le petit doigt</p>
+            <div class="window">
+              <div class="window-bar"><i></i><i></i><i></i><span>AxioPilot · journal d'exécution</span></div>
+              <div class="window-body">
+                {steps.map((s, i) => (<div class={`ui-slot${i === 0 ? ' is-active' : ''}`} data-slot={i}><Fragment set:html={UI[s.id]} /></div>))}
               </div>
-            </li>
-          ))}
-        </ol>
-
-        <div class="story-sticky" aria-hidden="true">
-          <div class="screen">
-            <div class="screen-bar"><i></i><i></i><i></i><span>axiopilot · journal d'exécution</span></div>
-            <div class="screen-body">
-              {steps.map((s, i) => (<div class={`ui-slot${i === 0 ? ' is-active' : ''}`} data-slot={i}><Fragment set:html={UI[s.id]} /></div>))}
+              <div class="window-foot"><span>Gain</span><b id="gain">{steps[0].gain}</b></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ========== Offre ========== -->
-  <section class="offer container" id="offre" aria-labelledby="offer-title">
-    <p class="eyebrow">L'offre · Pack Sprint + Suivi</p>
-    <h2 id="offer-title" class="display-2">21 jours pour livrer.<br><span class="dim">3 mois pour que ça dure.</span></h2>
-    <ol class="phases">
-      {phases.map(([when, title, text]) => (
-        <li><span class="ph-when">{when}</span><h3>{title}</h3><p>{text}</p></li>
+    <!-- Version mobile : une carte par étape -->
+    <ol class="container story-cards">
+      {steps.map((s) => (
+        <li class="story-card">
+          <span class="rail-time">{s.time}</span>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+          <div class="window"><div class="window-bar"><i></i><i></i><i></i></div><div class="window-body static"><Fragment set:html={UI[s.id]} /></div><div class="window-foot"><span>Gain</span><b>{s.gain}</b></div></div>
+          <a class="link-cta" href={bookingHref}>{s.cta} <span aria-hidden="true">→</span></a>
+        </li>
       ))}
     </ol>
-    <div class="offer-foot">
-      <p>Un prix fixe, confirmé dès le premier appel. Pas de facturation à l'heure, pas de surprise.</p>
-      <a class="btn btn-primary btn-lg" href={bookingHref}>Parler de votre processus</a>
+
+    <div class="container">
+      <div class="story-cta">
+        <Doodle name="check" class="d-check" />
+        <p><b>Ça ressemble à la semaine de votre agence ?</b> On regarde ensemble ce qui peut rouler tout seul chez vous.</p>
+        <a class="btn btn-primary btn-lg" href={bookingHref}>Réserver un appel <span class="arr" aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 
-  <!-- ========== Calculateur ========== -->
-  <section class="calc container" aria-labelledby="calc-title">
-    <p class="eyebrow">Faites le calcul</p>
-    <h2 id="calc-title" class="sr-only">Combien vous coûtent les tâches répétitives</h2>
-    <form class="madlib" id="madlib" onsubmit="return false">
-      <p>
-        Notre équipe passe
-        <label class="fieldwrap"><span class="sr-only">Heures par semaine</span><input id="h" type="number" inputmode="numeric" min="1" max="80" value="8"><span>h</span></label>
-        par semaine sur des tâches répétitives, à
-        <label class="fieldwrap"><span class="sr-only">Coût horaire</span><input id="r" type="number" inputmode="numeric" min="15" max="250" step="5" value="55"><span>$</span></label>
-        de l'heure.
-      </p>
-    </form>
-    <div class="calc-result" aria-live="polite">
-      <span class="calc-k">Ce que ça coûte par année</span>
-      <span class="calc-num" id="out">22 880 $</span>
-      <span class="calc-sub" id="out2">Si on en automatise 60 %, vous récupérez environ 250 heures et 13 728 $.</span>
+  <!-- ========== Offre ========== -->
+  <section class="offer" id="offre" aria-labelledby="offer-title">
+    <Doodle name="gear" class="float d-offer-gear" />
+    <Doodle name="bolt" class="float d-offer-bolt" />
+    <div class="container">
+      <p class="pill">L'offre · Pack Sprint + Suivi</p>
+      <h2 id="offer-title" class="display-2">21 jours pour livrer.<br><span class="soft">3 mois pour que ça dure.</span></h2>
+      <ol class="phases">
+        {phases.map(([when, title, text], i) => (
+          <li style={`--d:${i}`}><span class="ph-num">{i + 1}</span><span class="ph-when">{when}</span><h3>{title}</h3><p>{text}</p></li>
+        ))}
+      </ol>
+      <div class="offer-foot">
+        <p><b>Un prix fixe, confirmé dès le premier appel.</b> Pas de facturation à l'heure, pas de surprise.</p>
+        <a class="btn btn-primary btn-lg" href={bookingHref}>Parler de votre processus <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Calculateur (section blanche) ========== -->
+  <section class="calc" aria-labelledby="calc-title">
+    <div class="container">
+      <p class="pill pill-blue">Faites le calcul</p>
+      <h2 id="calc-title" class="sr-only">Combien vous coûtent les tâches répétitives</h2>
+      <form class="madlib" onsubmit="return false">
+        <p>
+          Notre équipe passe
+          <label class="fieldwrap"><span class="sr-only">Heures par semaine</span><button type="button" class="step" data-t="h" data-d="-1" aria-label="Moins une heure">−</button><input id="h" type="number" inputmode="numeric" min="1" max="80" value="8"><span>h</span><button type="button" class="step" data-t="h" data-d="1" aria-label="Plus une heure">+</button></label>
+          par semaine sur des tâches répétitives, à
+          <label class="fieldwrap"><span class="sr-only">Coût horaire</span><button type="button" class="step" data-t="r" data-d="-5" aria-label="Moins 5 dollars">−</button><input id="r" type="number" inputmode="numeric" min="15" max="250" step="5" value="55"><span>$</span><button type="button" class="step" data-t="r" data-d="5" aria-label="Plus 5 dollars">+</button></label>
+          de l'heure.
+        </p>
+      </form>
+      <div class="calc-result" aria-live="polite">
+        <div>
+          <span class="calc-k">Ce que ça vous coûte par année</span>
+          <span class="calc-num" id="out">22 880 $</span>
+          <span class="calc-sub" id="out2">En automatisant 60 %, vous récupérez environ 250 heures et 13 728 $.</span>
+        </div>
+        <a class="btn btn-blue btn-lg" href={bookingHref}>Récupérer ces heures <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <Doodle name="circle" class="d-calc-circle" />
     </div>
   </section>
 
   <!-- ========== Principes ========== -->
   <section class="principles container" aria-label="Notre façon de travailler">
-    <div><h3>Vos outils, pas les nôtres.</h3><p>On construit sur ce que votre équipe connaît déjà. Pas de nouveau logiciel à apprendre.</p></div>
-    <div><h3>Un seul interlocuteur.</h3><p>Vous parlez toujours à la personne qui construit, du diagnostic au suivi.</p></div>
-    <div><h3>En français, à l'heure de l'Est.</h3><p>Documentation, formation et suivi en français, avec un respect documenté de la Loi 25.</p></div>
+    <div><Doodle name="gear" class="p-icon" /><h3>Vos outils, pas les nôtres.</h3><p>On construit sur ce que votre équipe connaît déjà. Pas de nouveau logiciel à apprendre.</p></div>
+    <div><Doodle name="mail" class="p-icon" /><h3>Un seul interlocuteur.</h3><p>Vous parlez toujours à la personne qui construit, du diagnostic au suivi.</p></div>
+    <div><Doodle name="check" class="p-icon" /><h3>En français, conforme Loi 25.</h3><p>Documentation, formation et suivi en français, aux heures de l'Est.</p></div>
   </section>
 
   {posts.length > 0 && (
   <section class="journal container" id="blogue">
-    <div class="journal-head"><p class="eyebrow">Blogue</p><a class="link-arrow" href="/blogue/">Tous les articles <span aria-hidden="true">→</span></a></div>
+    <div class="journal-head"><p class="pill">Blogue</p><a class="link-cta" href="/blogue/">Tous les articles <span aria-hidden="true">→</span></a></div>
     <ul class="journal-list">
       {posts.map((p) => (
         <li><a href={`/blogue/${p.id}/`}><span class="j-cat">{p.data.category}</span><span class="j-title">{p.data.title}</span><span class="j-arrow" aria-hidden="true">→</span></a></li>
@@ -206,21 +236,31 @@ const faqLd = {
 
   <!-- ========== FAQ ========== -->
   <section class="faq2 container" id="faq" aria-labelledby="faq-title">
-    <h2 id="faq-title" class="h2">Questions fréquentes</h2>
+    <div>
+      <h2 id="faq-title" class="h2">Questions fréquentes</h2>
+      <p class="faq-more">Une autre question ? Le plus simple, c'est d'en parler 30 minutes.</p>
+      <a class="btn btn-primary" href={bookingHref}>Réserver un appel <span class="arr" aria-hidden="true">→</span></a>
+    </div>
     <div class="faq-list">
       {faqs.map(([q, a]) => (<details><summary>{q}</summary><p>{a}</p></details>))}
     </div>
   </section>
 
-  <!-- ========== CTA ========== -->
+  <!-- ========== CTA final ========== -->
   <section class="cta-end" id="rdv">
+    <Doodle name="star" class="float d-end-star" />
+    <Doodle name="spiral" class="float d-end-spiral" />
+    <Doodle name="bolt" class="float d-end-bolt" />
     <div class="container">
-      <p class="eyebrow">Prochaine étape</p>
+      <p class="hand cta-hand">c'est le moment</p>
       <h2 class="display-2">Trouvons les heures que votre agence perd.</h2>
       <p class="cta-lead">Un appel de 30 minutes, sans engagement. Vous repartez avec au moins une idée d'automatisation applicable, même si on ne travaille pas ensemble.</p>
-      <a class="btn btn-primary btn-lg" href={bookingHref}>Choisir un moment</a>
+      <a class="btn btn-primary btn-xl" href={bookingHref}>Choisir un moment <span class="arr" aria-hidden="true">→</span></a>
     </div>
   </section>
+
+  <!-- Barre d'action mobile -->
+  <div class="mobile-cta" id="mobileCta"><span>Appel découverte · 30 min</span><a class="btn btn-primary" href={bookingHref}>Réserver</a></div>
 </Base>
 
 <script>
@@ -229,29 +269,31 @@ const faqLd = {
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = (n: number) => Math.round(n).toLocaleString('fr-CA');
+  let lenis: Lenis | null = null;
 
-  /* Défilement fluide */
   if (!reduce) {
-    const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 1 });
-    const raf = (t: number) => { lenis.raf(t); requestAnimationFrame(raf); };
+    lenis = new Lenis({ lerp: 0.11 });
+    const raf = (t: number) => { lenis!.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
-    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"], a[href^="/#"]').forEach((a) => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href')!.replace('/', '');
-        const el = document.querySelector(id);
-        if (el && location.pathname === '/') { e.preventDefault(); lenis.scrollTo(el as HTMLElement, { offset: -20 }); history.replaceState(null, '', id); }
-      });
-    });
   }
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"], a[href^="/#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href')!.replace('/', '');
+      const el = document.querySelector<HTMLElement>(id);
+      if (el && location.pathname === '/' && lenis) { e.preventDefault(); lenis.scrollTo(el, { offset: -20 }); history.replaceState(null, '', id); }
+    });
+  });
 
   /* 3D */
   const cv = document.getElementById('hero3d') as HTMLCanvasElement;
   if (cv && initHero3D(cv, { reduce })) document.querySelector('.hero')!.classList.add('has-3d');
-
-  /* Titre : mots qui montent */
   document.querySelectorAll<HTMLElement>('.hero .w').forEach((w, i) => w.style.setProperty('--i', String(i)));
 
-  /* Énoncé : les mots s'allument au défilement */
+  /* Doodles qui se dessinent quand ils entrent à l'écran */
+  const dio = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('drawn'); dio.unobserve(e.target); } }), { threshold: 0.3 });
+  document.querySelectorAll('.doodle').forEach((d) => dio.observe(d));
+
+  /* Énoncé : les mots s'allument */
   const stmt = document.querySelector<HTMLElement>('.reveal-words');
   if (stmt && !reduce) {
     const wrap = (node: Node) => {
@@ -270,35 +312,67 @@ const faqLd = {
     const words = [...stmt.querySelectorAll<HTMLElement>('.rw')];
     const onS = () => {
       const r = stmt.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (window.innerHeight * 0.85 - r.top) / (r.height + window.innerHeight * 0.35)));
+      const p = Math.min(1, Math.max(0, (window.innerHeight * 0.85 - r.top) / (r.height + window.innerHeight * 0.3)));
       const lit = Math.floor(p * words.length);
       words.forEach((w, i) => w.classList.toggle('lit', i < lit));
     };
     window.addEventListener('scroll', onS, { passive: true }); onS();
   }
 
-  /* Écrans de l'histoire */
-
+  /* Histoire : scène épinglée pilotée par le défilement */
+  const pin = document.querySelector<HTMLElement>('.story-pin');
+  const items = [...document.querySelectorAll<HTMLElement>('.rail-item')];
   const slots = [...document.querySelectorAll<HTMLElement>('.ui-slot')];
-  const stepsEls = [...document.querySelectorAll<HTMLElement>('.story-step')];
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const i = Number((e.target as HTMLElement).dataset.step);
-      stepsEls.forEach((s, j) => s.classList.toggle('is-active', j === i));
-      slots.forEach((s, j) => s.classList.toggle('is-active', j === i));
-    });
-  }, { rootMargin: '-45% 0px -45% 0px' });
-  stepsEls.forEach((s) => io.observe(s));
-  stepsEls[0]?.classList.add('is-active');
+  const gains = [...document.querySelectorAll<HTMLElement>('.story-card .window-foot b')].map((b) => b.textContent);
+  const gainEl = document.getElementById('gain');
+  let current = 0;
+  const setStep = (i: number) => {
+    if (i === current) return;
+    current = i;
+    items.forEach((it, j) => { it.classList.toggle('is-active', j === i); it.classList.toggle('is-done', j < i); });
+    slots.forEach((s, j) => s.classList.toggle('is-active', j === i));
+    if (gainEl) { gainEl.classList.remove('pop'); void gainEl.offsetWidth; gainEl.textContent = gains[i] ?? ''; gainEl.classList.add('pop'); }
+  };
+  const onStory = () => {
+    if (!pin || getComputedStyle(pin).display === 'none') return;
+    const r = pin.getBoundingClientRect();
+    const total = r.height - window.innerHeight;
+    const p = Math.min(0.9999, Math.max(0, -r.top / total));
+    const n = items.length;
+    const i = Math.floor(p * n);
+    setStep(i);
+    items.forEach((it, j) => it.style.setProperty('--fill', String(Math.min(1, Math.max(0, p * n - j)))));
+  };
+  window.addEventListener('scroll', onStory, { passive: true }); onStory();
+  document.querySelectorAll<HTMLButtonElement>('[data-go]').forEach((b) => b.addEventListener('click', () => {
+    if (!pin) return;
+    const i = Number(b.dataset.go);
+    const top = pin.getBoundingClientRect().top + window.scrollY;
+    const y = top + ((pin.offsetHeight - window.innerHeight) * (i + 0.5)) / items.length;
+    lenis ? lenis.scrollTo(y) : window.scrollTo({ top: y, behavior: 'smooth' });
+  }));
 
   /* Calculateur */
   const h = document.getElementById('h') as HTMLInputElement, r = document.getElementById('r') as HTMLInputElement;
   const upd = () => {
     const hh = Math.max(0, +h.value || 0), rr = Math.max(0, +r.value || 0);
-    const yearly = hh * 52 * rr, saved = yearly * 0.6, hours = hh * 52 * 0.6;
+    const yearly = hh * 52 * rr;
     document.getElementById('out')!.textContent = fmt(yearly) + ' $';
-    document.getElementById('out2')!.textContent = `Si on en automatise 60 %, vous récupérez environ ${fmt(hours)} heures et ${fmt(saved)} $.`;
+    document.getElementById('out2')!.textContent = `En automatisant 60 %, vous récupérez environ ${fmt(hh * 52 * 0.6)} heures et ${fmt(yearly * 0.6)} $.`;
   };
-  [h, r].forEach((el) => el.addEventListener('input', upd)); upd();
+  [h, r].forEach((el) => el.addEventListener('input', upd));
+  document.querySelectorAll<HTMLButtonElement>('.step').forEach((b) => b.addEventListener('click', () => {
+    const el = b.dataset.t === 'h' ? h : r;
+    el.value = String(Math.min(+el.max, Math.max(+el.min, (+el.value || 0) + Number(b.dataset.d))));
+    upd();
+  }));
+  upd();
+
+  /* Barre d'action mobile : visible après le hero, cachée près du CTA final */
+  const mob = document.getElementById('mobileCta')!;
+  const hero = document.querySelector('.hero')!, end = document.getElementById('rdv')!;
+  let pastHero = false, atEnd = false;
+  const refresh = () => mob.classList.toggle('show', pastHero && !atEnd);
+  new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; refresh(); }).observe(hero);
+  new IntersectionObserver(([e]) => { atEnd = e.isIntersecting; refresh(); }).observe(end);
 </script>

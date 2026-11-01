@@ -1,0 +1,22 @@
+---
+// Petits dessins à main levée, en trait blanc. Usage : <Doodle name="spiral" class="..." />
+interface Props { name: 'spiral' | 'arrow' | 'star' | 'check' | 'bolt' | 'loop' | 'gear' | 'mail' | 'underline' | 'circle' | 'curl'; class?: string; }
+const { name, class: cls = '' } = Astro.props;
+const paths: Record<string, { vb: string; d: string[] }> = {
+  spiral: { vb: '0 0 80 80', d: ['M40 40c0-4 6-4 6 0 0 7-12 8-13 0-2-11 15-14 20-4 6 13-8 25-21 20C17 51 16 30 30 22c16-9 36 2 36 21 0 20-21 30-38 23'] },
+  arrow: { vb: '0 0 120 70', d: ['M6 52c20-26 52-40 98-34', 'M90 6c6 4 12 8 16 12-5 3-11 7-15 12'] },
+  star: { vb: '0 0 60 60', d: ['M30 6c2 12 6 18 24 24-16 4-21 9-24 24-3-15-8-20-24-24 17-6 22-12 24-24z'] },
+  check: { vb: '0 0 60 50', d: ['M6 28c6 5 11 10 16 16C30 30 41 17 54 6'] },
+  bolt: { vb: '0 0 50 80', d: ['M30 4 10 44h16l-6 32 24-44H28z'] },
+  loop: { vb: '0 0 160 60', d: ['M4 40c20 0 30-30 50-30s10 40-8 34S54 6 84 8s30 34 50 32 22-18 22-18'] },
+  gear: { vb: '0 0 70 70', d: ['M35 22a13 13 0 1 0 .1 0z', 'M35 6v8M35 56v8M6 35h8M56 35h8M14 14l6 6M50 50l6 6M14 56l6-6M50 20l6-6'] },
+  mail: { vb: '0 0 80 60', d: ['M8 12h64v38H8z', 'M8 13l32 22 32-22'] },
+  underline: { vb: '0 0 300 30', d: ['M4 18c60-10 140-14 210-8 30 3 56 6 82 2', 'M30 26c50-6 120-8 190-4'] },
+  circle: { vb: '0 0 200 90', d: ['M150 10C104-2 20 8 10 42c-8 30 70 44 130 36 44-6 62-30 50-50-10-16-40-20-70-18'] },
+  curl: { vb: '0 0 100 100', d: ['M90 10C60 10 30 30 40 50s40 10 30-6-40 0-46 20-4 22 0 26', 'M16 86l8 6 6-10'] },
+};
+const p = paths[name];
+---
+<svg class={`doodle doodle-${name} ${cls}`} viewBox={p.vb} fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {p.d.map((d) => <path d={d} pathLength="1" />)}
+</svg>
