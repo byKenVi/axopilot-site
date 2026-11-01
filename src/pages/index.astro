@@ -5,9 +5,67 @@ import { getPosts } from '../lib';
 import '../styles/home.css';
 
 const posts = (await getPosts()).slice(0, 3);
-const photo = ''; // ex. '/kevin.jpg' une fois la photo ajoutée dans public/
 
-const tools = ['HubSpot', 'Pipedrive', 'Make', 'n8n', 'Zapier', 'Google Workspace', 'Microsoft 365', 'Slack', 'Asana', 'ClickUp', 'Monday', 'Notion', 'GA4', 'Google Ads', 'Meta Ads', 'Looker Studio', 'QuickBooks', 'PandaDoc', 'Typeform', 'OpenAI'];
+const tools = ['HubSpot', 'Pipedrive', 'Make', 'n8n', 'Zapier', 'Google Workspace', 'Microsoft 365', 'Slack', 'Asana', 'ClickUp', 'Monday', 'Notion', 'GA4', 'Google Ads', 'Meta Ads', 'Looker Studio', 'QuickBooks', 'PandaDoc'];
+
+const steps = [
+  {
+    id: 'signature', time: 'Lundi · 9 h 02',
+    title: 'Agence Boréal signe un nouveau client.',
+    text: "Le contrat arrive signé. Personne n'a encore touché à rien, et c'est voulu.",
+  },
+  {
+    id: 'accueil', time: 'Lundi · 9 h 02 min 41 s',
+    title: 'Quarante et une secondes plus tard, tout est prêt.',
+    text: "Fiche CRM, dossier partagé, projet, courriel de bienvenue, avis à l'équipe. Sans oubli, sans relance.",
+  },
+  {
+    id: 'rapport', time: '1er du mois · 7 h 00',
+    title: 'Les rapports clients sont déjà dans la boîte.',
+    text: "Google Ads, GA4 et Meta réunis dans un rapport à vos couleurs. Il ne reste qu'à relire et envoyer.",
+  },
+  {
+    id: 'soumission', time: 'Mardi · 14 h 10',
+    title: 'Une demande de soumission arrive. Elle repart à 14 h 14.',
+    text: 'La demande est captée, qualifiée et transformée en brouillon de soumission. Vous validez, le prospect reçoit sa réponse le jour même.',
+  },
+];
+
+const UI: Record<string, string> = {
+    signature: `
+      <div class="ui-event"><span class="ui-badge">Déclencheur</span><b>Contrat signé</b><small>Agence Boréal × Clinique Dentaire Laval · PandaDoc</small></div>
+      <div class="ui-wait"><span class="spin"></span>AxioPilot prend le relais…</div>`,
+    accueil: `
+      <ul class="ui-log">
+        <li><span>9:02:06</span>Fiche client créée dans HubSpot<i>✓</i></li>
+        <li><span>9:02:14</span>Dossier Drive « Clinique Dentaire Laval »<i>✓</i></li>
+        <li><span>9:02:19</span>Projet Asana copié du gabarit<i>✓</i></li>
+        <li><span>9:02:29</span>Courriel de bienvenue + questionnaire<i>✓</i></li>
+        <li><span>9:02:41</span>Message dans #nouveaux-clients<i>✓</i></li>
+      </ul>
+      <div class="ui-total">5 tâches · 41 s · 0 erreur</div>`,
+    rapport: `
+      <div class="ui-report">
+        <div class="ui-report-h"><b>Rapport d'octobre</b><span>Clinique Dentaire Laval</span></div>
+        <div class="ui-kpis"><div><small>Clics</small><b>4 812</b><em>+18 %</em></div><div><small>Conversions</small><b>137</b><em>+22 %</em></div><div><small>Coût / conv.</small><b>21,40 $</b><em>−9 %</em></div></div>
+        <svg viewBox="0 0 300 80" class="ui-spark"><polyline points="0,62 30,58 60,60 90,48 120,50 150,38 180,40 210,28 240,30 270,16 300,12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>`,
+    soumission: `
+      <div class="ui-quote">
+        <div class="ui-quote-h"><b>Soumission #2026-114</b><span class="ui-badge ok">Envoyée 14 h 14</span></div>
+        <div class="ui-row"><span>Refonte du site Web</span><span>✓</span></div>
+        <div class="ui-row"><span>SEO local · 3 mois</span><span>✓</span></div>
+        <div class="ui-row"><span>Campagne Google Ads</span><span>✓</span></div>
+        <div class="ui-src">Source : formulaire du site · qualifiée « budget confirmé »</div>
+      </div>`,
+  };
+
+const phases = [
+  ['Jours 1 à 3', 'Diagnostic', "Un atelier de 90 minutes avec votre équipe. On cartographie le processus et on mesure le temps perdu."],
+  ['Jours 4 à 17', 'Construction', "On bâtit l'automatisation sur vos outils et on la teste avec de vrais cas. Un point d'étape par semaine."],
+  ['Jours 18 à 21', 'Mise en service', 'Lancement, formation de votre équipe et documentation en français.'],
+  ['Mois 1 à 3', 'Suivi', 'Surveillance, ajustements et un bilan mensuel des heures récupérées.'],
+];
 
 const faqs = [
   ['Faut-il changer nos outils ?', "Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence."],
@@ -24,441 +82,223 @@ const faqLd = {
 ---
 <Base jsonLd={faqLd}>
 
-  <!-- ============ HERO : le cockpit ============ -->
-  <section class="hero">
-    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="grid-floor" aria-hidden="true"></div>
-    <div class="shell hero-grid">
-      <div class="hero-copy">
-        <div class="status-pill"><span class="led"></span>Pilote automatique pour agences du Québec</div>
-        <h1 class="mega">
-          <span class="line"><span>Le pilote</span></span>
-          <span class="line"><span>automatique</span></span>
-          <span class="line"><span class="g">de votre agence.</span></span>
-        </h1>
-        <p class="hero-lead">Accueil des nouveaux clients, rapports mensuels, demandes de soumission : AxioPilot automatise les tâches qui grugent les heures de votre équipe. <strong>Livré en 21 jours</strong>, sur vos outils actuels.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary btn-xl magnetic" href={bookingHref}><span>Réserver un appel de 30 min</span><span class="arr">→</span></a>
-          <a class="btn btn-glass" href="#cockpit">Voir la démo en direct</a>
+  <!-- ========== HERO ========== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-stage" aria-hidden="true">
+      <canvas id="hero3d"></canvas>
+      <img class="hero-fallback" src="/logo-mark.png" alt="" width="222" height="154">
+    </div>
+    <div class="container hero-inner">
+      <p class="eyebrow">Automatisation pour agences · Québec</p>
+      <h1 id="hero-title" class="display">
+        <span class="w">Votre</span> <span class="w">agence,</span><br>
+        <span class="w">en</span> <span class="w accent">pilote</span><br>
+        <span class="w accent">automatique.</span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-lead">On automatise l'accueil des clients, les rapports et les soumissions des agences du Québec. Livré en 21 jours, sur les outils que vous utilisez déjà.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href={bookingHref}>Réserver un appel de 30 min</a>
+          <a class="link-arrow" href="#histoire">Voir comment ça marche <span aria-hidden="true">↓</span></a>
         </div>
-        <ul class="hero-proof">
-          <li><b>21</b><span>jours pour livrer</span></li>
-          <li><b>100 %</b><span>en français</span></li>
-          <li><b>Loi 25</b><span>documentée</span></li>
-        </ul>
-      </div>
-
-      <div class="cockpit" id="cockpit">
-        <div class="hud-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-        <div class="cockpit-top">
-          <span class="mono-s">AXP-01 · FLUX AGENCE</span>
-          <button class="ap-switch" id="apSwitch" type="button" role="switch" aria-checked="true">
-            <span class="ap-label">Pilote auto</span>
-            <span class="ap-track"><span class="ap-knob"></span></span>
-          </button>
-        </div>
-        <canvas id="flow" width="640" height="520" aria-label="Animation : des tâches circulent entre vos outils et sont traitées automatiquement par AxioPilot"></canvas>
-        <div class="cockpit-readouts">
-          <div><span class="mono-s">Tâches traitées</span><b id="rTasks">1 284</b></div>
-          <div><span class="mono-s">Erreurs</span><b id="rErr">0</b></div>
-          <div><span class="mono-s">Heures rendues</span><b id="rHours">96,3 h</b></div>
-        </div>
-        <p class="cockpit-hint mono-s" id="apHint">Désactivez le pilote automatique pour voir la différence.</p>
       </div>
     </div>
   </section>
 
-  <!-- ============ Bandeau outils ============ -->
-  <section class="marquee" aria-label="Outils compatibles">
-    <div class="marquee-track">
-      {[...tools, ...tools].map((t) => <span>{t}</span>)}
-    </div>
+  <!-- ========== Outils ========== -->
+  <section class="tools" aria-label="Outils compatibles">
+    <p class="container tools-label">Branché sur les outils de votre agence</p>
+    <div class="tools-row"><div class="tools-track">{[...tools, ...tools].map((t) => <span>{t}</span>)}</div></div>
   </section>
 
-  <!-- ============ Manuel vs pilote ============ -->
-  <section class="sec">
-    <div class="shell">
-      <div class="sec-head reveal">
-        <span class="kicker">01 · Le constat</span>
-        <h2 class="h-xl">Vos meilleurs talents font <em>du copier-coller.</em></h2>
-      </div>
-      <div class="versus reveal">
-        <div class="vs-col manual">
-          <div class="vs-tag">Mode manuel</div>
-          <ul>
-            <li><s>Créer la fiche client à la main</s><span>15 min</span></li>
-            <li><s>Copier le gabarit de projet</s><span>10 min</span></li>
-            <li><s>Relancer pour les accès</s><span>3 jours</span></li>
-            <li><s>Assembler le rapport mensuel</s><span>4 h / client</span></li>
-            <li><s>Répondre à la demande de soumission</s><span>48 h</span></li>
-          </ul>
-        </div>
-        <div class="vs-mid" aria-hidden="true"><span>VS</span></div>
-        <div class="vs-col auto">
-          <div class="vs-tag">Pilote automatique</div>
-          <ul>
-            <li><b>Fiche créée à la signature</b><span>6 s</span></li>
-            <li><b>Projet ouvert et daté</b><span>8 s</span></li>
-            <li><b>Rappels envoyés seuls</b><span>auto</span></li>
-            <li><b>Rapport prêt le 1er du mois</b><span>0 min</span></li>
-            <li><b>Soumission en brouillon</b><span>4 min</span></li>
-          </ul>
-        </div>
-      </div>
-      <p class="fine reveal">Durées indicatives pour une agence type. Les vôtres sont mesurées pendant le diagnostic.</p>
-    </div>
+  <!-- ========== Énoncé ========== -->
+  <section class="statement container">
+    <p class="big-text reveal-words">Vos meilleurs talents passent des heures à créer des dossiers, assembler des rapports et relancer des clients. <span class="dim">On rend ces heures à votre équipe, pour qu'elle les passe sur ce qui fait grandir l'agence.</span></p>
   </section>
 
-  <!-- ============ Bento cas d'usage ============ -->
-  <section class="sec" id="cas">
-    <div class="shell">
-      <div class="sec-head reveal">
-        <span class="kicker">02 · Ce qu'on automatise</span>
-        <h2 class="h-xl">Trois processus. <em>Des centaines d'heures.</em></h2>
+  <!-- ========== Histoire au défilement ========== -->
+  <section class="story" id="histoire" aria-labelledby="story-title">
+    <div class="container">
+      <div class="story-head">
+        <p class="eyebrow">Comment ça marche</p>
+        <h2 id="story-title" class="h2">Une semaine chez Agence Boréal, en pilote automatique.</h2>
+        <p class="note">Agence fictive. Le scénario, lui, est réel : c'est exactement ce qu'on met en place.</p>
       </div>
-      <div class="bento">
-        <article class="tile t-onboard spot reveal">
-          <div class="tile-ui">
-            <div class="notif n1"><i class="dot c"></i><div><b>Contrat signé</b><small>Agence Boréal · il y a 2 s</small></div></div>
-            <div class="notif n2"><i class="dot b"></i><div><b>Fiche CRM créée</b><small>Responsable : Julie T.</small></div></div>
-            <div class="notif n3"><i class="dot v"></i><div><b>Projet Asana ouvert</b><small>Gabarit « Site vitrine »</small></div></div>
-            <div class="notif n4"><i class="dot g"></i><div><b>Courriel de bienvenue envoyé</b><small>Questionnaire joint</small></div></div>
-          </div>
-          <div class="tile-txt">
-            <span class="tile-k">Accueil client</span>
-            <h3>Le nouveau client est accueilli avant que vous ayez raccroché.</h3>
-            <p>Fiche CRM, dossier partagé, projet, courriel de bienvenue et avis à l'équipe se créent dès la signature.</p>
-          </div>
-        </article>
 
-        <article class="tile t-report spot reveal">
-          <div class="tile-ui chart">
-            <div class="chart-head"><span>Rapport · Octobre</span><span class="chip">Prêt</span></div>
-            <div class="bars"><i style="--h:42%"></i><i style="--h:58%"></i><i style="--h:51%"></i><i style="--h:73%"></i><i style="--h:66%"></i><i style="--h:88%"></i><i style="--h:94%"></i></div>
-            <div class="chart-foot"><span>GA4</span><span>Google Ads</span><span>Meta</span></div>
-          </div>
-          <div class="tile-txt">
-            <span class="tile-k">Rapport mensuel</span>
-            <h3>Le 1er du mois, les rapports sont déjà prêts.</h3>
-            <p>Vos données publicitaires et analytiques réunies dans un rapport à vos couleurs, prêt à relire.</p>
-          </div>
-        </article>
-
-        <article class="tile t-quote spot reveal">
-          <div class="tile-ui doc">
-            <div class="doc-head"><b>Soumission #2026-114</b><span class="chip">Brouillon</span></div>
-            <div class="doc-line w90"></div><div class="doc-line w70"></div><div class="doc-line w80"></div>
-            <div class="doc-row"><span>Refonte site Web</span><span>✓</span></div>
-            <div class="doc-row"><span>SEO local · 3 mois</span><span>✓</span></div>
-            <div class="doc-stamp">Prête en 4 min</div>
-          </div>
-          <div class="tile-txt">
-            <span class="tile-k">Demande → soumission</span>
-            <h3>Chaque demande reçoit une réponse le jour même.</h3>
-            <p>Les demandes sont captées, qualifiées et transformées en brouillon de soumission.</p>
-          </div>
-        </article>
-
-        <article class="tile t-law spot reveal">
-          <div class="shield" aria-hidden="true">
-            <svg viewBox="0 0 64 72" width="56" height="63"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#27C8F6"/><stop offset="1" stop-color="#8F45FF"/></linearGradient></defs><path d="M32 3 59 13v20c0 18-12 30-27 36C17 63 5 51 5 33V13Z" fill="none" stroke="url(#sg)" stroke-width="3"/><path d="m21 36 8 8 15-17" fill="none" stroke="#3EE29A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="tile-txt">
-            <span class="tile-k">Loi 25</span>
-            <h3>Vos données restent dans vos comptes.</h3>
-            <p>Chaque flux de renseignements personnels est documenté.</p>
-          </div>
-        </article>
-
-        <article class="tile t-ui spot reveal">
-          <div class="tile-txt">
-            <span class="tile-k">Bonus</span>
-            <h3>Sites, portails clients et tableaux de bord.</h3>
-            <p>Quand l'automatisation a besoin d'une interface, on la conçoit aussi. Ce site en est la preuve.</p>
-          </div>
-          <div class="ui-swatches" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ Plan de vol ============ -->
-  <section class="sec flight" id="offre">
-    <div class="shell">
-      <div class="sec-head reveal">
-        <span class="kicker">03 · L'offre</span>
-        <h2 class="h-xl">Pack Sprint + Suivi. <em>Votre plan de vol.</em></h2>
-        <p class="sec-lead">21 jours pour livrer une automatisation qui fonctionne, puis 3 mois d'accompagnement pour qu'elle reste fiable et que votre équipe l'adopte. Prix fixe, confirmé dès le premier appel.</p>
-      </div>
-      <div class="route" id="route">
-        <svg class="route-line" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
-          <defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#27C8F6"/><stop offset=".5" stop-color="#2F6BFF"/><stop offset="1" stop-color="#8F45FF"/></linearGradient></defs>
-          <path d="M0,90 C180,90 220,30 400,30 S650,95 800,70 S940,20 1000,24" fill="none" stroke="rgba(120,140,255,.18)" stroke-width="2" stroke-dasharray="4 8"/>
-          <path id="routePath" d="M0,90 C180,90 220,30 400,30 S650,95 800,70 S940,20 1000,24" fill="none" stroke="url(#rg)" stroke-width="3" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0.15))"/>
-        </svg>
-        <ol class="waypoints">
-          <li class="reveal"><span class="wp-code">J1 → J3</span><span class="wp-dot"></span><h3>Décollage</h3><p>Atelier de 90 min avec votre équipe : on cartographie le processus et on mesure le temps perdu.</p></li>
-          <li class="reveal"><span class="wp-code">J4 → J17</span><span class="wp-dot"></span><h3>Croisière</h3><p>Construction sur vos outils, tests avec de vrais cas, point d'étape chaque semaine.</p></li>
-          <li class="reveal"><span class="wp-code">J18 → J21</span><span class="wp-dot"></span><h3>Atterrissage</h3><p>Mise en service, formation de l'équipe et documentation en français.</p></li>
-          <li class="reveal"><span class="wp-code">M1 → M3</span><span class="wp-dot"></span><h3>Suivi</h3><p>Surveillance, ajustements et bilan mensuel des heures récupérées.</p></li>
+      <div class="story-grid">
+        <ol class="story-steps">
+          {steps.map((s, i) => (
+            <li class="story-step" data-step={i}>
+              <span class="step-time">{s.time}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <div class="screen screen-inline" aria-hidden="true">
+                <Fragment set:html={UI[s.id]} />
+              </div>
+            </li>
+          ))}
         </ol>
-      </div>
-    </div>
-  </section>
 
-  <!-- ============ Calculateur jauge ============ -->
-  <section class="sec">
-    <div class="shell">
-      <div class="gauge-panel spot reveal">
-        <div class="gp-left">
-          <span class="kicker">04 · Calculez-le</span>
-          <h2 class="h-l">Combien vous coûtent les tâches répétitives ?</h2>
-          <div class="field"><label for="h">Heures manuelles par semaine <output id="ho">8 h</output></label><input id="h" type="range" min="1" max="40" value="8"></div>
-          <div class="field"><label for="r">Coût horaire chargé <output id="ro">55 $</output></label><input id="r" type="range" min="25" max="120" step="5" value="55"></div>
-          <div class="field"><label for="p">Part automatisable <output id="po">60 %</output></label><input id="p" type="range" min="20" max="90" step="5" value="60"></div>
-        </div>
-        <div class="gp-right" aria-live="polite">
-          <svg class="gauge" viewBox="0 0 240 150" aria-hidden="true">
-            <defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#27C8F6"/><stop offset=".55" stop-color="#2F6BFF"/><stop offset="1" stop-color="#8F45FF"/></linearGradient></defs>
-            <path d="M20,130 A100,100 0 0 1 220,130" fill="none" stroke="rgba(120,140,255,.15)" stroke-width="14" stroke-linecap="round"/>
-            <path id="gArc" d="M20,130 A100,100 0 0 1 220,130" fill="none" stroke="url(#gg)" stroke-width="14" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset=".6"/>
-            <g id="gNeedle" style="transform-origin:120px 130px"><line x1="120" y1="130" x2="120" y2="48" stroke="#EEF1FF" stroke-width="3" stroke-linecap="round"/><circle cx="120" cy="130" r="7" fill="#EEF1FF"/></g>
-          </svg>
-          <span class="mono-s">Récupérable chaque année</span>
-          <div class="big-num" id="out">13 728 $</div>
-          <p id="out2">soit environ 250 heures rendues à votre équipe.</p>
+        <div class="story-sticky" aria-hidden="true">
+          <div class="screen">
+            <div class="screen-bar"><i></i><i></i><i></i><span>axiopilot · journal d'exécution</span></div>
+            <div class="screen-body">
+              {steps.map((s, i) => (<div class={`ui-slot${i === 0 ? ' is-active' : ''}`} data-slot={i}><Fragment set:html={UI[s.id]} /></div>))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ À propos ============ -->
-  <section class="sec" id="apropos">
-    <div class="shell about2 reveal">
-      {photo && <img class="portrait2" src={photo} alt="Kevin, fondateur d'AxioPilot" width="220" height="220" loading="lazy">}
-      <div>
-        <span class="kicker">05 · Qui pilote</span>
-        <h2 class="h-l">Un interlocuteur unique, du diagnostic au suivi.</h2>
-        <p>AxioPilot a été fondée pour sortir les agences des tâches répétitives qui freinent leur croissance. On conçoit des automatisations avec Make, n8n, Zapier et l'IA, toujours sur les outils que votre équipe connaît déjà.</p>
-        <p>On travaille en français avec des agences du Québec, aux heures de l'Est. Vous parlez toujours à la personne qui construit.</p>
-      </div>
+  <!-- ========== Offre ========== -->
+  <section class="offer container" id="offre" aria-labelledby="offer-title">
+    <p class="eyebrow">L'offre · Pack Sprint + Suivi</p>
+    <h2 id="offer-title" class="display-2">21 jours pour livrer.<br><span class="dim">3 mois pour que ça dure.</span></h2>
+    <ol class="phases">
+      {phases.map(([when, title, text]) => (
+        <li><span class="ph-when">{when}</span><h3>{title}</h3><p>{text}</p></li>
+      ))}
+    </ol>
+    <div class="offer-foot">
+      <p>Un prix fixe, confirmé dès le premier appel. Pas de facturation à l'heure, pas de surprise.</p>
+      <a class="btn btn-primary btn-lg" href={bookingHref}>Parler de votre processus</a>
     </div>
+  </section>
+
+  <!-- ========== Calculateur ========== -->
+  <section class="calc container" aria-labelledby="calc-title">
+    <p class="eyebrow">Faites le calcul</p>
+    <h2 id="calc-title" class="sr-only">Combien vous coûtent les tâches répétitives</h2>
+    <form class="madlib" id="madlib" onsubmit="return false">
+      <p>
+        Notre équipe passe
+        <label class="fieldwrap"><span class="sr-only">Heures par semaine</span><input id="h" type="number" inputmode="numeric" min="1" max="80" value="8"><span>h</span></label>
+        par semaine sur des tâches répétitives, à
+        <label class="fieldwrap"><span class="sr-only">Coût horaire</span><input id="r" type="number" inputmode="numeric" min="15" max="250" step="5" value="55"><span>$</span></label>
+        de l'heure.
+      </p>
+    </form>
+    <div class="calc-result" aria-live="polite">
+      <span class="calc-k">Ce que ça coûte par année</span>
+      <span class="calc-num" id="out">22 880 $</span>
+      <span class="calc-sub" id="out2">Si on en automatise 60 %, vous récupérez environ 250 heures et 13 728 $.</span>
+    </div>
+  </section>
+
+  <!-- ========== Principes ========== -->
+  <section class="principles container" aria-label="Notre façon de travailler">
+    <div><h3>Vos outils, pas les nôtres.</h3><p>On construit sur ce que votre équipe connaît déjà. Pas de nouveau logiciel à apprendre.</p></div>
+    <div><h3>Un seul interlocuteur.</h3><p>Vous parlez toujours à la personne qui construit, du diagnostic au suivi.</p></div>
+    <div><h3>En français, à l'heure de l'Est.</h3><p>Documentation, formation et suivi en français, avec un respect documenté de la Loi 25.</p></div>
   </section>
 
   {posts.length > 0 && (
-  <section class="sec" id="blogue">
-    <div class="shell">
-      <div class="sec-head reveal"><span class="kicker">Blogue</span><h2 class="h-l">Guides pratiques pour agences</h2></div>
-      <div class="posts">
-        {posts.map((p) => (
-          <a class="post spot" href={`/blogue/${p.id}/`}><span class="meta">{p.data.category}{p.data.readingTime && ` · ${p.data.readingTime} min`}</span><h3>{p.data.title}</h3><span class="post-go">Lire →</span></a>
-        ))}
-      </div>
-    </div>
+  <section class="journal container" id="blogue">
+    <div class="journal-head"><p class="eyebrow">Blogue</p><a class="link-arrow" href="/blogue/">Tous les articles <span aria-hidden="true">→</span></a></div>
+    <ul class="journal-list">
+      {posts.map((p) => (
+        <li><a href={`/blogue/${p.id}/`}><span class="j-cat">{p.data.category}</span><span class="j-title">{p.data.title}</span><span class="j-arrow" aria-hidden="true">→</span></a></li>
+      ))}
+    </ul>
   </section>
   )}
 
-  <!-- ============ FAQ ============ -->
-  <section class="sec">
-    <div class="shell faq-grid">
-      <div class="sec-head reveal"><span class="kicker">Questions fréquentes</span><h2 class="h-l">Avant de décoller</h2></div>
-      <div class="faq">
-        {faqs.map(([q, a]) => (<details><summary>{q}</summary><p>{a}</p></details>))}
-      </div>
+  <!-- ========== FAQ ========== -->
+  <section class="faq2 container" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="h2">Questions fréquentes</h2>
+    <div class="faq-list">
+      {faqs.map(([q, a]) => (<details><summary>{q}</summary><p>{a}</p></details>))}
     </div>
   </section>
 
-  <!-- ============ CTA final ============ -->
-  <section class="sec final-sec" id="rdv">
-    <div class="shell">
-      <div class="final2">
-        <div class="final-glow" aria-hidden="true"></div>
-        <span class="kicker">Prêt pour le décollage</span>
-        <h2 class="mega-s">Engagez le pilote automatique.</h2>
-        <p>Un appel de 30 minutes, sans engagement. Vous repartez avec au moins une idée d'automatisation applicable, même si on ne travaille pas ensemble.</p>
-        <a class="btn btn-primary btn-xl magnetic" href={bookingHref}><span>Choisir un moment</span><span class="arr">→</span></a>
-      </div>
+  <!-- ========== CTA ========== -->
+  <section class="cta-end" id="rdv">
+    <div class="container">
+      <p class="eyebrow">Prochaine étape</p>
+      <h2 class="display-2">Trouvons les heures que votre agence perd.</h2>
+      <p class="cta-lead">Un appel de 30 minutes, sans engagement. Vous repartez avec au moins une idée d'automatisation applicable, même si on ne travaille pas ensemble.</p>
+      <a class="btn btn-primary btn-lg" href={bookingHref}>Choisir un moment</a>
     </div>
   </section>
 </Base>
 
 <script>
+  import Lenis from 'lenis';
+  import { initHero3D } from '../scripts/hero3d';
+
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const fmt = (n: number, d = 0) => n.toLocaleString('fr-CA', { maximumFractionDigits: d, minimumFractionDigits: d });
+  const fmt = (n: number) => Math.round(n).toLocaleString('fr-CA');
 
-  /* ---------- Cockpit : flux animé ---------- */
-  const cv = document.getElementById('flow') as HTMLCanvasElement | null;
-  const sw = document.getElementById('apSwitch') as HTMLButtonElement | null;
-  if (cv && sw) {
-    const ctx = cv.getContext('2d')!;
-    let W = 0, H = 0, dpr = 1;
-    let auto = true;
-    const srcNames = ['Contrat signé', 'Formulaire', 'Gmail', 'GA4', 'Meta Ads'];
-    const dstNames = ['CRM', 'Drive', 'Asana', 'Slack', 'Rapport'];
-    type Node = { x: number; y: number; label: string };
-    let src: Node[] = [], dst: Node[] = [], hub = { x: 0, y: 0 }, fontSize = 11;
-    const logo = new Image(); logo.src = '/logo-mark.png';
-    function layout() {
-      const r = cv!.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = r.width; H = r.height;
-      cv!.width = W * dpr; cv!.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const padY = H * 0.12, step = (H - padY * 2) / (srcNames.length - 1);
-      const fs = W < 420 ? 9.5 : 11;
-      ctx.font = `500 ${fs}px "JetBrains Mono", monospace`;
-      const lw = Math.max(...srcNames.map((l) => ctx.measureText(l).width)) + 18;
-      const rw = Math.max(...dstNames.map((l) => ctx.measureText(l).width)) + 18;
-      src = srcNames.map((l, i) => ({ x: Math.max(W * 0.14, lw), y: padY + i * step, label: l }));
-      dst = dstNames.map((l, i) => ({ x: Math.min(W * 0.86, W - rw), y: padY + i * step, label: l }));
-      fontSize = fs;
-      hub = { x: W / 2, y: H / 2 };
-    }
-    type P = { a: Node; b: Node; t: number; leg: 0 | 1; v: number; bad: boolean; dead: number };
-    const parts: P[] = [];
-    let tasks = 1284, errs = 0, hours = 96.3;
-    const elT = document.getElementById('rTasks')!, elE = document.getElementById('rErr')!, elH = document.getElementById('rHours')!;
-    function spawn() {
-      const a = src[(Math.random() * src.length) | 0], b = dst[(Math.random() * dst.length) | 0];
-      parts.push({ a, b, t: 0, leg: 0, v: auto ? 0.012 + Math.random() * 0.006 : 0.003 + Math.random() * 0.004, bad: !auto && Math.random() < 0.35, dead: 0 });
-    }
-    function bez(p0: any, p1: any, t: number) {
-      const cx = (p0.x + p1.x) / 2, c1 = { x: cx, y: p0.y }, c2 = { x: cx, y: p1.y };
-      const u = 1 - t;
-      return { x: u * u * u * p0.x + 3 * u * u * t * c1.x + 3 * u * t * t * c2.x + t * t * t * p1.x, y: u * u * u * p0.y + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t * t * t * p1.y };
-    }
-    function curve(p0: any, p1: any) {
-      const cx = (p0.x + p1.x) / 2;
-      ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.bezierCurveTo(cx, p0.y, cx, p1.y, p1.x, p1.y); ctx.stroke();
-    }
-    let last = 0, acc = 0, tick = 0;
-    function frame(ts: number) {
-      const dt = Math.min(48, ts - last || 16); last = ts; tick += dt;
-      ctx.clearRect(0, 0, W, H);
-      // liens
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = auto ? 'rgba(80,120,255,.22)' : 'rgba(150,150,180,.12)';
-      [...src, ...dst].forEach((n) => curve(n, hub));
-      // apparition
-      acc += dt;
-      const rate = auto ? 140 : 420;
-      while (acc > rate) { acc -= rate; if (parts.length < 60) spawn(); }
-      // particules
-      for (let i = parts.length - 1; i >= 0; i--) {
-        const p = parts[i];
-        if (p.dead) { p.dead += dt; if (p.dead > 700) parts.splice(i, 1); continue; }
-        p.t += p.v * (dt / 16);
-        if (!auto && p.bad && p.leg === 1 && p.t > 0.45) { p.dead = 1; errs++; elE.textContent = fmt(errs); continue; }
-        if (p.t >= 1) {
-          if (p.leg === 0) { p.leg = 1; p.t = 0; }
-          else { parts.splice(i, 1); if (auto) { tasks++; hours += 0.07; elT.textContent = fmt(tasks); elH.textContent = fmt(hours, 1) + ' h'; } continue; }
-        }
-        const pos = p.leg === 0 ? bez(p.a, hub, p.t) : bez(hub, p.b, p.t);
-        const col = !auto && p.bad ? '255,92,122' : p.leg === 0 ? '39,200,246' : '143,69,255';
-        const jit = auto ? 0 : (Math.random() - 0.5) * 2.5;
-        const g = ctx.createRadialGradient(pos.x, pos.y + jit, 0, pos.x, pos.y + jit, 12);
-        g.addColorStop(0, `rgba(${col},.95)`); g.addColorStop(1, `rgba(${col},0)`);
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(pos.x, pos.y + jit, 12, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(pos.x, pos.y + jit, 1.8, 0, Math.PI * 2); ctx.fill();
-      }
-      // particules perdues
-      parts.forEach((p) => {
-        if (!p.dead) return;
-        const pos = bez(hub, p.b, 0.45);
-        ctx.strokeStyle = `rgba(255,92,122,${1 - p.dead / 700})`; ctx.lineWidth = 2;
-        const s = 5; ctx.beginPath(); ctx.moveTo(pos.x - s, pos.y - s); ctx.lineTo(pos.x + s, pos.y + s); ctx.moveTo(pos.x + s, pos.y - s); ctx.lineTo(pos.x - s, pos.y + s); ctx.stroke();
+  /* Défilement fluide */
+  if (!reduce) {
+    const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 1 });
+    const raf = (t: number) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"], a[href^="/#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href')!.replace('/', '');
+        const el = document.querySelector(id);
+        if (el && location.pathname === '/') { e.preventDefault(); lenis.scrollTo(el as HTMLElement, { offset: -20 }); history.replaceState(null, '', id); }
       });
-      // noeuds
-      ctx.font = `500 ${fontSize}px "JetBrains Mono", monospace`;
-      const drawNode = (n: Node, right: boolean) => {
-        ctx.fillStyle = 'rgba(14,20,56,.95)'; ctx.strokeStyle = auto ? 'rgba(39,200,246,.55)' : 'rgba(160,165,200,.35)'; ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.arc(n.x, n.y, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = 'rgba(205,211,240,.85)'; ctx.textAlign = right ? 'left' : 'right'; ctx.textBaseline = 'middle';
-        ctx.fillText(n.label, n.x + (right ? 12 : -12), n.y);
-      };
-      src.forEach((n) => drawNode(n, false)); dst.forEach((n) => drawNode(n, true));
-      // hub
-      const pulse = 1 + Math.sin(tick / 400) * 0.06;
-      const R = Math.min(W, H) * 0.12 * pulse;
-      const hg = ctx.createRadialGradient(hub.x, hub.y, 0, hub.x, hub.y, R * 2.4);
-      hg.addColorStop(0, auto ? 'rgba(47,107,255,.45)' : 'rgba(255,92,122,.22)'); hg.addColorStop(1, 'rgba(47,107,255,0)');
-      ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(hub.x, hub.y, R * 2.4, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#070A1F'; ctx.strokeStyle = auto ? 'rgba(39,200,246,.8)' : 'rgba(255,92,122,.6)'; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(hub.x, hub.y, R, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      // anneau rotatif
-      ctx.save(); ctx.translate(hub.x, hub.y); ctx.rotate(tick / (auto ? 900 : 3000));
-      ctx.strokeStyle = 'rgba(143,69,255,.7)'; ctx.setLineDash([4, 10]); ctx.beginPath(); ctx.arc(0, 0, R + 9, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); ctx.setLineDash([]);
-      if (logo.complete && logo.naturalWidth) {
-        const lw = R * 1.25, lh = lw * (logo.naturalHeight / logo.naturalWidth);
-        ctx.globalCompositeOperation = 'screen'; ctx.drawImage(logo, hub.x - lw / 2, hub.y - lh / 2, lw, lh); ctx.globalCompositeOperation = 'source-over';
-      }
-      if (!reduce) requestAnimationFrame(frame);
-    }
-    layout();
-    document.fonts?.ready.then(layout);
-    for (let i = 0; i < 26; i++) { spawn(); parts[parts.length - 1].t = Math.random(); parts[parts.length - 1].leg = (Math.random() < 0.5 ? 0 : 1); }
-    window.addEventListener('resize', layout);
-    logo.onload = () => { if (reduce) frame(performance.now()); };
-    requestAnimationFrame(frame);
-    const hint = document.getElementById('apHint')!;
-    const cockpit = document.querySelector('.cockpit')!;
-    sw.addEventListener('click', () => {
-      auto = !auto;
-      sw.setAttribute('aria-checked', String(auto));
-      cockpit.classList.toggle('is-manual', !auto);
-      hint.textContent = auto ? 'Pilote automatique engagé : tout circule, rien ne se perd.' : 'Mode manuel : tout ralentit, et des tâches se perdent en route.';
-      parts.forEach((p) => { p.v = auto ? 0.012 + Math.random() * 0.006 : 0.003 + Math.random() * 0.004; p.bad = !auto && Math.random() < 0.35; });
-      if (reduce) frame(performance.now());
     });
   }
 
-  /* ---------- Révélations au défilement ---------- */
-  const els = document.querySelectorAll<HTMLElement>('.reveal');
-  if ('IntersectionObserver' in window && !reduce) {
-    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
-    els.forEach((el) => { if (el.getBoundingClientRect().top > window.innerHeight) { el.classList.add('pre'); io.observe(el); } });
-  }
+  /* 3D */
+  const cv = document.getElementById('hero3d') as HTMLCanvasElement;
+  if (cv && initHero3D(cv, { reduce })) document.querySelector('.hero')!.classList.add('has-3d');
 
-  /* ---------- Projecteur sous le curseur ---------- */
-  document.querySelectorAll<HTMLElement>('.spot').forEach((el) => {
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty('--mx', `${e.clientX - r.left}px`); el.style.setProperty('--my', `${e.clientY - r.top}px`);
-    });
-  });
+  /* Titre : mots qui montent */
+  document.querySelectorAll<HTMLElement>('.hero .w').forEach((w, i) => w.style.setProperty('--i', String(i)));
 
-  /* ---------- Boutons magnétiques ---------- */
-  if (!reduce && window.matchMedia('(pointer:fine)').matches) {
-    document.querySelectorAll<HTMLElement>('.magnetic').forEach((b) => {
-      b.addEventListener('pointermove', (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`; });
-      b.addEventListener('pointerleave', () => { b.style.transform = ''; });
-    });
-  }
-
-  /* ---------- Plan de vol : progression au défilement ---------- */
-  const route = document.getElementById('route');
-  if (route) {
-    const onScroll = () => {
-      const r = route.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0.15, 1 - (r.top + r.height * 0.3) / window.innerHeight));
-      route.style.setProperty('--p', p.toFixed(3));
+  /* Énoncé : les mots s'allument au défilement */
+  const stmt = document.querySelector<HTMLElement>('.reveal-words');
+  if (stmt && !reduce) {
+    const wrap = (node: Node) => {
+      [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent!.split(/(\s+)/).forEach((part) => {
+            if (!part.trim()) { frag.appendChild(document.createTextNode(part)); return; }
+            const s = document.createElement('span'); s.className = 'rw'; s.textContent = part; frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else wrap(n);
+      });
     };
-    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    wrap(stmt);
+    const words = [...stmt.querySelectorAll<HTMLElement>('.rw')];
+    const onS = () => {
+      const r = stmt.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (window.innerHeight * 0.85 - r.top) / (r.height + window.innerHeight * 0.35)));
+      const lit = Math.floor(p * words.length);
+      words.forEach((w, i) => w.classList.toggle('lit', i < lit));
+    };
+    window.addEventListener('scroll', onS, { passive: true }); onS();
   }
 
-  /* ---------- Calculateur jauge ---------- */
-  const h = document.getElementById('h') as HTMLInputElement, r = document.getElementById('r') as HTMLInputElement, pp = document.getElementById('p') as HTMLInputElement;
-  const arc = document.getElementById('gArc')!, needle = document.getElementById('gNeedle')!;
-  function upd() {
-    const hrs = +h.value * 52 * (+pp.value / 100), cost = hrs * +r.value;
-    document.getElementById('ho')!.textContent = h.value + ' h';
-    document.getElementById('ro')!.textContent = r.value + ' $';
-    document.getElementById('po')!.textContent = pp.value + ' %';
-    document.getElementById('out')!.textContent = fmt(Math.round(cost)) + ' $';
-    document.getElementById('out2')!.textContent = 'soit environ ' + fmt(Math.round(hrs)) + ' heures rendues à votre équipe.';
-    const f = Math.min(1, cost / 100000);
-    arc.setAttribute('stroke-dashoffset', String(1 - f));
-    needle.style.transform = `rotate(${-90 + f * 180}deg)`;
-  }
-  [h, r, pp].forEach((el) => el.addEventListener('input', upd)); upd();
+  /* Écrans de l'histoire */
+
+  const slots = [...document.querySelectorAll<HTMLElement>('.ui-slot')];
+  const stepsEls = [...document.querySelectorAll<HTMLElement>('.story-step')];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const i = Number((e.target as HTMLElement).dataset.step);
+      stepsEls.forEach((s, j) => s.classList.toggle('is-active', j === i));
+      slots.forEach((s, j) => s.classList.toggle('is-active', j === i));
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  stepsEls.forEach((s) => io.observe(s));
+  stepsEls[0]?.classList.add('is-active');
+
+  /* Calculateur */
+  const h = document.getElementById('h') as HTMLInputElement, r = document.getElementById('r') as HTMLInputElement;
+  const upd = () => {
+    const hh = Math.max(0, +h.value || 0), rr = Math.max(0, +r.value || 0);
+    const yearly = hh * 52 * rr, saved = yearly * 0.6, hours = hh * 52 * 0.6;
+    document.getElementById('out')!.textContent = fmt(yearly) + ' $';
+    document.getElementById('out2')!.textContent = `Si on en automatise 60 %, vous récupérez environ ${fmt(hours)} heures et ${fmt(saved)} $.`;
+  };
+  [h, r].forEach((el) => el.addEventListener('input', upd)); upd();
 </script>
