@@ -80,7 +80,7 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 .prose a{color:var(--blue);text-underline-offset:3px}
 .prose strong{color:var(--fg)}
 .prose code{font:400 .9em var(--mono);background:var(--surface);padding:2px 6px;border-radius:6px}
-.prose blockquote{margin:24px 0;padding:4px 0 4px 20px;border-left:2px solid var(--violet);color:var(--muted)}
+.prose blockquote{margin:24px 0;padding:14px 20px;border-left:3px solid var(--blue);background:var(--paper);border-radius:0 12px 12px 0;color:var(--ink)}
 .prose table{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:24px}
 .prose th,.prose td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
 .table-wrap{overflow-x:auto}

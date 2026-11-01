@@ -4,7 +4,7 @@ description: "Les 10 étapes de l'accueil client qu'une agence peut automatiser,
 date: 2026-11-04
 category: Guide
 readingTime: 7
-draft: true
+draft: false
 ---
 
 Un nouveau client vient de signer. C'est une bonne nouvelle, et pourtant, dans la plupart des agences, c'est aussi le début d'une série de petites tâches manuelles : créer la fiche dans le CRM, ouvrir le dossier partagé, copier le gabarit de projet, envoyer le questionnaire d'accueil, demander les accès, prévenir l'équipe.
