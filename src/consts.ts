@@ -3,7 +3,7 @@ export const SITE = {
   url: 'https://axiopilot.com',
   title: 'AxioPilot · Automatisation pour agences du Québec',
   description:
-    "AxioPilot automatise l'accueil des nouveaux clients, le rapport mensuel et les demandes de soumission des agences marketing et web du Québec. Livré en 21 jours, avec vos outils.",
+    "AxioPilot aide les agences marketing et web du Québec à récupérer les heures perdues en tâches répétitives : accueil des clients, rapports, soumissions, facturation. Livré en 21 jours.",
   email: 'kevin@axiopilot.com',
   linkedin: '', // à compléter : URL de la page LinkedIn
   // Lien de l'agenda de réservation Google Agenda. Tant qu'il est vide, les boutons ouvrent un courriel.

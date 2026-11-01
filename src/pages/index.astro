@@ -44,18 +44,29 @@ const steps = [
   { id: 'soumission', label: 'Soumission', time: 'Mardi · 14 h 10', title: 'Une demande arrive à 14\u00a0h\u00a010. Elle repart à 14\u00a0h\u00a014.', text: 'La demande est captée, qualifiée et transformée en brouillon de soumission. Vous validez, le prospect a sa réponse le jour même.', gain: 'Réponse en 4 min au lieu de 48 h', saved: 7.5, before: ['Lire la demande… deux jours après', 'Monter la soumission à la main'], cta: 'Automatiser mes soumissions' },
 ];
 
+const pains = [
+  ['mail', 'Accueil des nouveaux clients', 'Fiche CRM, dossier, projet, accès à réclamer : 2 à 3\u00a0h par client signé.'],
+  ['spiral', 'Rapports clients mensuels', 'Exports Google Ads, GA4, Meta, copier-coller, mise en page : 2 à 4\u00a0h par client, chaque mois.'],
+  ['bolt', 'Soumissions et suivi des prospects', 'Des demandes qui attendent deux jours, des relances que personne ne fait.'],
+  ['check', 'Approbations des clients', 'Maquettes, textes, publications : les validations qui se perdent dans les courriels.'],
+  ['star', 'Facturation et relances de paiement', 'Factures à préparer, comptes en retard à relancer, suivi des acomptes.'],
+  ['loop', 'Double saisie entre les outils', 'Le même renseignement tapé dans le CRM, l\'outil de projet et la facturation.'],
+] as const;
+
 const phases = [
-  ['Jours 1 à 3', 'Diagnostic', "Un atelier de 90 minutes avec votre équipe. On cartographie le processus et on mesure le temps perdu."],
+  ['Jours 1 à 3', 'Diagnostic', "Un atelier de 90 minutes avec votre équipe. On repère les tâches qui vous coûtent le plus d'heures, on les chiffre et on choisit ensemble celle à automatiser en premier."],
   ['Jours 4 à 17', 'Construction', "On bâtit l'automatisation sur vos outils et on la teste avec de vrais cas. Un point d'étape par semaine."],
   ['Jours 18 à 21', 'Mise en service', 'Lancement, formation de votre équipe et documentation en français.'],
   ['Mois 1 à 3', 'Suivi', 'Surveillance, ajustements et un bilan mensuel des heures récupérées.'],
 ];
 
 const faqs = [
+  ["Qu'est-ce que vous automatisez exactement ?", "Les tâches répétitives qui font perdre du temps à votre équipe chaque semaine : accueil des nouveaux clients, rapports mensuels, soumissions et relances de prospects, approbations, facturation, double saisie entre vos outils. Le premier appel sert justement à trouver celles qui vous coûtent le plus."],
   ['Faut-il changer nos outils ?', "Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence."],
   ["Qu'arrive-t-il aux données de nos clients ?", "Les données restent dans vos comptes. On documente chaque flux de renseignements personnels pour vous aider à respecter la Loi 25, et les accès sont retirés à la fin du mandat si vous le souhaitez."],
   ["Et si l'automatisation brise ?", "Les 3 mois de suivi sont faits pour ça : surveillance des erreurs, alertes et corrections. Votre équipe reçoit aussi une documentation simple pour comprendre ce qui roule."],
   ['Combien ça coûte ?', "Le Pack Sprint + Suivi est offert à prix fixe. On vous le confirme au premier appel, après avoir vu le processus à automatiser."],
+  ['Travaillez-vous avec des agences hors du Québec ?', "Pour l'instant, on se concentre sur les agences marketing et web du Québec : tout est pensé pour elles, en français, conforme à la Loi 25 et facturé en dollars canadiens. Les agences francophones ailleurs au Canada sont aussi les bienvenues."],
   ['Vous faites aussi des sites et des interfaces ?', "Oui. Ce site en est un exemple. On conçoit aussi des portails clients, des tableaux de bord et des interfaces internes quand l'automatisation en a besoin."],
 ];
 const faqLd = {
@@ -76,13 +87,14 @@ const faqLd = {
     <Doodle name="star" class="float d-hero-star" />
     <Doodle name="spiral" class="float d-hero-spiral" />
     <div class="container hero-inner">
+      <p class="hero-kicker">Pour les agences marketing et web du Québec</p>
       <h1 id="hero-title" class="display">
         <span class="w">Votre</span> <span class="w">agence,</span><br>
         <span class="w">en</span> <span class="w hl">pilote<Doodle name="underline" class="hl-line" /></span><br>
         <span class="w">automatique.</span>
       </h1>
       <div class="hero-bottom">
-        <p class="hero-lead">On automatise l'accueil des clients, les rapports et les soumissions des agences du Québec. <strong>Livré en 21 jours</strong>, sur les outils que vous utilisez déjà.</p>
+        <p class="hero-lead">Chaque semaine, votre équipe perd des heures en tâches répétitives. <strong>On trouve celles qui vous coûtent le plus et on les automatise</strong>, en 21 jours, sur les outils que vous utilisez déjà.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary btn-lg" href={bookingHref}>Réserver un appel de 30 min <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn btn-ghost btn-lg" href="#histoire">Voir comment ça marche</a>
@@ -108,12 +120,31 @@ const faqLd = {
     <a class="btn btn-primary" href={bookingHref}>Voir ce qu'on peut automatiser chez vous <span class="arr" aria-hidden="true">→</span></a>
   </section>
 
+  <!-- ========== Ce qu'on automatise ========== -->
+  <section class="pains container" id="automatisations" aria-labelledby="pains-title">
+    <div class="pains-head rv">
+      <p class="pill">Ce qu'on automatise</p>
+      <h2 id="pains-title" class="h2">Là où les agences du Québec perdent leurs heures.</h2>
+      <p class="pains-lead">Ce sont les six chantiers qu'on retrouve le plus souvent. Chez vous, le plus coûteux sera peut-être un autre : le premier appel sert à le trouver.</p>
+    </div>
+    <ul class="pains-grid">
+      {pains.map(([icon, title, text], i) => (
+        <li class="pain rv" style={`--d:${i % 3}`}><Doodle name={icon} class="pain-icon" /><h3>{title}</h3><p>{text}</p></li>
+      ))}
+      <li class="pain pain-cta rv" style="--d:2">
+        <p class="hand">et chez vous ?</p>
+        <h3>Une autre tâche vous prend des heures chaque semaine ?</h3>
+        <a class="btn btn-primary" href={bookingHref}>Trouvons-la ensemble <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+    </ul>
+  </section>
+
   <!-- ========== Histoire ========== -->
   <section class="story" id="histoire" aria-labelledby="story-title">
     <div class="container story-head rv">
       <p class="pill">Comment ça marche</p>
       <h2 id="story-title" class="h2">Une semaine chez Agence Boréal, <span class="hand-hl">en pilote automatique</span>.</h2>
-      <p class="note">Agence fictive, scénario réel : c'est exactement ce qu'on met en place chez nos clients.</p>
+      <p class="note">Agence fictive, scénario réel : trois de ces chantiers automatisés, du lundi au mardi.</p>
     </div>
 
     <div class="story-pin" style={`--n:${steps.length}`}>
@@ -236,7 +267,7 @@ const faqLd = {
   <section class="principles container" aria-label="Notre façon de travailler">
     <div class="rv"><Doodle name="gear" class="p-icon" /><h3>Vos outils, pas les nôtres.</h3><p>On construit sur ce que votre équipe connaît déjà. Pas de nouveau logiciel à apprendre.</p></div>
     <div class="rv" style="--d:1"><Doodle name="mail" class="p-icon" /><h3>Un seul interlocuteur.</h3><p>Vous parlez toujours à la personne qui construit, du diagnostic au suivi.</p></div>
-    <div class="rv" style="--d:2"><Doodle name="check" class="p-icon" /><h3>En français, conforme Loi 25.</h3><p>Documentation, formation et suivi en français, aux heures de l'Est.</p></div>
+    <div class="rv" style="--d:2"><Doodle name="check" class="p-icon" /><h3>Pensé pour les agences du Québec.</h3><p>En français, conforme à la Loi 25, prix fixe en dollars canadiens, suivi aux heures de l'Est.</p></div>
   </section>
 
   {posts.length > 0 && (
