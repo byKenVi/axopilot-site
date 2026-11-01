@@ -25,14 +25,14 @@ export function initHero3D(canvas: HTMLCanvasElement, opts: { reduce: boolean })
   camera.position.set(0, 0, 9);
 
   // Lumières colorées : elles recréent le dégradé cyan → violet du logo
-  scene.add(new THREE.AmbientLight(0x9fb2ff, 0.9));
-  const cyan = new THREE.PointLight(0x4fd1ff, 60, 30); cyan.position.set(4, 4, 4); scene.add(cyan);
-  const violet = new THREE.PointLight(0xa66bff, 60, 30); violet.position.set(-3.5, -3, 3); scene.add(violet);
-  const blue = new THREE.DirectionalLight(0x3d6bff, 2.2); blue.position.set(0, 2, 6); scene.add(blue);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+  const cyan = new THREE.PointLight(0x7fe0ff, 45, 30); cyan.position.set(4, 4, 4); scene.add(cyan);
+  const violet = new THREE.PointLight(0x5b7bff, 30, 30); violet.position.set(-3.5, -3, 3); scene.add(violet);
+  const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(0, 2, 6); scene.add(key);
 
   const mat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff, metalness: 0.15, roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.12,
-    iridescence: 0.5, iridescenceIOR: 1.5, iridescenceThicknessRange: [250, 500], envMapIntensity: 1.0,
+    color: 0x1638f0, metalness: 0.1, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.1,
+    iridescence: 0.35, iridescenceIOR: 1.5, iridescenceThicknessRange: [250, 500], envMapIntensity: 1.0,
   });
 
   const group = new THREE.Group();
@@ -61,7 +61,7 @@ export function initHero3D(canvas: HTMLCanvasElement, opts: { reduce: boolean })
     new THREE.Vector3(0.6, -0.05, 0.45),
     new THREE.Vector3(1.45, 0.6, 0.3),
   ]);
-  const arrowMat = mat.clone(); arrowMat.color = new THREE.Color(0x9fefff); arrowMat.emissive = new THREE.Color(0x1d6fa8); arrowMat.emissiveIntensity = 0.35;
+  const arrowMat = mat.clone(); arrowMat.color = new THREE.Color(0x3fb8ff); arrowMat.emissive = new THREE.Color(0x0a5fd8); arrowMat.emissiveIntensity = 0.25;
   const tube = new THREE.Mesh(new THREE.TubeGeometry(path, 80, 0.12, 24, false), arrowMat);
   group.add(tube);
   const tip = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.6, 32), arrowMat);
@@ -90,7 +90,7 @@ export function initHero3D(canvas: HTMLCanvasElement, opts: { reduce: boolean })
   const grd = dctx.createRadialGradient(32, 32, 0, 32, 32, 32);
   grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(0.3, 'rgba(255,255,255,.85)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
   dctx.fillStyle = grd; dctx.fillRect(0, 0, 64, 64);
-  const pMat = new THREE.PointsMaterial({ size: 0.16, map: new THREE.CanvasTexture(dot), transparent: true, depthWrite: false, blending: THREE.NormalBlending });
+  const pMat = new THREE.PointsMaterial({ color: 0x1638f0, size: 0.14, map: new THREE.CanvasTexture(dot), transparent: true, depthWrite: false, blending: THREE.NormalBlending });
   const points = new THREE.Points(pGeo, pMat);
   scene.add(points);
 
