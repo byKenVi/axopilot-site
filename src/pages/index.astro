@@ -45,12 +45,10 @@ const steps = [
 ];
 
 const pains = [
-  ['mail', 'Accueil des nouveaux clients', 'Fiche CRM, dossier, projet, accès à réclamer : 2 à 3\u00a0h par client signé.'],
-  ['spiral', 'Rapports clients mensuels', 'Exports Google Ads, GA4, Meta, copier-coller, mise en page : 2 à 4\u00a0h par client, chaque mois.'],
-  ['bolt', 'Soumissions et suivi des prospects', 'Des demandes qui attendent deux jours, des relances que personne ne fait.'],
-  ['check', 'Approbations des clients', 'Maquettes, textes, publications : les validations qui se perdent dans les courriels.'],
-  ['star', 'Facturation et relances de paiement', 'Factures à préparer, comptes en retard à relancer, suivi des acomptes.'],
-  ['loop', 'Double saisie entre les outils', 'Le même renseignement tapé dans le CRM, l\'outil de projet et la facturation.'],
+  ['spiral', 'Rapports clients mensuels', 'Exports Google Ads, GA4 et Meta, copier-coller, mise en page : 2 à 4\u00a0h par client, chaque mois.', ''],
+  ['check', 'Approbations des clients', 'Maquettes, textes, publications : des validations qui se perdent dans les courriels et des projets qui attendent.', ''],
+  ['star', 'Feuilles de temps et facturation', 'Des heures saisies en retard ou jamais, des factures montées à la main, des comptes à relancer.', ''],
+  ['mail', 'Accueil des nouveaux clients', 'Fiche CRM, dossier, projet, accès à réclamer : 2 à 3\u00a0h par client signé.', 'Exemple détaillé plus bas'],
 ] as const;
 
 const phases = [
@@ -61,7 +59,7 @@ const phases = [
 ];
 
 const faqs = [
-  ["Qu'est-ce que vous automatisez exactement ?", "Les tâches répétitives qui font perdre du temps à votre équipe chaque semaine : accueil des nouveaux clients, rapports mensuels, soumissions et relances de prospects, approbations, facturation, double saisie entre vos outils. Le premier appel sert justement à trouver celles qui vous coûtent le plus."],
+  ["Qu'est-ce que vous automatisez exactement ?", "Les tâches répétitives qui font perdre du temps à votre équipe chaque semaine : rapports clients mensuels, approbations des clients, feuilles de temps et facturation, accueil des nouveaux clients, mais aussi soumissions ou double saisie entre vos outils. Le premier appel sert justement à trouver celles qui vous coûtent le plus."],
   ['Faut-il changer nos outils ?', "Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence."],
   ["Qu'arrive-t-il aux données de nos clients ?", "Les données restent dans vos comptes. On documente chaque flux de renseignements personnels pour vous aider à respecter la Loi 25, et les accès sont retirés à la fin du mandat si vous le souhaitez."],
   ["Et si l'automatisation brise ?", "Les 3 mois de suivi sont faits pour ça : surveillance des erreurs, alertes et corrections. Votre équipe reçoit aussi une documentation simple pour comprendre ce qui roule."],
@@ -124,12 +122,12 @@ const faqLd = {
   <section class="pains container" id="automatisations" aria-labelledby="pains-title">
     <div class="pains-head rv">
       <p class="pill">Ce qu'on automatise</p>
-      <h2 id="pains-title" class="h2">Là où les agences du Québec perdent leurs heures.</h2>
-      <p class="pains-lead">Ce sont les six chantiers qu'on retrouve le plus souvent. Chez vous, le plus coûteux sera peut-être un autre : le premier appel sert à le trouver.</p>
+      <h2 id="pains-title" class="h2">Là où les agences québécoises perdent leurs heures.</h2>
+      <p class="pains-lead">Ce sont les quatre chantiers qu'on retrouve le plus souvent. Chez vous, le plus coûteux sera peut-être un autre : le premier appel sert à le trouver.</p>
     </div>
     <ul class="pains-grid">
-      {pains.map(([icon, title, text], i) => (
-        <li class="pain rv" style={`--d:${i % 3}`}><Doodle name={icon} class="pain-icon" /><h3>{title}</h3><p>{text}</p></li>
+      {pains.map(([icon, title, text, tag], i) => (
+        <li class="pain rv" style={`--d:${i % 2}`}><Doodle name={icon} class="pain-icon" /><h3>{title}</h3><p>{text}</p>{tag && <a class="pain-tag" href="#histoire">{tag} ↓</a>}</li>
       ))}
       <li class="pain pain-cta rv" style="--d:2">
         <p class="hand">et chez vous ?</p>
@@ -144,7 +142,7 @@ const faqLd = {
     <div class="container story-head rv">
       <p class="pill">Comment ça marche</p>
       <h2 id="story-title" class="h2">Une semaine chez Agence Boréal, <span class="hand-hl">en pilote automatique</span>.</h2>
-      <p class="note">Agence fictive, scénario réel : trois de ces chantiers automatisés, du lundi au mardi.</p>
+      <p class="note">Agence fictive, scénario réel : l'accueil d'un nouveau client, puis les rapports et les soumissions, automatisés du lundi au mardi.</p>
     </div>
 
     <div class="story-pin" style={`--n:${steps.length}`}>
