@@ -31,12 +31,11 @@ draft: false   # true = visible seulement en local, jamais publié
 ## Réglages à compléter
 
 Dans `src/consts.ts` :
-- `bookingUrl` : lien de l'agenda de réservation Google Agenda (sinon les boutons ouvrent un courriel).
+- `bookingUrl` : lien de l'agenda de réservation Google Agenda.
 - `linkedin` : URL LinkedIn.
 
 Dans `src/pages/index.astro` : `photo` (ex. `/kevin.jpg`, fichier carré déposé dans `public/`).
 
-Dans `src/pages/mentions-legales.astro` et `politique-de-confidentialite.astro` : nom de famille, statut et adresse.
 
 ## Hébergement (Netlify, offre gratuite)
 

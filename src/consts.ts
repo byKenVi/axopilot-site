@@ -7,7 +7,7 @@ export const SITE = {
   email: 'kevin@axiopilot.com',
   linkedin: '', // à compléter : URL de la page LinkedIn
   // Lien de l'agenda de réservation Google Agenda. Tant qu'il est vide, les boutons ouvrent un courriel.
-  bookingUrl: '',
+  bookingUrl: 'https://calendar.app.google/36aPX9WEMsn4uUhh9',
 };
 
 export const bookingHref = SITE.bookingUrl
