@@ -26,17 +26,18 @@ p{margin:0}
 .btn:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 
 /* Nav */
-body > header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(7,10,31,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(35,44,102,.6)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+body > header{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:40;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));margin-top:12px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:50;background:var(--bg)}
+body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:10px 10px 10px 18px;border-radius:999px;background:rgba(10,14,40,.62);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(120,140,255,.16);box-shadow:0 10px 40px -12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.05)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 .brand img{mix-blend-mode:screen;display:block}
-.brand .m{height:30px;width:auto}
-.brand .w{height:16px;width:auto}
-.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--muted)}
-.nav ul a{text-decoration:none}
-.nav ul a:hover{color:var(--fg)}
-.nav .btn{padding:10px 18px;font-size:14px}
+.brand .m{height:28px;width:auto}
+.brand .w{height:15px;width:auto}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;font-size:14.5px;color:var(--muted)}
+.nav ul a{text-decoration:none;padding:8px 14px;border-radius:999px;transition:background .2s,color .2s}
+.nav ul a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
+.nav .btn{padding:11px 18px;font-size:14px}
 @media (max-width:860px){.nav ul{display:none}}
 @media (max-width:420px){.brand .w{display:none}}
 

@@ -2,197 +2,463 @@
 import Base from '../layouts/Base.astro';
 import { bookingHref } from '../consts';
 import { getPosts } from '../lib';
+import '../styles/home.css';
 
 const posts = (await getPosts()).slice(0, 3);
 const photo = ''; // ex. '/kevin.jpg' une fois la photo ajoutée dans public/
-const faq = {
+
+const tools = ['HubSpot', 'Pipedrive', 'Make', 'n8n', 'Zapier', 'Google Workspace', 'Microsoft 365', 'Slack', 'Asana', 'ClickUp', 'Monday', 'Notion', 'GA4', 'Google Ads', 'Meta Ads', 'Looker Studio', 'QuickBooks', 'PandaDoc', 'Typeform', 'OpenAI'];
+
+const faqs = [
+  ['Faut-il changer nos outils ?', "Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence."],
+  ["Qu'arrive-t-il aux données de nos clients ?", "Les données restent dans vos comptes. On documente chaque flux de renseignements personnels pour vous aider à respecter la Loi 25, et les accès sont retirés à la fin du mandat si vous le souhaitez."],
+  ["Et si l'automatisation brise ?", "Les 3 mois de suivi sont faits pour ça : surveillance des erreurs, alertes et corrections. Votre équipe reçoit aussi une documentation simple pour comprendre ce qui roule."],
+  ['Combien ça coûte ?', "Le Pack Sprint + Suivi est offert à prix fixe. On vous le confirme au premier appel, après avoir vu le processus à automatiser."],
+  ['Vous faites aussi des sites et des interfaces ?', "Oui. Ce site en est un exemple. On conçoit aussi des portails clients, des tableaux de bord et des interfaces internes quand l'automatisation en a besoin."],
+];
+const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    ['Faut-il changer nos outils ?', "Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence."],
-    ["Qu'arrive-t-il aux données de nos clients ?", "Les données restent dans vos comptes. On documente chaque flux de renseignements personnels pour vous aider à respecter la Loi 25, et les accès sont retirés à la fin du mandat si vous le souhaitez."],
-    ["Et si l'automatisation brise ?", "Les 3 mois de suivi sont faits pour ça : surveillance des erreurs, alertes et corrections. Votre équipe reçoit aussi une documentation simple pour comprendre ce qui roule."],
-    ['Combien ça coûte ?', "Le Pack Sprint + Suivi est offert à prix fixe. On vous le confirme au premier appel, après avoir vu le processus à automatiser."],
-  ].map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
 };
 ---
-<Base jsonLd={faq}>
+<Base jsonLd={faqLd}>
 
+  <!-- ============ HERO : le cockpit ============ -->
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="eyebrow">Automatisation pour agences du Québec</div>
-        <h1>Votre agence tourne <span class="g">pendant que vous créez.</span></h1>
-        <p class="lead">AxioPilot automatise les tâches qui grugent les heures de votre équipe : l'accueil des nouveaux clients, le rapport mensuel et les demandes de soumission. Livré en 21 jours, avec vos outils actuels.</p>
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="grid-floor" aria-hidden="true"></div>
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <div class="status-pill"><span class="led"></span>Pilote automatique pour agences du Québec</div>
+        <h1 class="mega">
+          <span class="line"><span>Le pilote</span></span>
+          <span class="line"><span>automatique</span></span>
+          <span class="line"><span class="g">de votre agence.</span></span>
+        </h1>
+        <p class="hero-lead">Accueil des nouveaux clients, rapports mensuels, demandes de soumission : AxioPilot automatise les tâches qui grugent les heures de votre équipe. <strong>Livré en 21 jours</strong>, sur vos outils actuels.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href={bookingHref}>Réserver un appel de 30 min →</a>
-          <a class="btn btn-ghost" href="#cas">Voir ce qu'on automatise</a>
+          <a class="btn btn-primary btn-xl magnetic" href={bookingHref}><span>Réserver un appel de 30 min</span><span class="arr">→</span></a>
+          <a class="btn btn-glass" href="#cockpit">Voir la démo en direct</a>
         </div>
-        <div class="trust"><span>Service 100 % en français</span><span>Conforme Loi 25</span><span>Vos outils, pas de logiciel imposé</span></div>
+        <ul class="hero-proof">
+          <li><b>21</b><span>jours pour livrer</span></li>
+          <li><b>100 %</b><span>en français</span></li>
+          <li><b>Loi 25</b><span>documentée</span></li>
+        </ul>
       </div>
 
-      <div class="run" role="img" aria-label="Exemple : un nouveau client signé déclenche cinq tâches automatiques en 41 secondes">
-        <div class="run-head"><span>Scénario · Accueil nouveau client</span><span class="live"><i></i>En cours</span></div>
-        <ol class="steps">
-          <li class="step"><span class="dot">01</span><div><b>Contrat signé</b><small>Déclencheur : signature reçue</small></div><time>00:00</time></li>
-          <li class="step"><span class="dot">02</span><div><b>Fiche client créée</b><small>CRM mis à jour, responsable assigné</small></div><time>00:06</time></li>
-          <li class="step"><span class="dot">03</span><div><b>Dossier et projet ouverts</b><small>Drive + gabarit de projet copié</small></div><time>00:14</time></li>
-          <li class="step"><span class="dot">04</span><div><b>Courriel de bienvenue envoyé</b><small>Questionnaire d'accueil joint</small></div><time>00:29</time></li>
-          <li class="step"><span class="dot">05</span><div><b>Équipe avisée</b><small>Message dans #nouveaux-clients</small></div><time>00:41</time></li>
+      <div class="cockpit" id="cockpit">
+        <div class="hud-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="cockpit-top">
+          <span class="mono-s">AXP-01 · FLUX AGENCE</span>
+          <button class="ap-switch" id="apSwitch" type="button" role="switch" aria-checked="true">
+            <span class="ap-label">Pilote auto</span>
+            <span class="ap-track"><span class="ap-knob"></span></span>
+          </button>
+        </div>
+        <canvas id="flow" width="640" height="520" aria-label="Animation : des tâches circulent entre vos outils et sont traitées automatiquement par AxioPilot"></canvas>
+        <div class="cockpit-readouts">
+          <div><span class="mono-s">Tâches traitées</span><b id="rTasks">1 284</b></div>
+          <div><span class="mono-s">Erreurs</span><b id="rErr">0</b></div>
+          <div><span class="mono-s">Heures rendues</span><b id="rHours">96,3 h</b></div>
+        </div>
+        <p class="cockpit-hint mono-s" id="apHint">Désactivez le pilote automatique pour voir la différence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Bandeau outils ============ -->
+  <section class="marquee" aria-label="Outils compatibles">
+    <div class="marquee-track">
+      {[...tools, ...tools].map((t) => <span>{t}</span>)}
+    </div>
+  </section>
+
+  <!-- ============ Manuel vs pilote ============ -->
+  <section class="sec">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <span class="kicker">01 · Le constat</span>
+        <h2 class="h-xl">Vos meilleurs talents font <em>du copier-coller.</em></h2>
+      </div>
+      <div class="versus reveal">
+        <div class="vs-col manual">
+          <div class="vs-tag">Mode manuel</div>
+          <ul>
+            <li><s>Créer la fiche client à la main</s><span>15 min</span></li>
+            <li><s>Copier le gabarit de projet</s><span>10 min</span></li>
+            <li><s>Relancer pour les accès</s><span>3 jours</span></li>
+            <li><s>Assembler le rapport mensuel</s><span>4 h / client</span></li>
+            <li><s>Répondre à la demande de soumission</s><span>48 h</span></li>
+          </ul>
+        </div>
+        <div class="vs-mid" aria-hidden="true"><span>VS</span></div>
+        <div class="vs-col auto">
+          <div class="vs-tag">Pilote automatique</div>
+          <ul>
+            <li><b>Fiche créée à la signature</b><span>6 s</span></li>
+            <li><b>Projet ouvert et daté</b><span>8 s</span></li>
+            <li><b>Rappels envoyés seuls</b><span>auto</span></li>
+            <li><b>Rapport prêt le 1er du mois</b><span>0 min</span></li>
+            <li><b>Soumission en brouillon</b><span>4 min</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="fine reveal">Durées indicatives pour une agence type. Les vôtres sont mesurées pendant le diagnostic.</p>
+    </div>
+  </section>
+
+  <!-- ============ Bento cas d'usage ============ -->
+  <section class="sec" id="cas">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <span class="kicker">02 · Ce qu'on automatise</span>
+        <h2 class="h-xl">Trois processus. <em>Des centaines d'heures.</em></h2>
+      </div>
+      <div class="bento">
+        <article class="tile t-onboard spot reveal">
+          <div class="tile-ui">
+            <div class="notif n1"><i class="dot c"></i><div><b>Contrat signé</b><small>Agence Boréal · il y a 2 s</small></div></div>
+            <div class="notif n2"><i class="dot b"></i><div><b>Fiche CRM créée</b><small>Responsable : Julie T.</small></div></div>
+            <div class="notif n3"><i class="dot v"></i><div><b>Projet Asana ouvert</b><small>Gabarit « Site vitrine »</small></div></div>
+            <div class="notif n4"><i class="dot g"></i><div><b>Courriel de bienvenue envoyé</b><small>Questionnaire joint</small></div></div>
+          </div>
+          <div class="tile-txt">
+            <span class="tile-k">Accueil client</span>
+            <h3>Le nouveau client est accueilli avant que vous ayez raccroché.</h3>
+            <p>Fiche CRM, dossier partagé, projet, courriel de bienvenue et avis à l'équipe se créent dès la signature.</p>
+          </div>
+        </article>
+
+        <article class="tile t-report spot reveal">
+          <div class="tile-ui chart">
+            <div class="chart-head"><span>Rapport · Octobre</span><span class="chip">Prêt</span></div>
+            <div class="bars"><i style="--h:42%"></i><i style="--h:58%"></i><i style="--h:51%"></i><i style="--h:73%"></i><i style="--h:66%"></i><i style="--h:88%"></i><i style="--h:94%"></i></div>
+            <div class="chart-foot"><span>GA4</span><span>Google Ads</span><span>Meta</span></div>
+          </div>
+          <div class="tile-txt">
+            <span class="tile-k">Rapport mensuel</span>
+            <h3>Le 1er du mois, les rapports sont déjà prêts.</h3>
+            <p>Vos données publicitaires et analytiques réunies dans un rapport à vos couleurs, prêt à relire.</p>
+          </div>
+        </article>
+
+        <article class="tile t-quote spot reveal">
+          <div class="tile-ui doc">
+            <div class="doc-head"><b>Soumission #2026-114</b><span class="chip">Brouillon</span></div>
+            <div class="doc-line w90"></div><div class="doc-line w70"></div><div class="doc-line w80"></div>
+            <div class="doc-row"><span>Refonte site Web</span><span>✓</span></div>
+            <div class="doc-row"><span>SEO local · 3 mois</span><span>✓</span></div>
+            <div class="doc-stamp">Prête en 4 min</div>
+          </div>
+          <div class="tile-txt">
+            <span class="tile-k">Demande → soumission</span>
+            <h3>Chaque demande reçoit une réponse le jour même.</h3>
+            <p>Les demandes sont captées, qualifiées et transformées en brouillon de soumission.</p>
+          </div>
+        </article>
+
+        <article class="tile t-law spot reveal">
+          <div class="shield" aria-hidden="true">
+            <svg viewBox="0 0 64 72" width="56" height="63"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#27C8F6"/><stop offset="1" stop-color="#8F45FF"/></linearGradient></defs><path d="M32 3 59 13v20c0 18-12 30-27 36C17 63 5 51 5 33V13Z" fill="none" stroke="url(#sg)" stroke-width="3"/><path d="m21 36 8 8 15-17" fill="none" stroke="#3EE29A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="tile-txt">
+            <span class="tile-k">Loi 25</span>
+            <h3>Vos données restent dans vos comptes.</h3>
+            <p>Chaque flux de renseignements personnels est documenté.</p>
+          </div>
+        </article>
+
+        <article class="tile t-ui spot reveal">
+          <div class="tile-txt">
+            <span class="tile-k">Bonus</span>
+            <h3>Sites, portails clients et tableaux de bord.</h3>
+            <p>Quand l'automatisation a besoin d'une interface, on la conçoit aussi. Ce site en est la preuve.</p>
+          </div>
+          <div class="ui-swatches" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Plan de vol ============ -->
+  <section class="sec flight" id="offre">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <span class="kicker">03 · L'offre</span>
+        <h2 class="h-xl">Pack Sprint + Suivi. <em>Votre plan de vol.</em></h2>
+        <p class="sec-lead">21 jours pour livrer une automatisation qui fonctionne, puis 3 mois d'accompagnement pour qu'elle reste fiable et que votre équipe l'adopte. Prix fixe, confirmé dès le premier appel.</p>
+      </div>
+      <div class="route" id="route">
+        <svg class="route-line" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#27C8F6"/><stop offset=".5" stop-color="#2F6BFF"/><stop offset="1" stop-color="#8F45FF"/></linearGradient></defs>
+          <path d="M0,90 C180,90 220,30 400,30 S650,95 800,70 S940,20 1000,24" fill="none" stroke="rgba(120,140,255,.18)" stroke-width="2" stroke-dasharray="4 8"/>
+          <path id="routePath" d="M0,90 C180,90 220,30 400,30 S650,95 800,70 S940,20 1000,24" fill="none" stroke="url(#rg)" stroke-width="3" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0.15))"/>
+        </svg>
+        <ol class="waypoints">
+          <li class="reveal"><span class="wp-code">J1 → J3</span><span class="wp-dot"></span><h3>Décollage</h3><p>Atelier de 90 min avec votre équipe : on cartographie le processus et on mesure le temps perdu.</p></li>
+          <li class="reveal"><span class="wp-code">J4 → J17</span><span class="wp-dot"></span><h3>Croisière</h3><p>Construction sur vos outils, tests avec de vrais cas, point d'étape chaque semaine.</p></li>
+          <li class="reveal"><span class="wp-code">J18 → J21</span><span class="wp-dot"></span><h3>Atterrissage</h3><p>Mise en service, formation de l'équipe et documentation en français.</p></li>
+          <li class="reveal"><span class="wp-code">M1 → M3</span><span class="wp-dot"></span><h3>Suivi</h3><p>Surveillance, ajustements et bilan mensuel des heures récupérées.</p></li>
         </ol>
-        <div class="run-foot"><span>Avant : <strong>≈ 2 h de manipulations</strong></span><span>Maintenant : <strong>41 secondes</strong></span></div>
       </div>
     </div>
   </section>
 
-  <section class="band">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Le constat</div>
-        <h2>Vos meilleurs talents font du copier-coller.</h2>
-      </div>
-      <div class="pains">
-        <div class="pain"><div class="q">« Qui a créé le dossier du client ? »</div><p>Chaque nouveau client déclenche une dizaine d'étapes manuelles. Une seule oubliée, et le démarrage du projet prend du retard.</p></div>
-        <div class="pain"><div class="q">« Le rapport part demain matin. »</div><p>Le rapport mensuel mobilise un chargé de projet pendant des heures : exporter, coller, mettre en forme, recommencer pour chaque client.</p></div>
-        <div class="pain"><div class="q">« On a vu sa demande ? »</div><p>Les demandes de soumission arrivent par courriel, formulaire ou LinkedIn. Certaines attendent trois jours avant une réponse.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band-alt" id="cas">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Cas d'usage</div>
-        <h2>Trois automatisations qui se rentabilisent vite.</h2>
-        <p class="lead">On commence par le processus qui vous coûte le plus d'heures. Chaque automatisation est construite sur les outils que votre équipe utilise déjà.</p>
-      </div>
-      <div class="cases">
-        <article class="case">
-          <h3>Accueil des nouveaux clients</h3>
-          <p>Dès la signature, la fiche client, le dossier partagé, le projet et le courriel de bienvenue se créent seuls. Votre équipe reçoit l'avis, prête à démarrer.</p>
-          <div class="flow"><span>Signature</span><em>→</em><span>CRM</span><em>→</em><span>Drive</span><em>→</em><span>Courriel</span></div>
-        </article>
-        <article class="case">
-          <h3>Rapport mensuel client</h3>
-          <p>Les données de Google Ads, GA4 et Meta sont regroupées dans un rapport à vos couleurs, prêt à relire le 1er du mois.</p>
-          <div class="flow"><span>GA4</span><em>+</em><span>Ads</span><em>+</em><span>Meta</span><em>→</em><span>Rapport</span></div>
-        </article>
-        <article class="case">
-          <h3>De la demande à la soumission</h3>
-          <p>Chaque demande est captée, qualifiée et transformée en brouillon de soumission. Le prospect reçoit une réponse le jour même.</p>
-          <div class="flow"><span>Formulaire</span><em>→</em><span>Qualification</span><em>→</em><span>Soumission</span></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="band" id="offre">
-    <div class="wrap offer">
-      <div class="sec-head" style="margin-bottom:0">
-        <div class="eyebrow">L'offre</div>
-        <h2>Pack Sprint + Suivi</h2>
-        <p class="lead">21 jours pour livrer une automatisation qui fonctionne, puis 3 mois d'accompagnement pour qu'elle reste fiable et que votre équipe l'adopte.</p>
-        <div class="offer-card">
-          <h3>Un prix fixe, connu dès le premier appel</h3>
-          <p>Pas de facturation à l'heure ni de surprise. On évalue ensemble le processus à automatiser et vous recevez une proposition claire sous 48 h.</p>
-        </div>
-      </div>
-      <ol class="timeline">
-        <li><div class="when">Jours 1 à 3</div><div><h3>Diagnostic</h3><p>Un atelier de 90 minutes avec votre équipe pour cartographier le processus, mesurer le temps perdu et fixer le résultat attendu.</p></div></li>
-        <li><div class="when">Jours 4 à 17</div><div><h3>Construction</h3><p>On bâtit l'automatisation sur vos outils et on la teste avec de vrais cas. Un point d'étape chaque semaine.</p></div></li>
-        <li><div class="when">Jours 18 à 21</div><div><h3>Mise en service</h3><p>Lancement, formation de l'équipe et documentation en français pour que tout le monde sache quoi faire.</p></div></li>
-        <li><div class="when">Mois 1 à 3</div><div><h3>Suivi</h3><p>Surveillance, ajustements et un bilan mensuel des heures récupérées.</p></div></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="band band-alt">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Calculez-le vous-même</div>
-        <h2>Combien vous coûtent les tâches répétitives ?</h2>
-      </div>
-      <div class="calc">
-        <div class="calc-in">
-          <div class="field"><label for="h">Heures de tâches manuelles par semaine <output id="ho">8 h</output></label><input id="h" type="range" min="1" max="40" value="8"></div>
-          <div class="field"><label for="r">Coût horaire chargé d'un employé <output id="ro">55 $</output></label><input id="r" type="range" min="25" max="120" step="5" value="55"></div>
+  <!-- ============ Calculateur jauge ============ -->
+  <section class="sec">
+    <div class="shell">
+      <div class="gauge-panel spot reveal">
+        <div class="gp-left">
+          <span class="kicker">04 · Calculez-le</span>
+          <h2 class="h-l">Combien vous coûtent les tâches répétitives ?</h2>
+          <div class="field"><label for="h">Heures manuelles par semaine <output id="ho">8 h</output></label><input id="h" type="range" min="1" max="40" value="8"></div>
+          <div class="field"><label for="r">Coût horaire chargé <output id="ro">55 $</output></label><input id="r" type="range" min="25" max="120" step="5" value="55"></div>
           <div class="field"><label for="p">Part automatisable <output id="po">60 %</output></label><input id="p" type="range" min="20" max="90" step="5" value="60"></div>
         </div>
-        <div class="calc-out" aria-live="polite">
-          <p>Récupérable chaque année</p>
-          <div class="big" id="out">13 728 $</div>
+        <div class="gp-right" aria-live="polite">
+          <svg class="gauge" viewBox="0 0 240 150" aria-hidden="true">
+            <defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#27C8F6"/><stop offset=".55" stop-color="#2F6BFF"/><stop offset="1" stop-color="#8F45FF"/></linearGradient></defs>
+            <path d="M20,130 A100,100 0 0 1 220,130" fill="none" stroke="rgba(120,140,255,.15)" stroke-width="14" stroke-linecap="round"/>
+            <path id="gArc" d="M20,130 A100,100 0 0 1 220,130" fill="none" stroke="url(#gg)" stroke-width="14" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset=".6"/>
+            <g id="gNeedle" style="transform-origin:120px 130px"><line x1="120" y1="130" x2="120" y2="48" stroke="#EEF1FF" stroke-width="3" stroke-linecap="round"/><circle cx="120" cy="130" r="7" fill="#EEF1FF"/></g>
+          </svg>
+          <span class="mono-s">Récupérable chaque année</span>
+          <div class="big-num" id="out">13 728 $</div>
           <p id="out2">soit environ 250 heures rendues à votre équipe.</p>
-          <p class="note">Estimation basée sur 52 semaines. Vos chiffres réels sont mesurés pendant le diagnostic.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band" id="apropos">
-    <div class={photo ? "wrap about" : "wrap"}>
-      {photo && <img class="portrait" src={photo} alt="Kevin, fondateur d'AxioPilot" width="180" height="180" loading="lazy">}
+  <!-- ============ À propos ============ -->
+  <section class="sec" id="apropos">
+    <div class="shell about2 reveal">
+      {photo && <img class="portrait2" src={photo} alt="Kevin, fondateur d'AxioPilot" width="220" height="220" loading="lazy">}
       <div>
-        <div class="eyebrow">À propos</div>
-        <h2 style="margin-block:14px 18px">Bonjour, je suis Kevin.</h2>
-        <p>J'ai fondé AxioPilot pour aider les agences à sortir des tâches répétitives qui freinent leur croissance. Je conçois des automatisations avec Make, n8n, Zapier et l'IA, toujours sur les outils que votre équipe connaît déjà.</p>
-        <p>Je travaille exclusivement en français avec des agences du Québec, aux heures de l'Est, et je reste votre interlocuteur unique du diagnostic au suivi.</p>
+        <span class="kicker">05 · Qui pilote</span>
+        <h2 class="h-l">Un interlocuteur unique, du diagnostic au suivi.</h2>
+        <p>AxioPilot a été fondée pour sortir les agences des tâches répétitives qui freinent leur croissance. On conçoit des automatisations avec Make, n8n, Zapier et l'IA, toujours sur les outils que votre équipe connaît déjà.</p>
+        <p>On travaille en français avec des agences du Québec, aux heures de l'Est. Vous parlez toujours à la personne qui construit.</p>
       </div>
     </div>
   </section>
 
   {posts.length > 0 && (
-  <section class="band band-alt" id="blogue">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Blogue</div>
-        <h2>Guides pratiques pour agences</h2>
-      </div>
+  <section class="sec" id="blogue">
+    <div class="shell">
+      <div class="sec-head reveal"><span class="kicker">Blogue</span><h2 class="h-l">Guides pratiques pour agences</h2></div>
       <div class="posts">
         {posts.map((p) => (
-          <a class="post" href={`/blogue/${p.id}/`}><span class="meta">{p.data.category}{p.data.readingTime && ` · ${p.data.readingTime} min`}</span><h3>{p.data.title}</h3></a>
+          <a class="post spot" href={`/blogue/${p.id}/`}><span class="meta">{p.data.category}{p.data.readingTime && ` · ${p.data.readingTime} min`}</span><h3>{p.data.title}</h3><span class="post-go">Lire →</span></a>
         ))}
       </div>
-      <p style="margin-top:28px"><a class="btn btn-ghost" href="/blogue/">Tous les articles</a></p>
     </div>
   </section>
   )}
 
-  <section class="band">
-    <div class="wrap">
-      <div class="sec-head"><div class="eyebrow">Questions fréquentes</div><h2>Avant de réserver un appel</h2></div>
+  <!-- ============ FAQ ============ -->
+  <section class="sec">
+    <div class="shell faq-grid">
+      <div class="sec-head reveal"><span class="kicker">Questions fréquentes</span><h2 class="h-l">Avant de décoller</h2></div>
       <div class="faq">
-        <details><summary>Faut-il changer nos outils ?</summary><p>Non. On travaille avec ce que vous utilisez déjà : HubSpot, Pipedrive, Asana, ClickUp, Monday, Google Workspace, Microsoft 365, Slack et la plupart des outils courants en agence.</p></details>
-        <details><summary>Qu'arrive-t-il aux données de nos clients ?</summary><p>Les données restent dans vos comptes. On documente chaque flux de renseignements personnels pour vous aider à respecter la Loi 25, et les accès sont retirés à la fin du mandat si vous le souhaitez.</p></details>
-        <details><summary>Et si l'automatisation brise ?</summary><p>Les 3 mois de suivi sont faits pour ça : surveillance des erreurs, alertes et corrections. Votre équipe reçoit aussi une documentation simple pour comprendre ce qui roule.</p></details>
-        <details><summary>Combien ça coûte ?</summary><p>Le Pack Sprint + Suivi est offert à prix fixe. On vous le confirme au premier appel, après avoir vu le processus à automatiser.</p></details>
+        {faqs.map(([q, a]) => (<details><summary>{q}</summary><p>{a}</p></details>))}
       </div>
     </div>
   </section>
 
-  <section class="band" id="rdv" style="padding-top:0">
-    <div class="wrap">
-      <div class="final">
-        <div class="eyebrow">Prochaine étape</div>
-        <h2>Trouvons ensemble les heures que votre agence perd.</h2>
-        <p class="lead">Un appel de 30 minutes, sans engagement. Vous repartez avec au moins une idée d'automatisation applicable, même si on ne travaille pas ensemble.</p>
-        <div class="cta-row" style="margin-top:8px"><a class="btn btn-primary" href={bookingHref}>Choisir un moment →</a></div>
+  <!-- ============ CTA final ============ -->
+  <section class="sec final-sec" id="rdv">
+    <div class="shell">
+      <div class="final2">
+        <div class="final-glow" aria-hidden="true"></div>
+        <span class="kicker">Prêt pour le décollage</span>
+        <h2 class="mega-s">Engagez le pilote automatique.</h2>
+        <p>Un appel de 30 minutes, sans engagement. Vous repartez avec au moins une idée d'automatisation applicable, même si on ne travaille pas ensemble.</p>
+        <a class="btn btn-primary btn-xl magnetic" href={bookingHref}><span>Choisir un moment</span><span class="arr">→</span></a>
       </div>
     </div>
   </section>
 </Base>
 
 <script>
-(function(){
-  var h=document.getElementById('h'),r=document.getElementById('r'),p=document.getElementById('p');
-  var fmt=function(n){return Math.round(n).toLocaleString('fr-CA')};
-  function upd(){
-    var hrs=+h.value*52*(+p.value/100), cost=hrs*(+r.value);
-    document.getElementById('ho').textContent=h.value+' h';
-    document.getElementById('ro').textContent=r.value+' $';
-    document.getElementById('po').textContent=p.value+' %';
-    document.getElementById('out').textContent=fmt(cost)+' $';
-    document.getElementById('out2').textContent='soit environ '+fmt(hrs)+' heures rendues à votre équipe.';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (n: number, d = 0) => n.toLocaleString('fr-CA', { maximumFractionDigits: d, minimumFractionDigits: d });
+
+  /* ---------- Cockpit : flux animé ---------- */
+  const cv = document.getElementById('flow') as HTMLCanvasElement | null;
+  const sw = document.getElementById('apSwitch') as HTMLButtonElement | null;
+  if (cv && sw) {
+    const ctx = cv.getContext('2d')!;
+    let W = 0, H = 0, dpr = 1;
+    let auto = true;
+    const srcNames = ['Contrat signé', 'Formulaire', 'Gmail', 'GA4', 'Meta Ads'];
+    const dstNames = ['CRM', 'Drive', 'Asana', 'Slack', 'Rapport'];
+    type Node = { x: number; y: number; label: string };
+    let src: Node[] = [], dst: Node[] = [], hub = { x: 0, y: 0 }, fontSize = 11;
+    const logo = new Image(); logo.src = '/logo-mark.png';
+    function layout() {
+      const r = cv!.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = r.width; H = r.height;
+      cv!.width = W * dpr; cv!.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const padY = H * 0.12, step = (H - padY * 2) / (srcNames.length - 1);
+      const fs = W < 420 ? 9.5 : 11;
+      ctx.font = `500 ${fs}px "JetBrains Mono", monospace`;
+      const lw = Math.max(...srcNames.map((l) => ctx.measureText(l).width)) + 18;
+      const rw = Math.max(...dstNames.map((l) => ctx.measureText(l).width)) + 18;
+      src = srcNames.map((l, i) => ({ x: Math.max(W * 0.14, lw), y: padY + i * step, label: l }));
+      dst = dstNames.map((l, i) => ({ x: Math.min(W * 0.86, W - rw), y: padY + i * step, label: l }));
+      fontSize = fs;
+      hub = { x: W / 2, y: H / 2 };
+    }
+    type P = { a: Node; b: Node; t: number; leg: 0 | 1; v: number; bad: boolean; dead: number };
+    const parts: P[] = [];
+    let tasks = 1284, errs = 0, hours = 96.3;
+    const elT = document.getElementById('rTasks')!, elE = document.getElementById('rErr')!, elH = document.getElementById('rHours')!;
+    function spawn() {
+      const a = src[(Math.random() * src.length) | 0], b = dst[(Math.random() * dst.length) | 0];
+      parts.push({ a, b, t: 0, leg: 0, v: auto ? 0.012 + Math.random() * 0.006 : 0.003 + Math.random() * 0.004, bad: !auto && Math.random() < 0.35, dead: 0 });
+    }
+    function bez(p0: any, p1: any, t: number) {
+      const cx = (p0.x + p1.x) / 2, c1 = { x: cx, y: p0.y }, c2 = { x: cx, y: p1.y };
+      const u = 1 - t;
+      return { x: u * u * u * p0.x + 3 * u * u * t * c1.x + 3 * u * t * t * c2.x + t * t * t * p1.x, y: u * u * u * p0.y + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t * t * t * p1.y };
+    }
+    function curve(p0: any, p1: any) {
+      const cx = (p0.x + p1.x) / 2;
+      ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.bezierCurveTo(cx, p0.y, cx, p1.y, p1.x, p1.y); ctx.stroke();
+    }
+    let last = 0, acc = 0, tick = 0;
+    function frame(ts: number) {
+      const dt = Math.min(48, ts - last || 16); last = ts; tick += dt;
+      ctx.clearRect(0, 0, W, H);
+      // liens
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = auto ? 'rgba(80,120,255,.22)' : 'rgba(150,150,180,.12)';
+      [...src, ...dst].forEach((n) => curve(n, hub));
+      // apparition
+      acc += dt;
+      const rate = auto ? 140 : 420;
+      while (acc > rate) { acc -= rate; if (parts.length < 60) spawn(); }
+      // particules
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i];
+        if (p.dead) { p.dead += dt; if (p.dead > 700) parts.splice(i, 1); continue; }
+        p.t += p.v * (dt / 16);
+        if (!auto && p.bad && p.leg === 1 && p.t > 0.45) { p.dead = 1; errs++; elE.textContent = fmt(errs); continue; }
+        if (p.t >= 1) {
+          if (p.leg === 0) { p.leg = 1; p.t = 0; }
+          else { parts.splice(i, 1); if (auto) { tasks++; hours += 0.07; elT.textContent = fmt(tasks); elH.textContent = fmt(hours, 1) + ' h'; } continue; }
+        }
+        const pos = p.leg === 0 ? bez(p.a, hub, p.t) : bez(hub, p.b, p.t);
+        const col = !auto && p.bad ? '255,92,122' : p.leg === 0 ? '39,200,246' : '143,69,255';
+        const jit = auto ? 0 : (Math.random() - 0.5) * 2.5;
+        const g = ctx.createRadialGradient(pos.x, pos.y + jit, 0, pos.x, pos.y + jit, 12);
+        g.addColorStop(0, `rgba(${col},.95)`); g.addColorStop(1, `rgba(${col},0)`);
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(pos.x, pos.y + jit, 12, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(pos.x, pos.y + jit, 1.8, 0, Math.PI * 2); ctx.fill();
+      }
+      // particules perdues
+      parts.forEach((p) => {
+        if (!p.dead) return;
+        const pos = bez(hub, p.b, 0.45);
+        ctx.strokeStyle = `rgba(255,92,122,${1 - p.dead / 700})`; ctx.lineWidth = 2;
+        const s = 5; ctx.beginPath(); ctx.moveTo(pos.x - s, pos.y - s); ctx.lineTo(pos.x + s, pos.y + s); ctx.moveTo(pos.x + s, pos.y - s); ctx.lineTo(pos.x - s, pos.y + s); ctx.stroke();
+      });
+      // noeuds
+      ctx.font = `500 ${fontSize}px "JetBrains Mono", monospace`;
+      const drawNode = (n: Node, right: boolean) => {
+        ctx.fillStyle = 'rgba(14,20,56,.95)'; ctx.strokeStyle = auto ? 'rgba(39,200,246,.55)' : 'rgba(160,165,200,.35)'; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.arc(n.x, n.y, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = 'rgba(205,211,240,.85)'; ctx.textAlign = right ? 'left' : 'right'; ctx.textBaseline = 'middle';
+        ctx.fillText(n.label, n.x + (right ? 12 : -12), n.y);
+      };
+      src.forEach((n) => drawNode(n, false)); dst.forEach((n) => drawNode(n, true));
+      // hub
+      const pulse = 1 + Math.sin(tick / 400) * 0.06;
+      const R = Math.min(W, H) * 0.12 * pulse;
+      const hg = ctx.createRadialGradient(hub.x, hub.y, 0, hub.x, hub.y, R * 2.4);
+      hg.addColorStop(0, auto ? 'rgba(47,107,255,.45)' : 'rgba(255,92,122,.22)'); hg.addColorStop(1, 'rgba(47,107,255,0)');
+      ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(hub.x, hub.y, R * 2.4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#070A1F'; ctx.strokeStyle = auto ? 'rgba(39,200,246,.8)' : 'rgba(255,92,122,.6)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(hub.x, hub.y, R, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // anneau rotatif
+      ctx.save(); ctx.translate(hub.x, hub.y); ctx.rotate(tick / (auto ? 900 : 3000));
+      ctx.strokeStyle = 'rgba(143,69,255,.7)'; ctx.setLineDash([4, 10]); ctx.beginPath(); ctx.arc(0, 0, R + 9, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); ctx.setLineDash([]);
+      if (logo.complete && logo.naturalWidth) {
+        const lw = R * 1.25, lh = lw * (logo.naturalHeight / logo.naturalWidth);
+        ctx.globalCompositeOperation = 'screen'; ctx.drawImage(logo, hub.x - lw / 2, hub.y - lh / 2, lw, lh); ctx.globalCompositeOperation = 'source-over';
+      }
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    layout();
+    document.fonts?.ready.then(layout);
+    for (let i = 0; i < 26; i++) { spawn(); parts[parts.length - 1].t = Math.random(); parts[parts.length - 1].leg = (Math.random() < 0.5 ? 0 : 1); }
+    window.addEventListener('resize', layout);
+    logo.onload = () => { if (reduce) frame(performance.now()); };
+    requestAnimationFrame(frame);
+    const hint = document.getElementById('apHint')!;
+    const cockpit = document.querySelector('.cockpit')!;
+    sw.addEventListener('click', () => {
+      auto = !auto;
+      sw.setAttribute('aria-checked', String(auto));
+      cockpit.classList.toggle('is-manual', !auto);
+      hint.textContent = auto ? 'Pilote automatique engagé : tout circule, rien ne se perd.' : 'Mode manuel : tout ralentit, et des tâches se perdent en route.';
+      parts.forEach((p) => { p.v = auto ? 0.012 + Math.random() * 0.006 : 0.003 + Math.random() * 0.004; p.bad = !auto && Math.random() < 0.35; });
+      if (reduce) frame(performance.now());
+    });
   }
-  [h,r,p].forEach(function(el){el.addEventListener('input',upd)});upd();
-})();
+
+  /* ---------- Révélations au défilement ---------- */
+  const els = document.querySelectorAll<HTMLElement>('.reveal');
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach((el) => { if (el.getBoundingClientRect().top > window.innerHeight) { el.classList.add('pre'); io.observe(el); } });
+  }
+
+  /* ---------- Projecteur sous le curseur ---------- */
+  document.querySelectorAll<HTMLElement>('.spot').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', `${e.clientX - r.left}px`); el.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+
+  /* ---------- Boutons magnétiques ---------- */
+  if (!reduce && window.matchMedia('(pointer:fine)').matches) {
+    document.querySelectorAll<HTMLElement>('.magnetic').forEach((b) => {
+      b.addEventListener('pointermove', (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`; });
+      b.addEventListener('pointerleave', () => { b.style.transform = ''; });
+    });
+  }
+
+  /* ---------- Plan de vol : progression au défilement ---------- */
+  const route = document.getElementById('route');
+  if (route) {
+    const onScroll = () => {
+      const r = route.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0.15, 1 - (r.top + r.height * 0.3) / window.innerHeight));
+      route.style.setProperty('--p', p.toFixed(3));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  }
+
+  /* ---------- Calculateur jauge ---------- */
+  const h = document.getElementById('h') as HTMLInputElement, r = document.getElementById('r') as HTMLInputElement, pp = document.getElementById('p') as HTMLInputElement;
+  const arc = document.getElementById('gArc')!, needle = document.getElementById('gNeedle')!;
+  function upd() {
+    const hrs = +h.value * 52 * (+pp.value / 100), cost = hrs * +r.value;
+    document.getElementById('ho')!.textContent = h.value + ' h';
+    document.getElementById('ro')!.textContent = r.value + ' $';
+    document.getElementById('po')!.textContent = pp.value + ' %';
+    document.getElementById('out')!.textContent = fmt(Math.round(cost)) + ' $';
+    document.getElementById('out2')!.textContent = 'soit environ ' + fmt(Math.round(hrs)) + ' heures rendues à votre équipe.';
+    const f = Math.min(1, cost / 100000);
+    arc.setAttribute('stroke-dashoffset', String(1 - f));
+    needle.style.transform = `rotate(${-90 + f * 180}deg)`;
+  }
+  [h, r, pp].forEach((el) => el.addEventListener('input', upd)); upd();
 </script>
