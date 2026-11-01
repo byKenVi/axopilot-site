@@ -1,18 +1,32 @@
 ---
 import { bookingHref } from '../consts';
 ---
-<header>
-  <div class="wrap nav">
+<header id="siteHeader">
+  <div class="nav">
     <a class="brand" href="/" aria-label="AxioPilot, accueil">
       <img class="m" src="/logo-mark.png" alt="" width="222" height="154">
       <img class="w" src="/logo-wordmark.png" alt="AxioPilot" width="358" height="50">
     </a>
     <ul>
-      <li><a href="/#cas">Cas d'usage</a></li>
+      <li><a href="/#histoire">Comment ça marche</a></li>
       <li><a href="/#offre">L'offre</a></li>
-      <li><a href="/#apropos">À propos</a></li>
+      <li><a href="/#faq">Questions</a></li>
       <li><a href="/blogue/">Blogue</a></li>
     </ul>
     <a class="btn btn-primary" href={bookingHref}>Réserver un appel</a>
   </div>
 </header>
+<script>
+  const h = document.getElementById('siteHeader')!;
+  let lastY = window.scrollY;
+  const onScroll = () => {
+    const y = window.scrollY;
+    h.classList.toggle('is-scrolled', y > 24);
+    h.classList.toggle('is-hidden', y > 400 && y > lastY + 4);
+    if (y < lastY - 4 || y < 400) h.classList.remove('is-hidden');
+    lastY = y;
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  h.addEventListener('focusin', () => h.classList.remove('is-hidden'));
+  onScroll();
+</script>
