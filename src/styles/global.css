@@ -56,6 +56,8 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 .post:hover{border-color:var(--violet);transform:translateY(-2px)}
 .post .meta{font:500 12px/1 var(--mono);color:var(--muted)}
 .post h3{font-size:18px}
+.post-thumb{display:block;width:calc(100% + 48px);max-width:none;height:auto;margin:-24px -24px 4px;border-radius:14px 14px 0 0}
+.post{overflow:hidden}
 @media (max-width:900px){.posts{grid-template-columns:1fr}}
 
 /* CTA final + footer */
@@ -131,3 +133,10 @@ body{background-color:var(--bg);background-image:url("data:image/svg+xml,%3Csvg 
 .prose .post-faq details[open] summary::after{transform:rotate(45deg)}
 .prose .post-faq details p{padding-bottom:18px;margin:0}
 .prose blockquote p{margin-bottom:8px}
+/* Schéma d'article (processus en étapes) : <figure class="schema"><ol><li><strong>Étape</strong> détail</li>…</ol><figcaption>…</figcaption></figure> */
+.prose figure.schema{margin:36px 0;padding:24px;border-radius:18px;background:linear-gradient(135deg,#0B1E9C 0%,#0A1240 75%);color:#fff}
+.prose figure.schema ol{list-style:none;counter-reset:etape;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:12px;margin:0;padding:0}
+.prose figure.schema li{counter-increment:etape;position:relative;margin:0;padding:16px 14px 14px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(143,233,255,.25);font-size:14px;line-height:1.45;color:rgba(255,255,255,.82)}
+.prose figure.schema li::before{content:counter(etape,decimal-leading-zero);display:block;font:500 12px/1 var(--mono);color:var(--cyan);margin-bottom:8px;letter-spacing:.08em}
+.prose figure.schema li strong{display:block;color:#fff;font-size:15px;margin-bottom:4px}
+.prose figure.schema figcaption{margin-top:14px;font:500 12px/1.4 var(--mono);color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em}
