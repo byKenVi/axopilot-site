@@ -63,7 +63,7 @@ Retrouver une ancienne soumission, l'adapter, calculer le prix, la faire relire 
 
 ### 4. Les relances
 
-Relancer un client pour obtenir un accès, une approbation, un contenu ou un paiement. Chaque relance prend cinq minutes, mais il y en a des dizaines par semaine, et elles interrompent le travail de production.
+Relancer un client pour obtenir un accès, une approbation, un contenu ou un paiement. Chaque relance prend cinq minutes, mais il y en a des dizaines par semaine, et elles interrompent le travail de production. Pour les paiements, voir : [le calendrier et les modèles de relance de facture impayée](/blogue/relance-factures-impayees-agence/).
 
 ### 5. La saisie et la double saisie
 

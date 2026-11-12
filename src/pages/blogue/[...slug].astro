@@ -1,4 +1,5 @@
 ---
+import fs from 'node:fs';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getPosts, formatDate } from '../../lib';
@@ -11,6 +12,8 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const url = new URL(`/blogue/${post.id}/`, SITE.url).href;
+// Couverture générée par scripts/cover.mjs (public/blogue/<slug>.png)
+const cover = fs.existsSync(`public/blogue/${post.id}.png`) ? `/blogue/${post.id}.png` : undefined;
 const article = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -19,6 +22,7 @@ const article = {
   datePublished: post.data.date.toISOString(),
   dateModified: (post.data.updated ?? post.data.date).toISOString(),
   inLanguage: 'fr-CA',
+  ...(cover && { image: new URL(cover, SITE.url).href }),
   mainEntityOfPage: url,
   author: { '@type': 'Person', name: 'Kevin', url: SITE.url },
   publisher: { '@type': 'Organization', name: 'AxioPilot', logo: { '@type': 'ImageObject', url: `${SITE.url}/logo-axiopilot.png` } },
@@ -40,7 +44,7 @@ if (faq.length) ld.push({
   mainEntity: faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
 });
 ---
-<Base title={post.data.seoTitle ?? post.data.title} description={post.data.description} type="article" jsonLd={ld} noindex={post.data.draft}>
+<Base title={post.data.seoTitle ?? post.data.title} description={post.data.description} type="article" image={cover} jsonLd={ld} noindex={post.data.draft}>
   <article class="wrap">
     <header class="page-head">
       <div class="eyebrow">{post.data.category}{post.data.readingTime && ` · ${post.data.readingTime} min de lecture`}</div>
@@ -48,6 +52,7 @@ if (faq.length) ld.push({
       <p class="lead">{post.data.description}</p>
       <p style="margin-top:16px;font:500 13px/1.4 var(--mono);color:var(--muted)">Par Kevin · {formatDate(post.data.date)}{post.data.draft && ' · BROUILLON'}</p>
     </header>
+    {cover && <img class="post-cover" src={cover} width="1200" height="630" alt={post.data.title} fetchpriority="high" />}
     <div class="prose">
       <nav class="crumbs" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <a href="/blogue/">Blogue</a></nav>
       <Content />

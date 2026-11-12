@@ -1,7 +1,9 @@
 ---
+import fs from 'node:fs';
 import Base from '../../layouts/Base.astro';
 import { getPosts, formatDate } from '../../lib';
 const posts = await getPosts();
+const cover = (id: string) => (fs.existsSync(`public/blogue/${id}.png`) ? `/blogue/${id}.png` : undefined);
 ---
 <Base title="Blogue" description="Guides pratiques sur l'automatisation pour les agences marketing et web du Québec : accueil client, reporting, soumissions, outils et Loi 25.">
   <section class="wrap page-head">
@@ -15,6 +17,7 @@ const posts = await getPosts();
       : <div class="posts">
           {posts.map((p) => (
             <a class="post" href={`/blogue/${p.id}/`}>
+              {cover(p.id) && <img class="post-thumb" src={cover(p.id)} width="1200" height="630" alt="" loading="lazy" />}
               <span class="meta">{p.data.category} · {formatDate(p.data.date)}</span>
               <h3>{p.data.title}</h3>
               <p style="color:var(--muted);font-size:15px">{p.data.description}</p>
