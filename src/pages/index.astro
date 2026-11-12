@@ -37,6 +37,14 @@ const UI: Record<string, string> = {
     </div>`,
 };
 
+const ledgerRate = 100;
+const ledger = [
+  ['Rapports clients mensuels', 'Générés seuls le 1er du mois, à vos couleurs', 12],
+  ['Accueil des nouveaux clients', 'Fiche CRM, dossier, projet et courriel créés à la signature', 6],
+  ['Feuilles de temps et facturation', 'Rappels automatiques, factures préparées', 5],
+] as const;
+const ledgerHours = ledger.reduce((t, [, , h]) => t + h, 0);
+
 const steps = [
   { id: 'signature', label: 'Signature', time: 'Lundi · 9 h 02', title: 'Agence Boréal signe un nouveau client.', text: "Le contrat arrive signé. Personne n'a encore touché à rien, et c'est voulu.", gain: 'Le déclencheur', saved: 0, before: ['Repérer le contrat dans les courriels', "Prévenir l'équipe à la main"], cta: "Automatiser l'accueil client" },
   { id: 'accueil', label: 'Accueil client', time: 'Lundi · 9 h 02 min 41 s', title: '41 secondes plus tard, tout est prêt.', text: "Fiche CRM, dossier partagé, projet, courriel de bienvenue, avis à l'équipe. Sans oubli, sans relance.", gain: '≈ 2 h de saisie évitées', saved: 2, before: ['Créer la fiche CRM', 'Monter le dossier partagé', 'Copier le projet du gabarit', 'Écrire le courriel de bienvenue'], cta: "Automatiser l'accueil client" },
@@ -45,10 +53,10 @@ const steps = [
 ];
 
 const pains = [
-  ['spiral', 'Rapports clients mensuels', 'Exports Google Ads, GA4 et Meta, copier-coller, mise en page : 2 à 4\u00a0h par client, chaque mois.', ''],
-  ['check', 'Approbations des clients', 'Maquettes, textes, publications : des validations qui se perdent dans les courriels et des projets qui attendent.', ''],
-  ['star', 'Feuilles de temps et facturation', 'Des heures saisies en retard ou jamais, des factures montées à la main, des comptes à relancer.', ''],
-  ['mail', 'Accueil des nouveaux clients', 'Fiche CRM, dossier, projet, accès à réclamer : 2 à 3\u00a0h par client signé.', 'Exemple détaillé plus bas'],
+  ['spiral', 'Rapports clients mensuels', 'Exports Google Ads, GA4 et Meta, copier-coller, mise en page : 2 à 4\u00a0h par client, chaque mois.', '', 'On les génère seuls le 1er du mois, à vos couleurs. Vous relisez, vous envoyez.'],
+  ['check', 'Approbations des clients', 'Maquettes, textes, publications : des validations qui se perdent dans les courriels et des projets qui attendent.', '', 'Une demande d\'approbation claire, des relances automatiques, un statut à jour dans votre outil de projet.'],
+  ['star', 'Feuilles de temps et facturation', 'Des heures saisies en retard ou jamais, des factures montées à la main, des comptes à relancer.', '', 'Rappels de saisie, heures reliées aux projets, factures préparées dans votre logiciel comptable.'],
+  ['mail', 'Accueil des nouveaux clients', 'Fiche CRM, dossier, projet, accès à réclamer : 2 à 3\u00a0h par client signé.', 'Exemple détaillé plus bas', 'À la signature : fiche CRM, dossier, projet et courriel de bienvenue créés en moins d\'une minute.'],
 ] as const;
 
 const phases = [
@@ -77,32 +85,45 @@ const faqLd = {
 
   <!-- ========== HERO ========== -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-stage" aria-hidden="true">
-      <canvas id="hero3d"></canvas>
-      <img class="hero-fallback" src="/logo-mark-color.png" alt="" width="222" height="154">
-      <p class="hand hero-note">vos tâches, en route<Doodle name="curl" class="note-curl" /></p>
-    </div>
     <Doodle name="star" class="float d-hero-star" />
-    <Doodle name="spiral" class="float d-hero-spiral" />
     <div class="container hero-inner">
-      <p class="hero-kicker">Pour les agences marketing et web du Québec</p>
-      <h1 id="hero-title" class="display">
-        <span class="w">Votre</span> <span class="w">agence,</span><br>
-        <span class="w">en</span> <span class="w hl">pilote<Doodle name="underline" class="hl-line" /></span><br>
-        <span class="w">automatique.</span>
-      </h1>
-      <div class="hero-bottom">
-        <p class="hero-lead">Chaque semaine, votre équipe perd des heures en tâches répétitives. <strong>On trouve celles qui vous coûtent le plus et on les automatise</strong>, en 21 jours, sur les outils que vous utilisez déjà.</p>
+      <div class="hero-copy">
+        <p class="hero-kicker">Automatisation pour agences marketing et web · Québec</p>
+        <h1 id="hero-title" class="display">
+          <span class="w">On</span> <span class="w">automatise</span> <span class="w">les</span> <span class="w">tâches</span> <span class="w hl">répétitives<Doodle name="underline" class="hl-line" /></span> <span class="w">de</span> <span class="w">votre</span> <span class="w">agence.</span>
+        </h1>
+        <p class="hero-lead">Rapports clients, accueil des nouveaux clients, feuilles de temps, soumissions : <strong>on relie vos outils pour que ces tâches se fassent seules</strong>, en 21 jours. Votre équipe récupère les heures qu'elle ne facture pas.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary btn-lg" href={bookingHref}>Réserver un appel de 30 min <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn btn-ghost btn-lg" href="#histoire">Voir comment ça marche</a>
         </div>
+        <p class="hero-reassure"><span class="ok-dot" aria-hidden="true"></span>Appel de 30 min, gratuit et sans engagement · Livré en 21 jours · Prix fixe</p>
       </div>
-      <ul class="hero-proof">
-        <li><b>21 jours</b> pour livrer</li>
-        <li><b>Prix fixe</b> annoncé dès l'appel</li>
-        <li><b>3 mois</b> de suivi inclus</li>
-      </ul>
+
+      <figure class="hero-card" aria-labelledby="ledger-title">
+        <p class="hand hero-tag">votre agence, en pilote automatique<Doodle name="curl" class="note-curl" /></p>
+        <div class="ledger" id="ledger">
+          <div class="ledger-h">
+            <span class="ledger-chip">Ce qu'on livre</span>
+            <b id="ledger-title">Vos tâches répétitives, automatisées</b>
+            <small class="ledger-sub">Exemple : agence de 15 personnes, sur un mois</small>
+          </div>
+          <ul class="ledger-list">
+            {ledger.map(([task, detail, h], i) => (
+              <li style={`--k:${i}`}>
+                <span class="ledger-state" aria-hidden="true"><i></i></span>
+                <span class="ledger-task"><b>{task}</b><small>{detail}</small></span>
+                <span class="ledger-h-val"><span class="ledger-minus" aria-hidden="true">−</span>{h}&nbsp;h</span>
+              </li>
+            ))}
+          </ul>
+          <div class="ledger-total">
+            <div><small>Heures rendues à l'équipe</small><b><span data-count={ledgerHours}>{ledgerHours}</span> h / mois</b></div>
+            <div class="ledger-money"><small>Temps facturable récupéré</small><b>≈ <span data-count={ledgerHours * ledgerRate}>{(ledgerHours * ledgerRate).toLocaleString('fr-CA')}</span> $</b></div>
+          </div>
+          <figcaption class="ledger-note">Calcul à {ledgerRate} $/h. Au premier appel, on fait ce calcul avec vos vrais chiffres.</figcaption>
+        </div>
+      </figure>
     </div>
   </section>
 
@@ -111,23 +132,16 @@ const faqLd = {
     <div class="tools-row"><div class="tools-track">{[...tools, ...tools].map((t) => <span>{t}</span>)}</div></div>
   </section>
 
-  <!-- ========== Énoncé ========== -->
-  <section class="statement container">
-    <Doodle name="loop" class="d-statement" />
-    <p class="big-text reveal-words">Vos meilleurs talents passent des heures à créer des dossiers, assembler des rapports et relancer des clients. <span class="soft">On rend ces heures à votre équipe, pour qu'elle les passe sur ce qui fait grandir l'agence.</span></p>
-    <a class="btn btn-primary" href={bookingHref}>Voir ce qu'on peut automatiser chez vous <span class="arr" aria-hidden="true">→</span></a>
-  </section>
-
   <!-- ========== Ce qu'on automatise ========== -->
   <section class="pains container" id="automatisations" aria-labelledby="pains-title">
     <div class="pains-head rv">
       <p class="pill">Ce qu'on automatise</p>
-      <h2 id="pains-title" class="h2">Là où les agences québécoises perdent leurs heures.</h2>
-      <p class="pains-lead">Ce sont les quatre chantiers qu'on retrouve le plus souvent. Chez vous, le plus coûteux sera peut-être un autre : le premier appel sert à le trouver.</p>
+      <h2 id="pains-title" class="h2">Les tâches qu'on automatise pour les agences.</h2>
+      <p class="pains-lead">Ce sont les quatre chantiers qu'on retrouve le plus souvent, avec ce qu'on met en place pour chacun. Chez vous, le plus coûteux sera peut-être un autre : le premier appel sert à le trouver.</p>
     </div>
     <ul class="pains-grid">
-      {pains.map(([icon, title, text, tag], i) => (
-        <li class="pain rv" style={`--d:${i % 2}`}><Doodle name={icon} class="pain-icon" /><h3>{title}</h3><p>{text}</p>{tag && <a class="pain-tag" href="#histoire">{tag} ↓</a>}</li>
+      {pains.map(([icon, title, text, tag, fix], i) => (
+        <li class="pain rv" style={`--d:${i % 2}`}><Doodle name={icon} class="pain-icon" /><h3>{title}</h3><p>{text}</p><p class="pain-fix"><b>Ce qu'on automatise :</b> {fix}</p>{tag && <a class="pain-tag" href="#histoire">{tag} ↓</a>}</li>
       ))}
       <li class="pain pain-cta rv" style="--d:2">
         <p class="hand">et chez vous ?</p>
@@ -135,6 +149,13 @@ const faqLd = {
         <a class="btn btn-primary" href={bookingHref}>Trouvons-la ensemble <span class="arr" aria-hidden="true">→</span></a>
       </li>
     </ul>
+  </section>
+
+  <!-- ========== Énoncé ========== -->
+  <section class="statement container">
+    <Doodle name="loop" class="d-statement" />
+    <p class="big-text reveal-words">Vos meilleurs talents passent des heures à créer des dossiers, assembler des rapports et relancer des clients. <span class="soft">On rend ces heures à votre équipe, pour qu'elle les passe sur ce qui fait grandir l'agence.</span></p>
+    <a class="btn btn-primary" href={bookingHref}>Voir ce qu'on peut automatiser chez vous <span class="arr" aria-hidden="true">→</span></a>
   </section>
 
   <!-- ========== Histoire ========== -->
@@ -312,7 +333,6 @@ const faqLd = {
 
 <script>
   import Lenis from 'lenis';
-  import { initHero3D } from '../scripts/hero3d';
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = (n: number) => Math.round(n).toLocaleString('fr-CA');
@@ -331,9 +351,22 @@ const faqLd = {
     });
   });
 
-  /* 3D */
-  const cv = document.getElementById('hero3d') as HTMLCanvasElement;
-  if (cv && initHero3D(cv, { reduce })) document.querySelector('.hero')!.classList.add('has-3d');
+  /* Hero : le registre d'heures passe de « manuel » à « automatisé » */
+  const ledgerEl = document.getElementById('ledger');
+  if (ledgerEl && !reduce) {
+    const counters = [...ledgerEl.querySelectorAll<HTMLElement>('[data-count]')];
+    counters.forEach((c) => (c.textContent = '0'));
+    setTimeout(() => {
+      ledgerEl.classList.add('is-on');
+      const t0 = performance.now(), dur = 1600, delay = 900;
+      const tick = (t: number) => {
+        const k = Math.min(Math.max((t - t0 - delay) / dur, 0), 1), e = 1 - Math.pow(1 - k, 3);
+        counters.forEach((c) => (c.textContent = fmt(Number(c.dataset.count) * e)));
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, 700);
+  } else ledgerEl?.classList.add('is-on', 'no-anim');
   document.querySelectorAll<HTMLElement>('.hero .w').forEach((w, i) => w.style.setProperty('--i', String(i)));
 
   /* Doodles qui se dessinent quand ils entrent à l'écran */

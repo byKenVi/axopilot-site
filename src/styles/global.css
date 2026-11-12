@@ -93,8 +93,8 @@ img.portrait{object-fit:cover;border-style:solid;padding:0}
 .prose a.btn{color:#fff;text-decoration:none}
 .final{background:var(--blue);color:#fff;border:0}
 .final .lead,.final p{color:rgba(255,255,255,.82)}
-.final .btn-primary{background:#fff;color:var(--blue)}
-.final .btn-primary:hover{background:var(--ink);color:#fff}
+.final .btn-primary,.prose .final a.btn-primary{background:#fff;color:var(--blue)}
+.final .btn-primary:hover,.prose .final a.btn-primary:hover{background:var(--ink);color:#fff}
 .post{background:var(--paper)}
 .post:hover{border-color:var(--blue)}
 .prose .final h2{margin:0}
