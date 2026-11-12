@@ -31,7 +31,7 @@ mardi et jeudi, publiés automatiquement sauf s'il demande d'en retirer un.**
     ce push direct sur `main` pour cette tâche, et uniquement pour ces fichiers :
     `src/content/blog/`, `public/blogue/`, `blog-auto/sujets.md`, et la phrase de
     lien ajoutée à un article existant. Ne rien modifier d'autre dans le dépôt.
-11. Terminer par un résumé court en français pour Kevin (il le reçoit par courriel) :
+11. Terminer par un résumé court en français pour Kevin (il le lit dans le projet AxioPilot) :
     pour chaque article, le titre, la date de publication, le mot-clé visé, 2 phrases
     sur le contenu, et le lien futur `https://axiopilot.com/blogue/<slug>/`.
     Finir par : « Pour retirer un article avant sa date, dis-le simplement dans le

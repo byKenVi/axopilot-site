@@ -1,6 +1,6 @@
 # Plan éditorial du blogue AxioPilot
 
-Lu par la tâche planifiée du dimanche. Elle prend les 2 premiers sujets « à écrire »
+Lu par la tâche planifiée du dimanche (13 h 43, heure de Montréal). Elle prend les 2 premiers sujets « à écrire »
 dans l'ordre, et passe leur statut à « publié AAAA-MM-JJ » avec le slug réel.
 
 Cible : fondateurs et directeurs des opérations d'agences marketing et web
