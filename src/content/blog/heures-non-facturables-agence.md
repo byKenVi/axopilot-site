@@ -96,7 +96,7 @@ En général, trois ou quatre tâches représentent à elles seules la majorité
 3. **Standardiser vos gabarits.** Un gabarit de projet, de rapport et de soumission par type de mandat évite de repartir de zéro.
 4. **Intégrer la gestion de compte au prix.** Les rapports et les rencontres de suivi doivent apparaître dans le mandat, pas être offerts.
 5. **Remplacer les points d'avancement par l'information en continu.** Un avis automatique quand une tâche est terminée vaut mieux qu'une réunion pour le demander.
-6. **Mesurer tous les trimestres.** Deux semaines de suivi du temps, quatre fois par année, suffisent pour voir si la situation s'améliore.
+6. **Mesurer tous les trimestres.** Deux semaines de suivi du temps, quatre fois par année, suffisent pour voir si la situation s'améliore. Rattachez ces heures à chaque client et vous pourrez aussi calculer la [rentabilité par client](/blogue/rentabilite-client-agence/).
 
 ## Par où commencer
 

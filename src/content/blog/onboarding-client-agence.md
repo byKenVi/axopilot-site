@@ -92,7 +92,7 @@ Objectifs, public cible, concurrents, ton de marque : les réponses du formulair
 
 ### 7. La collecte des accès
 
-C'est l'étape qui fait perdre le plus de temps. Le client reçoit une liste claire des accès requis (Google Ads, GA4, Meta, CMS, hébergement) et un **rappel automatique après 3 jours** si rien n'a bougé. L'équipe est avertie dès que tout est reçu. **Automatisable à 90 %** : le client doit quand même donner les accès.
+C'est l'étape qui fait perdre le plus de temps. Le client reçoit une liste claire des accès requis (Google Ads, GA4, Meta, CMS, hébergement) et un **rappel automatique après 3 jours** si rien n'a bougé. L'équipe est avertie dès que tout est reçu. **Automatisable à 90 %** : le client doit quand même donner les accès. Pour la méthode détaillée par plateforme, voyez notre guide sur la [collecte des accès clients](/blogue/collecte-acces-clients-agence/).
 
 ### 8. L'avis à l'équipe
 
