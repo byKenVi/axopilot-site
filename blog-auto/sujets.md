@@ -19,8 +19,8 @@ vérifier qu'aucun article publié ne vise déjà le même mot-clé.
 | 1 | publié 2026-11-12 (relance-factures-impayees-agence) | relance facture impayée | Calendrier de relance + modèles de courriels + automatisation | heures non facturables, soumission |
 | 2 | publié 2026-11-17 (rentabilite-client-agence) | rentabilité par client agence | Calculer la marge réelle de chaque client (méthode + gabarit) | heures non facturables, rapport client |
 | 3 | publié 2026-11-19 (collecte-acces-clients-agence) | collecte des accès clients | Récupérer accès Google Ads, Meta, GA4, site sans 15 courriels | onboarding |
-| 4 | à écrire | dépassement de mandat agence | Repérer et facturer le « scope creep » avant qu'il mange la marge | heures non facturables, rentabilité |
-| 5 | à écrire | make ou zapier agence | Comparatif honnête pour une agence de 10 à 50 personnes (prix en CAD) | onboarding, rapport client |
+| 4 | publié 2026-11-24 (depassement-mandat-agence) | dépassement de mandat agence | Repérer et facturer le « scope creep » avant qu'il mange la marge | heures non facturables, rentabilité |
+| 5 | publié 2026-11-26 (make-ou-zapier-agence) | make ou zapier agence | Comparatif honnête pour une agence de 10 à 50 personnes (prix en CAD) | onboarding, rapport client |
 | 6 | à écrire | feuille de temps agence | Faire remplir les feuilles de temps sans police interne | heures non facturables |
 | 7 | à écrire | brief client agence | Formulaire de brief qui alimente directement le projet | onboarding, soumission |
 | 8 | à écrire | approbation livrables client | Réduire les allers-retours de révisions et les approbations perdues | dépassement de mandat |

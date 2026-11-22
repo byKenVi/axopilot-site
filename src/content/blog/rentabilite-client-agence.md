@@ -151,7 +151,7 @@ Regardez la tendance sur trois mois avant de tirer une conclusion. Un mois peut 
 
 Le réflexe de couper le client est rarement le bon. Cherchez d'abord la cause :
 
-1. **Le mandat a grossi sans que le prix suive.** Listez ce qui est fait aujourd'hui par rapport à ce qui était prévu, et présentez l'écart au client avec deux options : réduire le périmètre ou ajuster le prix.
+1. **Le mandat a grossi sans que le prix suive.** Listez ce qui est fait aujourd'hui par rapport à ce qui était prévu, et présentez l'écart au client avec deux options : réduire le périmètre ou ajuster le prix. Notre guide sur le [dépassement de mandat](/blogue/depassement-mandat-agence/) montre comment éviter que la situation se reproduise.
 2. **Trop de révisions ou de réunions.** Fixez un nombre de rondes de révision au contrat et remplacez le point hebdomadaire par une mise à jour écrite.
 3. **Des tâches internes répétitives.** Rapport mensuel, collecte de données, relances : ces heures ne se voient pas chez le client, mais elles pèsent sur la marge. [Automatiser le rapport client](/blogue/automatiser-rapport-client-agence/) suffit parfois à remonter un client de 10 points.
 4. **Un prix trop bas dès le départ.** Corrigez-le au renouvellement, avec vos chiffres en main.

@@ -123,7 +123,7 @@ Voici à quoi ressemble un scénario réel pour une agence qui utilise HubSpot, 
 6. **Slack** : message dans le canal #nouveaux-clients.
 7. **HubSpot** : la fiche est mise à jour avec tous les liens.
 
-Durée totale : **moins d'une minute**, sans intervention. Le même principe fonctionne avec Pipedrive, ClickUp, Monday, SharePoint ou Teams.
+Durée totale : **moins d'une minute**, sans intervention. Le même principe fonctionne avec Pipedrive, ClickUp, Monday, SharePoint ou Teams. Vous hésitez entre les deux outils les plus courants ? Notre comparatif [Make ou Zapier pour une agence](/blogue/make-ou-zapier-agence/) aide à trancher selon vos volumes et votre équipe.
 
 ## Modèle de courriel de bienvenue pour un nouveau client
 
